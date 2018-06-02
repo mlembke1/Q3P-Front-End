@@ -1,11 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import {
   Platform,
   StyleSheet,
   Text,
   View,
   AppRegistry
-} from 'react-native';
+} from 'react-native'
+import { Button } from 'react-native-elements'
 
 
 export default class App extends Component {
@@ -13,6 +14,7 @@ export default class App extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.text}>Hello software interview candidates.</Text>
+        <Button raised title="HELLO WORLD" />
       </View>
     )
   }
@@ -21,13 +23,15 @@ export default class App extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 80
+    marginTop: 80,
+    alignContent: 'center',
+    justifyContent: 'center'
   },
   text: {
     fontFamily: 'Arial',
     fontWeight: 'bold',
     fontSize: 20,
-    alignContent: 'flex-start'
+    textAlign: 'center'
   }
 })
 
