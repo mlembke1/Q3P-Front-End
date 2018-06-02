@@ -7,14 +7,12 @@ import {
   AppRegistry
 } from 'react-native'
 import { Button } from 'react-native-elements'
-import WelcomePage from './src/components/WelcomePage'
 
-
-export default class App extends Component {
+export default class WelcomePage extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <WelcomePage />
+        <Text>Welcome Page</Text>
       </View>
     )
   }
@@ -35,4 +33,4 @@ const styles = StyleSheet.create({
   }
 })
 
-AppRegistry.registerComponent('App', () => App);
+AppRegistry.registerComponent('WelcomePage', () => WelcomePage);
