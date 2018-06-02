@@ -10,28 +10,26 @@ import {
 } from 'react-native'
 import { Button } from 'react-native-elements'
 
-export default class WelcomePage extends Component {
+export default class Dashboard extends Component {
   render() {
     return (
-      <ScrollView style={styles.textContainer}>
+      <ScrollView style={styles.container}>
         <Text
           style={styles.text}>
-          Login
+          Welcome
         </Text>
-        <TextInput style={styles.usernameContainer} placeholder='Username' />
-        <TextInput placeholder='Password' />
         <View style={styles.buttonContainer} />
         <Button
-          onPress={this.props.onLoginPress}
-          title="Submit"
-        />
+          onPress={this.props.onLogoutPress}
+          title="Logout"
+         />
       </ScrollView>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  textContainer: {
+  container: {
     marginTop: 200,
     padding: 20
   },
@@ -41,12 +39,10 @@ const styles = StyleSheet.create({
     fontSize: 27,
     textAlign: 'center'
   },
-  usernameContainer: {
-    marginTop: 30,
-  },
   buttonContainer: {
     margin: 20
   }
 })
 
-AppRegistry.registerComponent('WelcomePage', () => WelcomePage);
+
+AppRegistry.registerComponent('Dashboard', () => Dashboard);
