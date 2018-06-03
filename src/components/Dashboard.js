@@ -8,31 +8,38 @@ import {
   ScrollView,
   TextInput,
   Dimensions,
-  ImageBackground,
+  Image,
   StatusBar
 } from 'react-native'
-import { Button, Card, Icon } from 'react-native-elements'
-
-const MyStatusBar = ({ backgroundColor, ...props }) => (
-  <View style={[styles.statusBar, { backgroundColor }]}>
-    <StatusBar translucent backgroundColor={backgroundColor} {...props} />
-  </View>
-)
-
+import { Button, Card } from 'react-native-elements'
+import { StackNavigator } from 'react-navigation'
+import Icon from 'react-native-vector-icons/FontAwesome'
+import SettingsModal from './SettingsModal'
 
 export default class Dashboard extends Component {
+  static navigationOptions = {
+    title: 'My Dashboard',
+    headerLeft: (
+      <View>
+        <Icon name="bars" color="white" size={28} style={{paddingLeft: 20}} />
+      </View>
+    ),
+    headerRight: (
+      <View>
+        <Icon name="gear" color="white" size={28} style={{paddingRight: 20}} />
+      </View>
+    ),
+    headerStyle: {
+      backgroundColor: '#79B45D',
+    },
+    headerTitleStyle: {
+      color: 'white',
+      fontWeight: 'bold'
+    }
+  }
   render() {
     return (
       <View style={styles.background}>
-        <View style={styles.statusContainer}>
-          <MyStatusBar backgroundColor="#79B45D" barStyle="light-content" />
-          <View style={styles.appBar}>
-            {/* <Icon name="dots-three-horizontal" /> */}
-            <Text style={styles.text}>
-              My Dashboard
-            </Text>
-          </View>
-        </View>
         <ScrollView contentContainerStyle={styles.container}>
           <View style={styles.card}>
             <Text style={styles.cardTitle}>
@@ -54,10 +61,6 @@ export default class Dashboard extends Component {
               View Decks
             </Text>
           </View>
-          <Button
-            onPress={this.props.onLogoutPress}
-            title="Logout"
-           />
         </ScrollView>
       </View>
     )
@@ -101,13 +104,12 @@ const styles = StyleSheet.create({
     margin: 20
   },
   statusBar: {
-    height: 20,
-  },
-  appBar: {
-    backgroundColor: '#79B45D',
-    height: 50,
-    justifyContent: 'center'
+    height: 30,
   }
+})
+
+const DashboardNav = StackNavigator({
+  Settings: { screen: SettingsModal }
 })
 
 

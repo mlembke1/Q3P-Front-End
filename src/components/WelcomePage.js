@@ -9,29 +9,57 @@ import {
   TextInput
 } from 'react-native'
 import { Button } from 'react-native-elements'
+import { StackNavigator } from 'react-navigation'
+import Dashboard from './Dashboard'
 
-export default class WelcomePage extends Component {
+class WelcomeScreen extends Component {
+  static navigationOptions = {
+    title: 'Home',
+  }
   render() {
     return (
       <ScrollView style={{backgroundColor: 'lightgray'}}>
-        <View key="login-body" style={styles.container}>
-          <View key="login-tab" style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
-            <View style={styles.loginTab} backgroundColor="black">
-              <Text style={styles.tabText}>Login</Text>
-            </View>
-            <View style={styles.signupTab} backgroundColor="gray">
-              <Text style={styles.tabText}>Signup</Text>
-            </View>
-          </View>
-          <Text style={styles.text}>Login</Text>
+       <View style={styles.welcomeContainer}>
+        <Button
+          style={styles.loginBtn}
+          title="Login"
+          fontWeight="bold"
+          fontSize={20}
+          backgroundColor="black"
+          onPress={() => this.props.navigation.navigate('Login')}>
+        </Button>
+        <Button
+          style={styles.signupBtn}
+          fontWeight="bold"
+          fontSize={20}
+          backgroundColor="black"
+          onPress={() => this.props.navigation.navigate('Signup')}
+          title="Signup">
+        </Button>
+      </View>
+    </ScrollView>
+    )
+  }
+}
+
+class LoginScreen extends Component {
+  static navigationOptions = {
+    title: 'Login',
+  }
+  render() {
+    return (
+      <ScrollView style={{backgroundColor: 'lightgray'}}>
+        <View key="login-body" style={styles.loginContainer}>
           <TextInput style={styles.username} placeholder='Username' />
-          <TextInput style={styles.password} placeholder='Password' />
+          <TextInput secureTextEntry style={styles.password} placeholder='Password' />
           <View style={styles.buttonContainer} />
           <Button
             fontWeight="bold"
             fontSize={20}
             backgroundColor="black"
-            onPress={this.props.onLoginPress}
+            onPress={() =>
+            this.props.navigation.navigate("Dashboard")
+            }
             title="Submit"
           />
         </View>
@@ -40,34 +68,86 @@ export default class WelcomePage extends Component {
   }
 }
 
+class SignupScreen extends Component {
+  static navigationOptions = {
+    title: 'Signup',
+  }
+  render() {
+    return (
+      <ScrollView style={styles.signupContainer}>
+       <View key="login-body">
+        <TextInput style={styles.username} placeholder='Username' />
+        <TextInput style={styles.email} placeholder='Email' />
+        <TextInput style={styles.password} placeholder='Password' />
+        <TextInput style={styles.confirmPassword} placeholder='Confirm Password' />
+        <Button
+          fontWeight="bold"
+          fontSize={20}
+          backgroundColor="black"
+          // onPress={this.props.onSignupPress}
+          title="Submit"
+        />
+      </View>
+    </ScrollView>
+    )
+  }
+}
+
 const styles = StyleSheet.create({
-  loginTab: {
-    height: 40,
-    width: 167,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  signupTab: {
-    height: 40,
-    width: 167,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  tabText: {
-    color: 'white',
-    fontSize: 20,
-    fontWeight: 'bold'
-  },
-  container: {
+  // WELCOME SCREEN STYLES
+  welcomeContainer: {
     backgroundColor: 'skyblue',
-    marginBottom: 180,
-    marginTop: 180,
     marginLeft: 20,
     marginRight: 20,
+    marginTop: 180,
     paddingBottom: 20,
-    paddingLeft: 20,
-    paddingRight: 20
+    paddingTop: 20
   },
+  loginBtn: {
+    margin: 10
+  },
+  signupBtn: {
+    margin: 10
+  },
+  // LOGIN SCREEN STYLES
+  loginContainer: {
+    backgroundColor: 'skyblue',
+    marginLeft: 20,
+    marginRight: 20,
+    marginTop: 50,
+    paddingBottom: 20
+  },
+  // SIGNUP SCREEN STYLES
+  signupContainer: {
+    backgroundColor: 'skyblue',
+    marginLeft: 20,
+    marginRight: 20,
+    marginTop: 20,
+    marginBottom: 240,
+    paddingBottom: 20
+  },
+  email: {
+    backgroundColor: 'white',
+    fontSize: 20,
+    marginTop: 20,
+    marginLeft: 20,
+    marginRight: 20,
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 10
+  },
+  confirmPassword: {
+    backgroundColor: 'white',
+    fontSize: 20,
+    marginTop: 20,
+    marginLeft: 20,
+    marginRight: 20,
+    marginBottom: 20,
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 10
+  },
+  // LOGIN AND SIGNUP SCREEN STYLES
   text: {
     fontFamily: 'Arial',
     fontWeight: 'bold',
@@ -79,6 +159,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     fontSize: 20,
     marginTop: 20,
+    marginLeft: 20,
+    marginRight: 20,
     paddingTop: 10,
     paddingBottom: 10,
     paddingLeft: 10
@@ -87,6 +169,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     fontSize: 20,
     marginTop: 20,
+    marginLeft: 20,
+    marginRight: 20,
     paddingTop: 10,
     paddingBottom: 10,
     paddingLeft: 10
@@ -97,4 +181,11 @@ const styles = StyleSheet.create({
   }
 })
 
-AppRegistry.registerComponent('WelcomePage', () => WelcomePage);
+const WelcomePage = StackNavigator({
+  Welcome: { screen: WelcomeScreen },
+  Login: {  screen: LoginScreen},
+  Signup: { screen: SignupScreen },
+  Dashboard: { screen: Dashboard }
+})
+
+export default WelcomePage
