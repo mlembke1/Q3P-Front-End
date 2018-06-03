@@ -13,39 +13,87 @@ import { Button } from 'react-native-elements'
 export default class WelcomePage extends Component {
   render() {
     return (
-      <ScrollView style={styles.textContainer}>
-        <Text
-          style={styles.text}>
-          Login
-        </Text>
-        <TextInput style={styles.usernameContainer} placeholder='Username' />
-        <TextInput placeholder='Password' />
-        <View style={styles.buttonContainer} />
-        <Button
-          onPress={this.props.onLoginPress}
-          title="Submit"
-        />
+      <ScrollView style={{backgroundColor: 'lightgray'}}>
+        <View key="login-body" style={styles.container}>
+          <View key="login-tab" style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
+            <View style={styles.loginTab} backgroundColor="black">
+              <Text style={styles.tabText}>Login</Text>
+            </View>
+            <View style={styles.signupTab} backgroundColor="gray">
+              <Text style={styles.tabText}>Signup</Text>
+            </View>
+          </View>
+          <Text style={styles.text}>Login</Text>
+          <TextInput style={styles.username} placeholder='Username' />
+          <TextInput style={styles.password} placeholder='Password' />
+          <View style={styles.buttonContainer} />
+          <Button
+            fontWeight="bold"
+            fontSize={20}
+            backgroundColor="black"
+            onPress={this.props.onLoginPress}
+            title="Submit"
+          />
+        </View>
       </ScrollView>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  textContainer: {
-    marginTop: 200,
-    padding: 20
+  loginTab: {
+    height: 40,
+    width: 167,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  signupTab: {
+    height: 40,
+    width: 167,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  tabText: {
+    color: 'white',
+    fontSize: 20,
+    fontWeight: 'bold'
+  },
+  container: {
+    backgroundColor: 'skyblue',
+    marginBottom: 180,
+    marginTop: 180,
+    marginLeft: 20,
+    marginRight: 20,
+    paddingBottom: 20,
+    paddingLeft: 20,
+    paddingRight: 20
   },
   text: {
     fontFamily: 'Arial',
     fontWeight: 'bold',
-    fontSize: 27,
-    textAlign: 'center'
+    fontSize: 30,
+    textAlign: 'center',
+    paddingTop: 20
   },
-  usernameContainer: {
-    marginTop: 30,
+  username: {
+    backgroundColor: 'white',
+    fontSize: 20,
+    marginTop: 20,
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 10
+  },
+  password: {
+    backgroundColor: 'white',
+    fontSize: 20,
+    marginTop: 20,
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 10
   },
   buttonContainer: {
-    margin: 20
+    margin: 10,
+    width: 20
   }
 })
 
