@@ -23,8 +23,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 80,
     alignContent: 'center',
-    justifyContent: 'center',
-    border: 1px solid black
+    justifyContent: 'center'
   },
   text: {
     fontFamily: 'Arial',
