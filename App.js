@@ -12,11 +12,22 @@ import Dashboard from './src/components/Dashboard'
 
 
 export default class App extends Component {
+<<<<<<< HEAD
 
   state = {
     isLoggedIn: false
+=======
+  render() {
+    return (
+      <View>
+        <WelcomePage />
+        <Dashboard />
+      </View>
+    )
+>>>>>>> Messed around with dashboard design and the such
   }
 
+<<<<<<< HEAD
  render() {
    if (this.state.isLoggedIn)
      return <Dashboard
@@ -29,4 +40,6 @@ export default class App extends Component {
   }
 }
 
+=======
+>>>>>>> Messed around with dashboard design and the such
 AppRegistry.registerComponent('App', () => App);
