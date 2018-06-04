@@ -34,31 +34,32 @@ export default class Dashboard extends Component {
     },
     headerTitleStyle: {
       color: 'white',
-      fontWeight: 'bold'
+      fontSize: 20
     }
   }
   render() {
     return (
       <View style={styles.background}>
         <ScrollView contentContainerStyle={styles.container}>
+          <StatusBar barStyle="light-content" />
           <View style={styles.card}>
             <Text style={styles.cardTitle}>
-              View Decks
+              VIEW DECKS
             </Text>
           </View>
           <View style={styles.card}>
             <Text style={styles.cardTitle}>
-              View Decks
+              CREATE NEW DECK
             </Text>
           </View>
           <View style={styles.card}>
             <Text style={styles.cardTitle}>
-              View Decks
+              SOCIAL
             </Text>
           </View>
           <View style={styles.card}>
             <Text style={styles.cardTitle}>
-              View Decks
+              OTHER
             </Text>
           </View>
         </ScrollView>
@@ -93,18 +94,13 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   cardTitle: {
-    textAlign: 'center'
+    textAlign: 'center',
+    fontFamily: 'Arial-BoldMT'
   },
   background: {
     width: '100%',
     height: '100%',
     backgroundColor: '#f2ede9'
-  },
-  buttonContainer: {
-    margin: 20
-  },
-  statusBar: {
-    height: 30,
   }
 })
 
