@@ -11,7 +11,7 @@ import {
   ImageBackground
 } from 'react-native'
 import { Button } from 'react-native-elements'
-import { StackNavigator } from 'react-navigation'
+import { createStackNavigator } from 'react-navigation'
 
 
 class WelcomeScreen extends Component {
@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
   }
 })
 
-const WelcomePage = StackNavigator({
+const WelcomePage = createStackNavigator({
   Welcome: { screen: WelcomeScreen },
   Login: {  screen: LoginScreen},
   Signup: { screen: SignupScreen },
