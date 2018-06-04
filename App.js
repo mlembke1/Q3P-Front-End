@@ -28,12 +28,15 @@ export default class App extends Component {
   }
 
   fetchAllDecks(){
-    fetch('https://mtn-study.herokuapp.com/getAllDecks')
+    fetch('https://mtn-study.herokuapp.com/getAllDecksForUser')
     .then(r => r.json())
     .then(json => {
       this.setState({
         decks: [...this.state.decks, json]
       })
+    })
+    .catch((error) => {
+      console.log(error)
     })
   }
 
