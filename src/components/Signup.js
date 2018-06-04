@@ -38,10 +38,9 @@ var options = {
 }
 
 handleSubmit = () => {
-  const signUpForm = this._form.getValue()
+  const something = this._form.getValue()
   const value = this._form.refs.input.refs.email.props.value
-  console.log('user:', something)
-  if (signUpForm !== null) {
+  if (something !== null) {
     return true
   } else {
     return false
