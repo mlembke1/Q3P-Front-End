@@ -14,26 +14,28 @@ import {
 import { Button, Card } from 'react-native-elements'
 import { StackNavigator } from 'react-navigation'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import SettingsModal from './SettingsModal'
 
-export default class Dashboard extends Component {
+export default class SettingsModal extends Component {
   static navigationOptions = {
-    title: 'My Dashboard',
+    title: 'Settings',
     headerLeft: (
       <View>
-        <Icon name="bars" color="white" size={28} style={{paddingLeft: 20}} />
       </View>
     ),
     headerRight: (
       <View>
-        <Icon name="gear" color="white" size={28} style={{paddingRight: 20}} />
+        <Button
+          buttonStyle={{ backgroundColor: '#79B45D' }}
+          onPress={() => this.props.navigation.goBack()}
+          title="Close"
+        />
       </View>
     ),
     headerStyle: {
       backgroundColor: '#79B45D',
     },
     headerTitleStyle: {
-      color: 'white',
+      color: '#ffffff',
       fontSize: 20
     }
   }
@@ -42,26 +44,27 @@ export default class Dashboard extends Component {
       <View style={styles.background}>
         <ScrollView contentContainerStyle={styles.container}>
           <StatusBar barStyle="light-content" />
-          <View style={styles.card}>
-            <Text style={styles.cardTitle}>
-              VIEW DECKS
+            <Button
+              color="black"
+              fontFamily="Arial"
+              backgroundColor="white"
+              style={styles.button}
+              title="Report a Problem" />
+            <Button
+              color="black"
+              fontFamily="Arial"
+              backgroundColor="white"
+              style={styles.button}
+              title="Rate on App Store" />
+            <Button
+              color="black"
+              fontFamily="Arial"
+              backgroundColor="white"
+              style={styles.button}
+              title="Logout" />
+            <Text style={{ marginTop: 10 }}>
+              Version 1.0.0
             </Text>
-          </View>
-          <View style={styles.card}>
-            <Text style={styles.cardTitle}>
-              CREATE NEW DECK
-            </Text>
-          </View>
-          <View style={styles.card}>
-            <Text style={styles.cardTitle}>
-              SOCIAL
-            </Text>
-          </View>
-          <View style={styles.card}>
-            <Text style={styles.cardTitle}>
-              OTHER
-            </Text>
-          </View>
         </ScrollView>
       </View>
     )
@@ -79,18 +82,25 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     justifyContent: 'center'
   },
+  button: {
+    width,
+    marginTop: 5
+  },
+  logoutText: {
+    color: '#000'
+  },
   card: {
     width: (width / 2) - 20,
     height: (width / 2) - 20,
     margin: 5,
     justifyContent: 'center',
-    backgroundColor: 'white'
+    backgroundColor: '#ffffff'
   },
   text: {
     fontFamily: 'Arial',
     fontWeight: 'bold',
     fontSize: 27,
-    color: 'white',
+    color: '#000000',
     textAlign: 'center'
   },
   cardTitle: {
@@ -104,9 +114,4 @@ const styles = StyleSheet.create({
   }
 })
 
-const DashboardNav = StackNavigator({
-  Settings: { screen: SettingsModal }
-})
-
-
-AppRegistry.registerComponent('Dashboard', () => Dashboard);
+AppRegistry.registerComponent('Settings', () => SettingsModal)
