@@ -44,5 +44,4 @@ const styles = StyleSheet.create({
   }
 })
 
-
 AppRegistry.registerComponent('Dashboard', () => Dashboard);
