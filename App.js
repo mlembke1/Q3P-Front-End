@@ -1,31 +1,23 @@
-import React, { Component } from 'react'
-import {
-  Platform,
-  StyleSheet,
-  Text,
-  View,
-  AppRegistry
-} from 'react-native'
-import { Button } from 'react-native-elements'
-import WelcomePage from './src/components/WelcomePage'
-import Dashboard from './src/components/Dashboard'
-import { YellowBox } from 'react-native';
+import React from "react"
+import { createRootNavigator } from "./src/components/Router"
+import { isSignedIn } from "./src/components/Auth"
 
-YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated', 'Module RCTImageLoader'])
+export default class App extends React.Component {
+  constructor(props) {
+    super(props)
 
-
-export default class App extends Component {
-  constructor(){
-    super()
     this.state = {
+      signedIn: false,
+      checkedSignIn: false,
       userDecks: [],
       publicDecks: [],
-      isLoggedIn: false
     }
   }
 
-  componentDidMount(){
-    this.fetchAllDecks()
+  componentDidMount() {
+    isSignedIn()
+      .then(res => this.setState({ signedIn: res, checkedSignIn: true }))
+      .catch(err => alert("An error occurred"))
   }
 
   fetchAllDecks(){
@@ -42,15 +34,12 @@ export default class App extends Component {
   }
 
   render() {
-   if (this.state.isLoggedIn)
-     return <Dashboard
-        onLogoutPress={() => this.setState({isLoggedIn: false})}
-        />
-   else
-     return <WelcomePage
-         onLoginPress={() => this.setState({isLoggedIn: true})}
-       />
+    const { checkedSignIn, signedIn } = this.state;
+    if (!checkedSignIn) {
+      return null
+    }
+
+    const Layout = createRootNavigator(signedIn)
+    return <Layout />
   }
 }
-
-AppRegistry.registerComponent('App', () => App)
