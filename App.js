@@ -18,7 +18,8 @@ export default class App extends Component {
   constructor(){
     super()
     this.state = {
-      decks: [],
+      userDecks: [],
+      publicDecks: [],
       isLoggedIn: false
     }
   }
@@ -29,18 +30,18 @@ export default class App extends Component {
 
   fetchAllDecks(){
     fetch('https://mtn-study.herokuapp.com/getAllDecksForUser')
-    .then(r => r.json())
-    .then(json => {
-      this.setState({
-        decks: [...this.state.decks, json]
+      .then(r => r.json())
+      .then((json) => {
+        this.setState({
+          userDecks: [...this.state.userDecks, json]
+        })
       })
-    })
-    .catch((error) => {
-      console.log(error)
-    })
+      .catch((error) => {
+        console.log(error)
+      })
   }
 
- render() {
+  render() {
    if (this.state.isLoggedIn)
      return <Dashboard
         onLogoutPress={() => this.setState({isLoggedIn: false})}
