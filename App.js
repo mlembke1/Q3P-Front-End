@@ -10,9 +10,7 @@ import { Button } from 'react-native-elements'
 import WelcomePage from './src/components/WelcomePage'
 import Dashboard from './src/components/Dashboard'
 
-
-export default class App extends Component {
-
+export default class App extends Component {  
   state = {
     isLoggedIn: false
   }
@@ -29,4 +27,4 @@ export default class App extends Component {
   }
 }
 
-AppRegistry.registerComponent('App', () => App);
+AppRegistry.registerComponent('App', () => App)
