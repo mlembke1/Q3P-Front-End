@@ -1,49 +1,30 @@
-import React, { Component } from 'react'
-import {
-  Platform,
-  StyleSheet,
-  Text,
-  View,
-  AppRegistry
-} from 'react-native'
-import { Button } from 'react-native-elements'
-import WelcomePage from './src/components/WelcomePage'
-import Dashboard from './src/components/Dashboard'
+import React from "react"
+import { createRootNavigator } from "./src/components/Router"
+import { isSignedIn } from "./src/components/Auth"
 
+export default class App extends React.Component {
+  constructor(props) {
+    super(props)
 
-export default class App extends Component {
-  constructor(){
-    super()
     this.state = {
-      decks: [],
-      isLoggedIn: false
+      signedIn: false,
+      checkedSignIn: false
     }
   }
 
-  componentDidMount(){
-    this.fetchAllDecks()
+  componentDidMount() {
+    isSignedIn()
+      .then(res => this.setState({ signedIn: res, checkedSignIn: true }))
+      .catch(err => alert("An error occurred"))
   }
 
-  fetchAllDecks(){
-    fetch('https://mtn-study.herokuapp.com/getAllDecks')
-    .then(r => r.json())
-    .then(json => {
-      this.setState({
-        decks: [...this.state.decks, json]
-      })
-    })
-  }
+  render() {
+    const { checkedSignIn, signedIn } = this.state;
+    if (!checkedSignIn) {
+      return null
+    }
 
- render() {
-   if (this.state.isLoggedIn)
-     return <Dashboard
-        onLogoutPress={() => this.setState({isLoggedIn: false})}
-        />
-   else
-     return <WelcomePage
-         onLoginPress={() => this.setState({isLoggedIn: true})}
-       />
+    const Layout = createRootNavigator(signedIn)
+    return <Layout />
   }
 }
-
-AppRegistry.registerComponent('App', () => App)
