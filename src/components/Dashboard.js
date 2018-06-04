@@ -104,9 +104,4 @@ const styles = StyleSheet.create({
   }
 })
 
-const DashboardNav = StackNavigator({
-  Settings: { screen: SettingsModal }
-})
-
-
 AppRegistry.registerComponent('Dashboard', () => Dashboard);
