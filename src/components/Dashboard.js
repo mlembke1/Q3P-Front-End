@@ -8,17 +8,13 @@ import {
   ScrollView,
   TextInput,
   Dimensions,
-  ImageBackground,
+  Image,
   StatusBar
 } from 'react-native'
-import { Button, Card, Icon } from 'react-native-elements'
-
-const MyStatusBar = ({ backgroundColor, ...props }) => (
-  <View style={[styles.statusBar, { backgroundColor }]}>
-    <StatusBar translucent backgroundColor={backgroundColor} {...props} />
-  </View>
-)
-
+import { Button, Card } from 'react-native-elements'
+import { StackNavigator } from 'react-navigation'
+import Icon from 'react-native-vector-icons/FontAwesome'
+import SettingsModal from './SettingsModal'
 
 export default class Dashboard extends Component {
   static navigationOptions = {
@@ -43,17 +39,9 @@ export default class Dashboard extends Component {
   }
   render() {
     return (
-      <ImageBackground source={require('../../assets/background.jpg')} style={styles.image}>
-        <View style={styles.statusContainer}>
-          <MyStatusBar backgroundColor="#79B45D" barStyle="light-content" />
-          <View style={styles.appBar}>
-            <Icon name="dots-three-horizontal" />
-          </View>
-        </View>
+      <View style={styles.background}>
         <ScrollView contentContainerStyle={styles.container}>
-          <Text style={styles.text}>
-            My Dashboard
-          </Text>
+          <StatusBar barStyle="light-content" />
           <View style={styles.card}>
             <Text style={styles.cardTitle}>
               VIEW DECKS
@@ -74,13 +62,8 @@ export default class Dashboard extends Component {
               OTHER
             </Text>
           </View>
-          <View style={styles.buttonContainer} />
-          <Button
-            onPress={this.props.onLogoutPress}
-            title="Logout"
-           />
         </ScrollView>
-      </ImageBackground>
+      </View>
     )
   }
 }
@@ -91,15 +74,15 @@ const styles = StyleSheet.create({
   container: {
     display: 'flex',
     flex: 1,
-    padding: 20,
+    padding: 5,
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center'
   },
   card: {
-    width: (width / 2) - 40,
-    height: (width / 2) - 40,
-    margin: 10,
+    width: (width / 2) - 20,
+    height: (width / 2) - 20,
+    margin: 5,
     justifyContent: 'center',
     backgroundColor: 'white'
   },
@@ -107,17 +90,23 @@ const styles = StyleSheet.create({
     fontFamily: 'Arial',
     fontWeight: 'bold',
     fontSize: 27,
-    color: 'white'
+    color: 'white',
+    textAlign: 'center'
   },
   cardTitle: {
     textAlign: 'center',
     fontFamily: 'Arial-BoldMT'
   },
-  image: {
+  background: {
     width: '100%',
     height: '100%',
     backgroundColor: '#f2ede9'
   }
 })
+
+const DashboardNav = StackNavigator({
+  Settings: { screen: SettingsModal }
+})
+
 
 AppRegistry.registerComponent('Dashboard', () => Dashboard);
