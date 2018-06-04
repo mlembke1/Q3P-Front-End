@@ -12,9 +12,26 @@ import Dashboard from './src/components/Dashboard'
 
 
 export default class App extends Component {
+  constructor(){
+    super()
+    this.state = {
+      decks: [],
+      isLoggedIn: false
+    }
+  }
 
-  state = {
-    isLoggedIn: false
+  componentDidMount(){
+    this.fetchAllDecks()
+  }
+
+  fetchAllDecks(){
+    fetch('https://mtn-study.herokuapp.com/getAllDecks')
+    .then(r => r.json())
+    .then(json => {
+      this.setState({
+        decks: [...this.state.decks, json]
+      })
+    })
   }
 
  render() {
