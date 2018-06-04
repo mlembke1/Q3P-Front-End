@@ -23,17 +23,17 @@ const MyStatusBar = ({ backgroundColor, ...props }) => (
 export default class Dashboard extends Component {
   render() {
     return (
-      <View style={styles.background}>
+      <ImageBackground source={require('../../assets/background.jpg')} style={styles.image}>
         <View style={styles.statusContainer}>
           <MyStatusBar backgroundColor="#79B45D" barStyle="light-content" />
           <View style={styles.appBar}>
-            {/* <Icon name="dots-three-horizontal" /> */}
-            <Text style={styles.text}>
-              My Dashboard
-            </Text>
+            <Icon name="dots-three-horizontal" />
           </View>
         </View>
         <ScrollView contentContainerStyle={styles.container}>
+          <Text style={styles.text}>
+            My Dashboard
+          </Text>
           <View style={styles.card}>
             <Text style={styles.cardTitle}>
               View Decks
@@ -54,12 +54,13 @@ export default class Dashboard extends Component {
               View Decks
             </Text>
           </View>
+          <View style={styles.buttonContainer} />
           <Button
             onPress={this.props.onLogoutPress}
             title="Logout"
            />
         </ScrollView>
-      </View>
+      </ImageBackground>
     )
   }
 }
@@ -70,15 +71,15 @@ const styles = StyleSheet.create({
   container: {
     display: 'flex',
     flex: 1,
-    padding: 5,
+    padding: 20,
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center'
   },
   card: {
-    width: (width / 2) - 20,
-    height: (width / 2) - 20,
-    margin: 5,
+    width: (width / 2) - 40,
+    height: (width / 2) - 40,
+    margin: 10,
     justifyContent: 'center',
     backgroundColor: 'white'
   },
@@ -86,16 +87,15 @@ const styles = StyleSheet.create({
     fontFamily: 'Arial',
     fontWeight: 'bold',
     fontSize: 27,
-    color: 'white',
-    textAlign: 'center'
+    color: 'white'
   },
   cardTitle: {
     textAlign: 'center'
   },
-  background: {
+  image: {
     width: '100%',
     height: '100%',
-    backgroundColor: '#f2ede9'
+    opacity: 10
   },
   buttonContainer: {
     margin: 20
@@ -105,8 +105,7 @@ const styles = StyleSheet.create({
   },
   appBar: {
     backgroundColor: '#79B45D',
-    height: 50,
-    justifyContent: 'center'
+    height: 40,
   }
 })
 
