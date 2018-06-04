@@ -21,6 +21,26 @@ const MyStatusBar = ({ backgroundColor, ...props }) => (
 
 
 export default class Dashboard extends Component {
+  static navigationOptions = {
+    title: 'My Dashboard',
+    headerLeft: (
+      <View>
+        <Icon name="bars" color="white" size={28} style={{paddingLeft: 20}} />
+      </View>
+    ),
+    headerRight: (
+      <View>
+        <Icon name="gear" color="white" size={28} style={{paddingRight: 20}} />
+      </View>
+    ),
+    headerStyle: {
+      backgroundColor: '#79B45D',
+    },
+    headerTitleStyle: {
+      color: 'white',
+      fontSize: 20
+    }
+  }
   render() {
     return (
       <ImageBackground source={require('../../assets/background.jpg')} style={styles.image}>
@@ -36,22 +56,22 @@ export default class Dashboard extends Component {
           </Text>
           <View style={styles.card}>
             <Text style={styles.cardTitle}>
-              View Decks
+              VIEW DECKS
             </Text>
           </View>
           <View style={styles.card}>
             <Text style={styles.cardTitle}>
-              View Decks
+              CREATE NEW DECK
             </Text>
           </View>
           <View style={styles.card}>
             <Text style={styles.cardTitle}>
-              View Decks
+              SOCIAL
             </Text>
           </View>
           <View style={styles.card}>
             <Text style={styles.cardTitle}>
-              View Decks
+              OTHER
             </Text>
           </View>
           <View style={styles.buttonContainer} />
@@ -90,22 +110,13 @@ const styles = StyleSheet.create({
     color: 'white'
   },
   cardTitle: {
-    textAlign: 'center'
+    textAlign: 'center',
+    fontFamily: 'Arial-BoldMT'
   },
   image: {
     width: '100%',
     height: '100%',
-    opacity: 10
-  },
-  buttonContainer: {
-    margin: 20
-  },
-  statusBar: {
-    height: 20,
-  },
-  appBar: {
-    backgroundColor: '#79B45D',
-    height: 40,
+    backgroundColor: '#f2ede9'
   }
 })
 

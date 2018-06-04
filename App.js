@@ -9,6 +9,9 @@ import {
 import { Button } from 'react-native-elements'
 import WelcomePage from './src/components/WelcomePage'
 import Dashboard from './src/components/Dashboard'
+import { YellowBox } from 'react-native';
+
+YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated', 'Module RCTImageLoader'])
 
 
 export default class App extends Component {
