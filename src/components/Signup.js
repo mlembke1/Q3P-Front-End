@@ -58,45 +58,47 @@ handleSubmit = () => {
 
 
 export default ({ navigation }) => (
-  <View style={{ paddingTop: 100 }}>
-    <Card>
-      <Form
-        ref={c => this._form = c}
-        type={User}
-        options={options}
+  <ScrollView>
+    <View style={{ paddingTop: 100 }}>
+      <Card>
+        <Form
+          ref={c => this._form = c}
+          type={User}
+          options={options}
+          />
+        <Button
+          buttonStyle={{ marginTop: 20 }}
+          backgroundColor="#03A9F4"
+          title="SIGN UP"
+          onPress={() => { if (this.handleSubmit()) {
+            onSignIn().then(() => navigation.navigate("SignedIn"))
+          }
+        }}
         />
-      <Button
-        buttonStyle={{ marginTop: 20 }}
-        backgroundColor="#03A9F4"
-        title="SIGN UP"
-        onPress={() => { if (this.handleSubmit()) {
-          onSignIn().then(() => navigation.navigate("SignedIn"))
-        }
-      }}
-      />
-      <Button
-        buttonStyle={{ marginTop: 20 }}
-        backgroundColor="transparent"
-        textStyle={{ color: "#bcbec1" }}
-        title="Sign In"
-        onPress={() => navigation.navigate("Signin")}
-      />
-    </Card>
-  </View>
+        <Button
+          buttonStyle={{ marginTop: 20 }}
+          backgroundColor="transparent"
+          textStyle={{ color: "#bcbec1" }}
+          title="Sign In"
+          onPress={() => navigation.navigate("Signin")}
+        />
+      </Card>
+    </View>
+  </ScrollView>
 )
 
-const styles = StyleSheet.create({
-  // LOGIN SCREEN STYLES
-  container: {
-    paddingTop: 100,
-  },
-  email: {
-    fontSize: 20,
-    marginTop: 20,
-    marginLeft: 20,
-    marginRight: 20,
-    paddingTop: 10,
-    paddingBottom: 10,
-    paddingLeft: 10
-  }
-})
+// const styles = StyleSheet.create({
+//   // LOGIN SCREEN STYLES
+//   container: {
+//     paddingTop: 100,
+//   },
+//   email: {
+//     fontSize: 20,
+//     marginTop: 20,
+//     marginLeft: 20,
+//     marginRight: 20,
+//     paddingTop: 10,
+//     paddingBottom: 10,
+//     paddingLeft: 10
+//   }
+// })

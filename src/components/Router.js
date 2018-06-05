@@ -1,74 +1,109 @@
 import React from "react"
-import { Platform, StatusBar } from "react-native"
+import {
+  Platform,
+  StyleSheet,
+  Text,
+  View,
+  AppRegistry,
+  ScrollView,
+  TextInput,
+  Dimensions,
+  Image,
+  StatusBar
+} from 'react-native'
 import {
   createStackNavigator,
-  createBottomTabNavigator,
+  // createBottomTabNavigator,
   createSwitchNavigator
 } from "react-navigation"
-import { FontAwesome } from "react-native-vector-icons"
+// import { FontAwesome } from "react-native-vector-icons"
+import Icon from 'react-native-vector-icons/FontAwesome'
 import Signup from "./Signup"
-import Signin from "./Signin"
+import Login from "./Login"
 import Home from "./Home"
 import Profile from "./Profile"
 import Decks from "./Decks"
 import Dashboard from "./Dashboard"
+import WelcomePage from "./WelcomePage"
 
 const headerStyle = {
   marginTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
 }
 
 export const SignedOut = createStackNavigator({
-  // WelcomePage: {
-  //   screen: WelcomePage,
-  //   navigationOptions: {
-  //     title: "Welcome",
-  //     headerStyle
-  //   }
-  // },
-  Signup: {
-    screen: Dashboard,
-    // navigationOptions: {
-    //   title: "Sign Up",
-    //   headerStyle
-    // }
-  },
-  Signin: {
-    screen: Signin,
+  WelcomePage: {
+    screen: WelcomePage,
     navigationOptions: {
-      title: "Sign In",
+      title: '<STUDY.ENV/>',
+      headerStyle: {
+        backgroundColor: '#79B45D'
+      },
+      headerTitleStyle: {
+        color: 'white',
+        fontSize: 20,
+        fontFamily: 'HelveticaNeue-UltraLight',
+        letterSpacing: 10,
+        fontWeight: '300'
+      }
+    }
+  },
+  Signup: {
+    screen: Signup,
+    navigationOptions: {
+      title: "Sign Up",
+      headerStyle
+    }
+  },
+  Login: {
+    screen: Login,
+    navigationOptions: {
+      title: "Login",
       headerStyle
     }
   }
 })
 
-export const SignedIn = createBottomTabNavigator(
+export const SignedIn = createStackNavigator(
   {
     Home: {
-      screen: Home,
+      screen: Dashboard,
       navigationOptions: {
-        tabBarLabel: "Home",
-        // tabBarIcon: ({ tintColor }) => (
-        //   <FontAwesome name="home" size={30} color={tintColor} />
-        // )
+        // tabBarLabel: "Home",
+          title: 'My Dashboard',
+          headerLeft: (
+            <View>
+              <Icon name="bars" color="white" size={28} style={{paddingLeft: 20}} />
+            </View>
+          ),
+          headerRight: (
+            <View>
+              <Icon name="gear" color="white" size={28} style={{paddingRight: 20}} />
+            </View>
+          ),
+          headerStyle: {
+            backgroundColor: '#79B45D',
+          },
+          headerTitleStyle: {
+            color: 'white',
+            fontSize: 20
+          }
+        // }
       }
     },
     Profile: {
       screen: Profile,
       navigationOptions: {
-        tabBarLabel: "Profile",
-        // tabBarIcon: ({ tintColor }) => (
-        //   <FontAwesome name="user" size={30} color={tintColor} />
-        // )
-      }
-    }
-  },
-  {
-    tabBarOptions: {
-      style: {
-        paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
+        // tabBarLabel: "Profile",
       }
     }
   }
+  // {
+  //   tabBarOptions: {
+  //     style: {
+  //       paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
+  //     }
+  //   }
+  // }
 )
 
 export const createRootNavigator = (signedIn = false) => {

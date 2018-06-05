@@ -13,26 +13,7 @@ import {
 import { Button } from 'react-native-elements'
 import { createStackNavigator } from 'react-navigation'
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 5a35f695359fd6f94fa3d5d15665fe13c1b13b70
-class WelcomeScreen extends Component {
-  static navigationOptions = {
-    title: '<STUDY.ENV/>',
-    headerStyle: {
-      backgroundColor: '#79B45D'
-    },
-    headerTitleStyle: {
-      color: 'white',
-      fontSize: 20,
-      fontFamily: 'HelveticaNeue-UltraLight',
-      letterSpacing: 10,
-      fontWeight: '300'
-    }
-  }
-  render() {
-    return (
+export default ({ navigation }) => (
       <ImageBackground
         source={require('../../assets/background-image.jpg')}
         style={styles.backgroundImage} >
@@ -44,22 +25,20 @@ class WelcomeScreen extends Component {
               fontWeight="bold"
               fontSize={20}
               backgroundColor="black"
-              onPress={() => this.props.navigation.navigate('Login')}>
+              onPress={() => navigation.navigate('Login')}>
             </Button>
             <Button
               style={styles.signupBtn}
               fontWeight="bold"
               fontSize={20}
               backgroundColor="black"
-              onPress={() => this.props.navigation.navigate('Signup')}
+              onPress={() => navigation.navigate('Signup')}
               title="Signup">
             </Button>
           </View>
         </ScrollView>
       </ImageBackground>
     )
-  }
-}
 
 const styles = StyleSheet.create({
   // WELCOME SCREEN STYLES
@@ -153,23 +132,6 @@ const styles = StyleSheet.create({
     height: null,
     backgroundColor:'transparent',
     justifyContent: 'center',
-    alignItems: 'center',
-    resizeMode: 'cover'
+    alignItems: 'center'
   }
 })
-
-<<<<<<< HEAD
-// const WelcomePage = createStackNavigator({
-//   Welcome: { screen: WelcomeScreen },
-//   Login: {  screen: LoginScreen},
-//   Signup: { screen: SignupScreen },
-// })
-=======
-const WelcomePage = createStackNavigator({
-  Welcome: { screen: WelcomeScreen },
-  Login: {  screen: LoginScreen},
-  Signup: { screen: SignupScreen },
-})
->>>>>>> 5a35f695359fd6f94fa3d5d15665fe13c1b13b70
-
-export default WelcomePage

@@ -22,7 +22,7 @@ export default ({ navigation }) => (
       </View>
       <Button
         backgroundColor="#03A9F4"
-        title="SIGN OUT"
+        title="LOGOUT"
         onPress={() => onSignOut().then(() => navigation.navigate("SignedOut"))}
       />
     </Card>

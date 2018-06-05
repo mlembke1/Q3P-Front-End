@@ -12,65 +12,68 @@ import {
   StatusBar
 } from 'react-native'
 import { Button, Card } from 'react-native-elements'
-import { StackNavigator } from 'react-navigation'
+import { createStackNavigator } from 'react-navigation'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import SettingsModal from './SettingsModal'
+import { onSignOut } from "./Auth"
 
-export default class Dashboard extends Component {
-  static navigationOptions = {
-    title: 'My Dashboard',
-    headerLeft: (
-      <View>
-        <Icon name="bars" color="white" size={28} style={{paddingLeft: 20}} />
-      </View>
-    ),
-    headerRight: (
-      <View>
-        <Icon name="gear" color="white" size={28} style={{paddingRight: 20}} />
-      </View>
-    ),
-    headerStyle: {
-      backgroundColor: '#79B45D',
-    },
-    headerTitleStyle: {
-      color: 'white',
-      fontSize: 20
-    }
-  }
-  render() {
-    return (
+export default ({ navigation }) => (
+// export default class Dashboard extends Component {
+  // static navigationOptions = {
+  //   title: 'My Dashboard',
+  //   headerLeft: (
+  //     <View>
+  //       <Icon name="bars" color="white" size={28} style={{paddingLeft: 20}} />
+  //     </View>
+  //   ),
+  //   headerRight: (
+  //     <View>
+  //       <Icon name="gear" color="white" size={28} style={{paddingRight: 20}} />
+  //     </View>
+  //   ),
+  //   headerStyle: {
+  //     backgroundColor: '#79B45D',
+  //   },
+  //   headerTitleStyle: {
+  //     color: 'white',
+  //     fontSize: 20
+  //   }
+  // }
+  // render() {
+  //   return (
       <View style={styles.background}>
         <ScrollView contentContainerStyle={styles.container}>
           <StatusBar barStyle="light-content" />
-          <View style={[styles.card, { backgroundColor: '#b4645d' }]}>
-            <Icon style={styles.cardIcon} name="folder-open" color="white" size={28} />
+          <View style={styles.card}>
             <Text style={styles.cardTitle}>
               VIEW DECKS
             </Text>
           </View>
-          <View style={[styles.card, { backgroundColor: '#b45da4' }]}>
-            <Icon style={styles.cardIcon} name="plus-square" color="white" size={28} />
+          <View style={styles.card}>
             <Text style={styles.cardTitle}>
               CREATE NEW DECK
             </Text>
           </View>
-          <View style={[styles.card, { backgroundColor: '#995db4'}]}>
-            <Icon style={styles.cardIcon} name="users" color="white" size={28} />
+          <View style={styles.card}>
             <Text style={styles.cardTitle}>
               SOCIAL
             </Text>
           </View>
-          <View style={[styles.card, { backgroundColor: '#5d96b4' }]}>
-            <Icon style={styles.cardIcon} name="user-circle" color="white" size={28} />
+          <View style={styles.card}>
             <Text style={styles.cardTitle}>
-              PROFILE
+              OTHER
             </Text>
           </View>
+          <Button
+            backgroundColor="#03A9F4"
+            title="LOGOUT"
+            onPress={() => onSignOut().then(() => navigation.navigate("SignedOut"))}
+          />
         </ScrollView>
       </View>
     )
-  }
-}
+//   }
+// }
 
 const width = Dimensions.get('window').width
 
@@ -99,12 +102,7 @@ const styles = StyleSheet.create({
   },
   cardTitle: {
     textAlign: 'center',
-    fontFamily: 'Arial-BoldMT',
-    color: 'white'
-  },
-  cardIcon: {
-    textAlign: 'center',
-    marginBottom: 10
+    fontFamily: 'Arial-BoldMT'
   },
   background: {
     width: '100%',

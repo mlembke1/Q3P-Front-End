@@ -47,35 +47,23 @@ handleSubmit = () => {
 }
 
 export default ({ navigation }) => (
-  <View style={{paddingVertical: 150}}>
-    <Card>
-      <Form
-        ref={c => this._form = c}
-        type={User}
-        options={options}
+  <ScrollView>
+    <View style={{paddingVertical: 150}}>
+      <Card>
+        <Form
+          ref={c => this._form = c}
+          type={User}
+          options={options}
+          />
+        <Button
+          buttonStyle={{ marginTop: 20 }}
+          backgroundColor="#03A9F4"
+          title="SIGN IN"
+          onPress={() => {
+            onSignIn().then(() => navigation.navigate("SignedIn"))
+          }}
         />
-      <Button
-        buttonStyle={{ marginTop: 20 }}
-        backgroundColor="#03A9F4"
-        title="SIGN IN"
-        onPress={() => {
-          onSignIn().then(() => navigation.navigate("SignedIn"))
-        }}
-      />
-    </Card>
-  </View>
+      </Card>
+    </View>
+  </ScrollView>
 )
-
-const styles = StyleSheet.create({
-  // LOGIN SCREEN STYLES
-  username: {
-    backgroundColor: 'white',
-    fontSize: 20,
-    marginTop: 20,
-    marginLeft: 20,
-    marginRight: 20,
-    paddingTop: 10,
-    paddingBottom: 10,
-    paddingLeft: 10
-  },
-})
