@@ -12,6 +12,8 @@ import {
 import { Card, Button, FormLabel, FormInput } from "react-native-elements"
 import t from 'tcomb-form-native'
 import { onSignIn } from "./Auth"
+import axios from 'axios'
+import { REACT_APP_API_URL } from 'react-native-dotenv'
 
 const Form = t.form.Form
 
@@ -40,10 +42,21 @@ handleSubmit = () => {
   const something = this._form.getValue()
   const value = this._form.refs.input.refs.email.props.value
   if (something !== null) {
+    const objectToPost = {
+      username: something.username
+      password: something.password
+    }
+    this.loginUser(objectToPost)
     return true
   } else {
     return false
   }
+}
+
+loginUser = (userToLogin) => {
+  axios.post(`${REACT_APP_API_URL}/signin`, userToLogin)
+  .then(r => console.log(r))
+  .catch(err => console.log(err))
 }
 
 export default ({ navigation }) => (

@@ -1,6 +1,8 @@
 import React from "react"
 import { createRootNavigator } from "./src/components/Router"
 import { isSignedIn } from "./src/components/Auth"
+import axios from 'axios'
+import { REACT_APP_API_URL } from 'react-native-dotenv'
 
 export default class App extends React.Component {
   constructor(props) {
@@ -18,19 +20,29 @@ export default class App extends React.Component {
     isSignedIn()
       .then(res => this.setState({ signedIn: res, checkedSignIn: true }))
       .catch(err => alert("An error occurred"))
+
+    this.fetchAllUserDecks()
+    this.fetchAllPublicDecks()
   }
 
-  fetchAllDecks(){
-    fetch('https://mtn-study.herokuapp.com/getAllDecksForUser')
-      .then(r => r.json())
-      .then((json) => {
-        this.setState({
-          userDecks: [...this.state.userDecks, json]
-        })
+  fetchAllUserDecks(){
+    axios.get(`${REACT_APP_API_URL}/getAllDecksForUser`)
+    .then(r => {
+      this.setState({
+        userDecks: [ ...this.state.userDecks, r ]
       })
-      .catch((error) => {
-        console.log(error)
+    })
+    .catch(err => console.log(err))
+  }
+
+  fetchAllPublicDecks(){
+    axios.get(`${REACT_APP_API_URL}/getAllPublicDecks`)
+    .then(r => {
+      this.setState({
+        publicDecks: [ ...this.state.publicDecks, r ]
       })
+    })
+    .catch(err => console.log(err))
   }
 
   render() {
