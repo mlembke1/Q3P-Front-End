@@ -15,13 +15,19 @@ import {
 import { Button, Card } from 'react-native-elements'
 import { createStackNavigator } from 'react-navigation'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import SettingsModal from './SettingsModal'
 import { onSignOut } from "./Auth"
 
 export default ({ navigation }) => (
   <View style={styles.background}>
     <ScrollView contentContainerStyle={styles.container}>
       <StatusBar barStyle="light-content" />
+      <View style={styles.profile}>
+        <Text style={styles.username}>John Doe</Text>
+        <View
+          style={styles.imagePlaceholder}>
+          <Text style={{ color: "white", fontSize: 28 }}>JD</Text>
+        </View>
+      </View>
       <TouchableHighlight onPress={() => navigation.navigate('Decks')}>
         <View style={[styles.card, { backgroundColor: '#b4645d' }]}>
           <Icon style={styles.cardIcon} name="folder-open" color="white" size={28} />
@@ -33,7 +39,7 @@ export default ({ navigation }) => (
       <View style={[styles.card, { backgroundColor: '#b45da4' }]}>
         <Icon style={styles.cardIcon} name="plus-square" color="white" size={28} />
         <Text style={styles.cardTitle}>
-          CREATE NEW DECK
+          CREATE DECK
         </Text>
       </View>
       <View style={[styles.card, { backgroundColor: '#995db4'}]}>
@@ -42,17 +48,14 @@ export default ({ navigation }) => (
           SOCIAL
         </Text>
       </View>
-      <View style={[styles.card, { backgroundColor: '#5d96b4' }]}>
-        <Icon style={styles.cardIcon} name="user-circle" color="white" size={28} />
-        <Text style={styles.cardTitle}>
-          PROFILE
-        </Text>
-      </View>
-      <Button
-        backgroundColor="#03A9F4"
-        title="LOGOUT"
-        onPress={() => onSignOut().then(() => navigation.navigate("SignedOut"))}
-      />
+      <TouchableHighlight onPress={() => navigation.navigate('Settings')}>
+        <View style={[styles.card, { backgroundColor: '#5d96b4' }]}>
+          <Icon style={styles.cardIcon} name="gear" color="white" size={28} />
+          <Text style={styles.cardTitle}>
+            SETTINGS
+          </Text>
+        </View>
+      </TouchableHighlight>
     </ScrollView>
   </View>
 )
@@ -68,12 +71,44 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     justifyContent: 'center'
   },
+  profile: {
+    width: width-30,
+    height: width/2,
+    marginTop: 15,
+    marginBottom: 15,
+    justifyContent: 'center',
+    backgroundColor: 'white',
+    shadowColor: 'black',
+    shadowOffset: { width: 3, height: 3 },
+    shadowRadius: 3,
+    shadowOpacity: .7
+  },
+  imagePlaceholder: {
+    backgroundColor: "#bcbec1",
+    alignItems: "center",
+    justifyContent: "center",
+    width: 100,
+    height: 100,
+    borderRadius: 100,
+    alignSelf: "center",
+    marginBottom: 20
+  },
+  username: {
+    fontSize: 22,
+    textAlign: 'center',
+    marginTop: 10,
+    marginBottom: 15
+  },
   card: {
     width: (width / 2) - 20,
     height: (width / 2) - 20,
     margin: 5,
     justifyContent: 'center',
-    backgroundColor: 'white'
+    backgroundColor: 'white',
+    shadowColor: 'black',
+    shadowOffset: { width: 3, height: 3 },
+    shadowRadius: 3,
+    shadowOpacity: .7
   },
   text: {
     fontFamily: 'Arial',

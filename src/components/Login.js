@@ -39,7 +39,7 @@ var options = {
   }
 }
 
-handleSubmit = () => {
+loginSubmit = () => {
   const something = this._form.getValue()
   const value = this._form.refs.input.refs.username.props.value
   if (something !== null) {
@@ -78,7 +78,7 @@ export default ({ navigation }) => (
             fontSize={22}
             borderRadius={100}
             backgroundColor="#79B45D"
-            onPress={() => { if (this.handleSubmit()) {
+            onPress={() => { if (this.loginSubmit()) {
               onSignIn().then(() => navigation.navigate("SignedIn"))
             }
           }}
