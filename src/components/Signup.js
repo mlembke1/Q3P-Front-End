@@ -100,19 +100,3 @@ export default ({ navigation }) => (
     </View>
   </ScrollView>
 )
-
-// const styles = StyleSheet.create({
-//   // LOGIN SCREEN STYLES
-//   container: {
-//     paddingTop: 100,
-//   },
-//   email: {
-//     fontSize: 20,
-//     marginTop: 20,
-//     marginLeft: 20,
-//     marginRight: 20,
-//     paddingTop: 10,
-//     paddingBottom: 10,
-//     paddingLeft: 10
-//   }
-// })
