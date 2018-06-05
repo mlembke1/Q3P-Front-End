@@ -46,11 +46,10 @@ export default class App extends React.Component {
   }
 
   render() {
-    const { checkedSignIn, signedIn } = this.state;
+    const { checkedSignIn, signedIn } = this.state
     if (!checkedSignIn) {
       return null
     }
-
     const Layout = createRootNavigator(signedIn)
     return <Layout />
   }
