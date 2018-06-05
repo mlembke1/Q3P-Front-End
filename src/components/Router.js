@@ -11,6 +11,7 @@ import Signin from "./Signin"
 import Home from "./Home"
 import Profile from "./Profile"
 import Decks from "./Decks"
+import Dashboard from "./Dashboard"
 
 const headerStyle = {
   marginTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
@@ -18,7 +19,7 @@ const headerStyle = {
 
 export const SignedOut = createStackNavigator({
   Signup: {
-    screen: Decks,
+    screen: Dashboard,
     // navigationOptions: {
     //   title: "Sign Up",
     //   headerStyle
