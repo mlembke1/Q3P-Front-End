@@ -69,16 +69,14 @@ export default class Decks extends Component {
   }
   render() {
     return (
-      <View style={styles.background}>
-        <ScrollView contentContainerStyle={styles.container}>
-          <StatusBar barStyle="light-content" />
-            <List>
-              {
-                decks.map((deck, i) => <ListItem key={i} title={deck.title} />)
-              }
-            </List>
-        </ScrollView>
-      </View>
+      <ScrollView contentContainerStyle={styles.container}>
+        <StatusBar barStyle="light-content" />
+          <List containerStyle={styles.list}>
+            {
+              decks.map((deck, i) => <ListItem id={deck.id} key={i} title={deck.title} subtitle={deck.subject} />)
+            }
+          </List>
+      </ScrollView>
     )
   }
 }
@@ -94,13 +92,6 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     justifyContent: 'center'
   },
-  card: {
-    width: (width / 2) - 20,
-    height: (width / 2) - 20,
-    margin: 5,
-    justifyContent: 'center',
-    backgroundColor: 'white'
-  },
   text: {
     fontFamily: 'Arial',
     fontWeight: 'bold',
@@ -108,13 +99,8 @@ const styles = StyleSheet.create({
     color: 'white',
     textAlign: 'center'
   },
-  cardTitle: {
-    textAlign: 'center',
-    fontFamily: 'Arial-BoldMT'
-  },
-  background: {
-    width: '100%',
-    height: '100%',
-    backgroundColor: '#f2ede9'
+  list : {
+    width,
+    marginTop: 0
   }
 })
