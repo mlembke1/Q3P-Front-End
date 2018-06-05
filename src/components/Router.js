@@ -42,7 +42,7 @@ export const SignedOut = createStackNavigator({
         color: 'white',
         fontSize: 20,
         fontFamily: 'HelveticaNeue-UltraLight',
-        letterSpacing: 10,
+        letterSpacing: 6,
         fontWeight: '300'
       }
     }
@@ -58,7 +58,7 @@ export const SignedOut = createStackNavigator({
         color: 'white',
         fontSize: 20,
         fontFamily: 'HelveticaNeue-UltraLight',
-        letterSpacing: 10,
+        letterSpacing: 6,
         fontWeight: '300'
       }
     }
@@ -74,7 +74,7 @@ export const SignedOut = createStackNavigator({
         color: 'white',
         fontSize: 20,
         fontFamily: 'HelveticaNeue-UltraLight',
-        letterSpacing: 10,
+        letterSpacing: 6,
         fontWeight: '300'
       }
     }
@@ -87,24 +87,17 @@ export const SignedIn = createStackNavigator(
       screen: Dashboard,
       navigationOptions: {
         // tabBarLabel: "Home",
-          title: 'My Dashboard',
-          headerLeft: (
-            <View>
-              <Icon name="angle-left" color="white" size={28} style={{paddingLeft: 20}} />
-            </View>
-          ),
-          headerRight: (
-            <View>
-              <Icon name="gear" color="white" size={28} style={{paddingRight: 20}} />
-            </View>
-          ),
-          headerStyle: {
-            backgroundColor: '#79B45D',
-          },
-          headerTitleStyle: {
-            color: 'white',
-            fontSize: 20
-          }
+        title: 'MY DASHBOARD',
+        headerStyle: {
+          backgroundColor: '#79B45D',
+        },
+        headerTitleStyle: {
+          color: 'white',
+          fontSize: 24,
+          fontFamily: 'HelveticaNeue-UltraLight',
+          fontWeight: '300',
+          letterSpacing: 6
+        }
         // }
       }
     },
@@ -118,35 +111,27 @@ export const SignedIn = createStackNavigator(
       screen: Decks,
       navigationOptions: {
         // tabBarLabel: "Home",
-          title: 'My Decks',
-          headerLeft: (
-            <View>
-              <Icon name="bars" color="white" size={28} style={{paddingLeft: 20}} />
-            </View>
-          ),
-          headerRight: (
-            <View>
-              <Icon name="gear" color="white" size={28} style={{paddingRight: 20}} />
-            </View>
-          ),
-          headerStyle: {
-            backgroundColor: '#79B45D',
-          },
-          headerTitleStyle: {
-            color: 'white',
-            fontSize: 20
-          }
-        // }
+        title: 'My Decks',
+        headerLeft: (
+          <View>
+            <Icon name="bars" color="white" size={28} style={{ paddingLeft: 20 }} />
+          </View>
+        ),
+        headerRight: (
+          <View>
+            <Icon name="gear" color="white" size={28} style={{ paddingRight: 20 }} />
+          </View>
+        ),
+        headerStyle: {
+          backgroundColor: '#79B45D',
+        },
+        headerTitleStyle: {
+          color: 'white',
+          fontSize: 20
+        }
       }
     }
   }
-  // {
-  //   tabBarOptions: {
-  //     style: {
-  //       paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
-  //     }
-  //   }
-  // }
 )
 
 export const createRootNavigator = (signedIn = false) => {

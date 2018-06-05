@@ -24,28 +24,28 @@ export default ({ navigation }) => (
       <StatusBar barStyle="light-content" />
       <TouchableHighlight onPress={() => navigation.navigate('Decks')}>
         <View style={[styles.card, { backgroundColor: '#b4645d' }]}>
-          <Icon style={styles.cardIcon} name="folder-open" color="white" size={28} />
+          <Icon style={styles.cardIcon} name="folder-open" color="white" size={34} />
           <Text style={styles.cardTitle}>
             VIEW DECKS
           </Text>
         </View>
       </TouchableHighlight>
       <View style={[styles.card, { backgroundColor: '#b45da4' }]}>
-        <Icon style={styles.cardIcon} name="plus-square" color="white" size={28} />
+        <Icon style={styles.cardIcon} name="plus-square" color="white" size={34} />
         <Text style={styles.cardTitle}>
-          CREATE NEW DECK
+          CREATE DECK
         </Text>
       </View>
       <View style={[styles.card, { backgroundColor: '#995db4'}]}>
-        <Icon style={styles.cardIcon} name="users" color="white" size={28} />
+        <Icon style={styles.cardIcon} name="users" color="white" size={34} />
         <Text style={styles.cardTitle}>
           SOCIAL
         </Text>
       </View>
       <View style={[styles.card, { backgroundColor: '#5d96b4' }]}>
-        <Icon style={styles.cardIcon} name="user-circle" color="white" size={28} />
+        <Icon style={styles.cardIcon} name="gear" color="white" size={34} />
         <Text style={styles.cardTitle}>
-          PROFILE
+          SETTINGS
         </Text>
       </View>
       <Button
@@ -85,7 +85,8 @@ const styles = StyleSheet.create({
   cardTitle: {
     textAlign: 'center',
     fontFamily: 'Arial-BoldMT',
-    color: 'white'
+    color: 'white',
+    fontSize: 20
   },
   cardIcon: {
     textAlign: 'center',
