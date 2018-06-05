@@ -43,21 +43,20 @@ handleLoginSubmit = () => {
   const something = this._form.getValue()
   const value = this._form.refs.input.refs.username.props.value
 
-  const currentUsers =
-  axios.get(`${REACT_APP_API_URL}/getAllUsers`)
-  .then(r => r)
-  .catch(err => err)
-
-  if (something !== null && currentUsers.includes(something.username)) {
-    const objectToPost = {
-      username: something.username,
-      password: something.password
-    }
-    this.loginUser(objectToPost)
-    return true
-  } else {
-    return false
-  }
+  return axios.get(`${REACT_APP_API_URL}/getAllUsers`)
+    .then((r) => {
+      if (something !== null && r.data.allUsers.some(x => x.username === something.username)) {
+        const objectToPost = {
+          username: something.username,
+          password: something.password
+        }
+        this.loginUser(objectToPost)
+        return true
+      } else {
+        return false
+      }
+    })
+    .catch(err => err)
 }
 
 loginUser = (userToLogin) => {
@@ -67,7 +66,6 @@ loginUser = (userToLogin) => {
 }
 
 export default ({ navigation }) => (
-<<<<<<< HEAD
   <ImageBackground
     source={require('../../assets/background-image.jpg')}
     style={styles.backgroundImage} >
@@ -85,24 +83,10 @@ export default ({ navigation }) => (
             fontSize={22}
             borderRadius={100}
             backgroundColor="#79B45D"
-            onPress={() => { if (this.handleSubmit()) {
+            onPress={() => { if (this.handleLoginSubmit()) {
               onSignIn().then(() => navigation.navigate("SignedIn"))
-=======
-  <ScrollView>
-    <View style={{paddingVertical: 150}}>
-      <Card>
-        <Form
-          ref={c => this._form = c}
-          type={User}
-          options={options}
-          />
-        <Button
-          buttonStyle={{ marginTop: 20 }}
-          backgroundColor="#03A9F4"
-          title="SIGN IN"
-          onPress={() => { if ( this.handleLoginSubmit() ) {
-            onSignIn().then(() => navigation.navigate("SignedIn"))
->>>>>>> added get request for login and signup
+            } else {
+              alert('Wrong something')
             }
           }}
           />
@@ -110,7 +94,7 @@ export default ({ navigation }) => (
       </View>
     </ScrollView>
   </ImageBackground>
-  )
+)
 
 const styles = StyleSheet.create({
   container: {

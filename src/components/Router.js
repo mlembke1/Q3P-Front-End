@@ -90,7 +90,7 @@ export const SignedIn = createStackNavigator(
           title: 'My Dashboard',
           headerLeft: (
             <View>
-              <Icon name="bars" color="white" size={28} style={{paddingLeft: 20}} />
+              <Icon name="angle-left" color="white" size={28} style={{paddingLeft: 20}} />
             </View>
           ),
           headerRight: (
