@@ -19,7 +19,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import Signup from "./Signup"
 import Login from "./Login"
 import Home from "./Home"
-import Profile from "./Profile"
+import Settings from "./Settings"
 import Decks from "./Decks"
 import Dashboard from "./Dashboard"
 import WelcomePage from "./WelcomePage"
@@ -51,6 +51,7 @@ export const SignedOut = createStackNavigator({
     screen: Signup,
     navigationOptions: {
       title: "SIGN UP",
+      headerTintColor: '#FFFFFF',
       headerStyle: {
         backgroundColor: '#79B45D'
       },
@@ -67,6 +68,7 @@ export const SignedOut = createStackNavigator({
     screen: Login,
     navigationOptions: {
       title: "LOGIN",
+      headerTintColor: '#FFFFFF',
       headerStyle: {
         backgroundColor: '#79B45D'
       },
@@ -101,27 +103,11 @@ export const SignedIn = createStackNavigator(
         // }
       }
     },
-    Profile: {
-      screen: Profile,
+    Settings: {
+      screen: Settings,
       navigationOptions: {
-        // tabBarLabel: "Profile",
-      }
-    },
-    Decks: {
-      screen: Decks,
-      navigationOptions: {
-        // tabBarLabel: "Home",
-        title: 'My Decks',
-        headerLeft: (
-          <View>
-            <Icon name="bars" color="white" size={28} style={{ paddingLeft: 20 }} />
-          </View>
-        ),
-        headerRight: (
-          <View>
-            <Icon name="gear" color="white" size={28} style={{ paddingRight: 20 }} />
-          </View>
-        ),
+        title: 'My Settings',
+        headerTintColor: '#FFFFFF',
         headerStyle: {
           backgroundColor: '#79B45D',
         },
@@ -129,6 +115,25 @@ export const SignedIn = createStackNavigator(
           color: 'white',
           fontSize: 20
         }
+      }
+    },
+    Decks: {
+      screen: Decks,
+      navigationOptions: {
+          title: 'My Decks',
+          headerTintColor: '#FFFFFF',
+          headerRight: (
+            <View>
+              <Icon name="gear" color="white" size={28} style={{paddingRight: 20}} />
+            </View>
+          ),
+          headerStyle: {
+            backgroundColor: '#79B45D',
+          },
+          headerTitleStyle: {
+            color: 'white',
+            fontSize: 20
+          }
       }
     }
   }

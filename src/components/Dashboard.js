@@ -15,13 +15,19 @@ import {
 import { Button, Card } from 'react-native-elements'
 import { createStackNavigator } from 'react-navigation'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import SettingsModal from './SettingsModal'
 import { onSignOut } from "./Auth"
 
 export default ({ navigation }) => (
   <View style={styles.background}>
     <ScrollView contentContainerStyle={styles.container}>
       <StatusBar barStyle="light-content" />
+      <View style={styles.profile}>
+        <Text style={styles.username}>John Doe</Text>
+        <View
+          style={styles.imagePlaceholder}>
+          <Text style={{ color: "white", fontSize: 28 }}>JD</Text>
+        </View>
+      </View>
       <TouchableHighlight onPress={() => navigation.navigate('Decks')}>
         <View style={[styles.card, { backgroundColor: '#b4645d' }]}>
           <Icon style={styles.cardIcon} name="folder-open" color="white" size={34} />
@@ -68,12 +74,44 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     justifyContent: 'center'
   },
+  profile: {
+    width: width-30,
+    height: width/2,
+    marginTop: 15,
+    marginBottom: 15,
+    justifyContent: 'center',
+    backgroundColor: 'white',
+    shadowColor: 'black',
+    shadowOffset: { width: 3, height: 3 },
+    shadowRadius: 3,
+    shadowOpacity: .7
+  },
+  imagePlaceholder: {
+    backgroundColor: "#bcbec1",
+    alignItems: "center",
+    justifyContent: "center",
+    width: 100,
+    height: 100,
+    borderRadius: 100,
+    alignSelf: "center",
+    marginBottom: 20
+  },
+  username: {
+    fontSize: 22,
+    textAlign: 'center',
+    marginTop: 10,
+    marginBottom: 15
+  },
   card: {
     width: (width / 2) - 20,
     height: (width / 2) - 20,
     margin: 5,
     justifyContent: 'center',
-    backgroundColor: 'white'
+    backgroundColor: 'white',
+    shadowColor: 'black',
+    shadowOffset: { width: 3, height: 3 },
+    shadowRadius: 3,
+    shadowOpacity: .7
   },
   text: {
     fontFamily: 'Arial',

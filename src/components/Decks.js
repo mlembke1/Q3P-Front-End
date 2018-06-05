@@ -54,7 +54,6 @@ export default ({ navigation }) => (
         decks.map((deck, i) => <ListItem author={deck.author} id={deck.id} key={i} title={deck.title} subtitle={deck.subject} />)
       }
     </List>
-    <Button onPress={() => navigation.navigate('Login')} title="Logout" />
   </ScrollView>
 )
 
