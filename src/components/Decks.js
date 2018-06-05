@@ -56,7 +56,6 @@ export default class Decks extends Component {
             decks.map((deck, i) => <ListItem author={deck.author} id={deck.id} key={i} title={deck.title} subtitle={deck.subject} />)
           }
         </List>
-        <Button onPress={() => this.props.navigation.navigate('Login')} title="Logout" />
       </ScrollView>
     )
   }
