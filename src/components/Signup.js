@@ -7,14 +7,14 @@ import {
   AppRegistry,
   ScrollView,
   TextInput,
-  Image
+  Image,
+  ImageBackground
 } from 'react-native'
 import { Card, Button, FormValidationMessage } from "react-native-elements"
 import t from 'tcomb-form-native'
 import { onSignIn } from "./Auth"
 import { REACT_APP_API_URL } from 'react-native-dotenv'
 import axios from 'axios'
-
 
 const Form = t.form.Form
 
@@ -38,9 +38,6 @@ var options = {
     },
     username: {
       error: 'Insert a valid username'
-    },
-    password: {
-      error: 'Insert a valid password'
     },
     password: {
       error: 'Insert a valid password'
@@ -70,49 +67,52 @@ postUser = (newUserObject) => {
   .catch(err => console.log(err))
 }
 
-
 export default ({ navigation }) => (
-  <ScrollView>
-    <View style={{ paddingTop: 100 }}>
-      <Card>
-        <Form
-          ref={c => this._form = c}
-          type={User}
-          options={options}
+  <ImageBackground
+    source={require('../../assets/background-image.jpg')}
+    style={styles.backgroundImage} >
+    <ScrollView>
+      <View style={styles.container}>
+        <Card>
+          <Form
+            ref={c => this._form = c}
+            type={User}
+            options={options}
+            />
+          <Button
+            style={styles.signupBtn}
+            title="SIGN UP"
+            fontSize={22}
+            borderRadius={100}
+            backgroundColor="#79B45D"
+            onPress={() => { if (this.handleSubmit()) {
+              onSignIn().then(() => navigation.navigate("SignedIn"))
+            }
+          }}
           />
-        <Button
-          buttonStyle={{ marginTop: 20 }}
-          backgroundColor="#03A9F4"
-          title="SIGN UP"
-          onPress={() => { if (this.handleSubmit()) {
-            onSignIn().then(() => navigation.navigate("SignedIn"))
-          }
-        }}
-        />
-        <Button
-          buttonStyle={{ marginTop: 20 }}
-          backgroundColor="transparent"
-          textStyle={{ color: "#bcbec1" }}
-          title="Sign In"
-          onPress={() => navigation.navigate("Signin")}
-        />
-      </Card>
-    </View>
-  </ScrollView>
-)
+        </Card>
+      </View>
+    </ScrollView>
+  </ImageBackground>
+  )
 
-// const styles = StyleSheet.create({
-//   // LOGIN SCREEN STYLES
-//   container: {
-//     paddingTop: 100,
-//   },
-//   email: {
-//     fontSize: 20,
-//     marginTop: 20,
-//     marginLeft: 20,
-//     marginRight: 20,
-//     paddingTop: 10,
-//     paddingBottom: 10,
-//     paddingLeft: 10
-//   }
-// })
+const styles = StyleSheet.create({
+  container: {
+    width: 350,
+    marginTop: 120,
+  },
+  signupBtn: {
+    margin: 10,
+    borderWidth: 1.5,
+    borderRadius: 100,
+    borderColor: "white",
+  },
+  backgroundImage: {
+    flex: 1,
+    width: null,
+    height: null,
+    backgroundColor:'transparent',
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
+})
