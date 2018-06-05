@@ -1,4 +1,4 @@
-import React from "react"
+import React, { Component } from "react"
 import {
   Platform,
   StyleSheet,
@@ -24,7 +24,7 @@ const User = t.struct({
   terms: t.Boolean
 })
 
-var options = {
+const options = {
   auto: 'placeholders',
   fields: {
     username: {
@@ -39,62 +39,74 @@ var options = {
   }
 }
 
-handleLoginSubmit = () => {
-  const something = this._form.getValue()
-  const value = this._form.refs.input.refs.username.props.value
+export default class Login extends Component {
 
-  return axios.get(`${REACT_APP_API_URL}/getAllUsers`)
-    .then((r) => {
-      if (something !== null && r.data.allUsers.some(x => x.username === something.username)) {
-        const objectToPost = {
-          username: something.username,
-          password: something.password
+  doesUserExist = (enteredUsername) => {
+    return new Promise((resolve, reject) => {
+      axios.get(`${REACT_APP_API_URL}/getAllUsers`)
+      .then(r => {
+        if (r.data.allUsers.some(x => x.username === enteredUsername)) {
+          resolve()
+        } else {
+          reject()
         }
-        this.loginUser(objectToPost)
-        return true
-      } else {
-        return false
-      }
+      })
     })
-    .catch(err => err)
-}
+  }
 
-loginUser = (userToLogin) => {
-  axios.get(`${REACT_APP_API_URL}/login`, userToLogin)
-  .then(r => r)
-  .catch(err => err)
-}
-
-export default ({ navigation }) => (
-  <ImageBackground
-    source={require('../../assets/background-image.jpg')}
-    style={styles.backgroundImage} >
-    <ScrollView>
-      <View style={styles.container}>
-        <Card>
-          <Form
-            ref={c => this._form = c}
-            type={User}
-            options={options}
-            />
-          <Button
-            style={styles.loginBtn}
-            title="LOGIN"
-            fontSize={22}
-            borderRadius={100}
-            backgroundColor="#79B45D"
-            onPress={() => { if (this.handleLoginSubmit()) {
-              onSignIn().then(() => navigation.navigate("SignedIn"))
-            } else {
-              alert('Wrong something')
+  handleLoginSubmit = () => {
+    const something = this._form.getValue()
+    const value = this._form.refs.input.refs.username.props.value
+     if (something !== null ) {
+       this.doesUserExist(something.username)
+        .then(() => {
+            const objectToPost = {
+              username: something.username,
+              password: something.password
             }
-          }}
-          />
-        </Card>
-      </View>
-    </ScrollView>
-  </ImageBackground>
-)
+            this.loginUser(objectToPost)
+            onSignIn().then(() => this.props.navigation.navigate("SignedIn"))
+        })
+        .catch(() => alert('That user doesn\'t exist'))
+    } else {
+      console.log('whoops')
+    }
+}
+
+  loginUser = (userToLogin) => {
+    axios.post(`${REACT_APP_API_URL}/login`, userToLogin)
+    .then(r => r)
+    .catch(err => err)
+  }
+
+  render(){
+    return (
+      <ImageBackground
+        source={require('../../assets/background-image.jpg')}
+        style={styles.backgroundImage} >
+        <ScrollView>
+          <View style={styles.container}>
+            <Card>
+              <Form
+                ref={c => this._form = c}
+                type={User}
+                options={options}
+                />
+              <Button
+                style={styles.loginBtn}
+                title="LOGIN"
+                fontSize={22}
+                borderRadius={100}
+                backgroundColor="#79B45D"
+                onPress={this.handleLoginSubmit}
+              />
+            </Card>
+          </View>
+        </ScrollView>
+      </ImageBackground>
+    )
+  }
+}
 
 const styles = StyleSheet.create({
   container: {

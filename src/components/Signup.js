@@ -1,4 +1,4 @@
-import React from "react"
+import React, { Component } from "react"
 import {
   Platform,
   StyleSheet,
@@ -49,22 +49,21 @@ handleSignupSubmit = () => {
   const something = this._form.getValue()
   const value = this._form.refs.input.refs.email.props.value
 
-  const currentUsers =
-  axios.get(`${REACT_APP_API_URL}/getAllUsers`)
-  .then(r => r)
-  .catch(err => err)
-
-  if (something !== null && !currentUsers.includes(something.username)) {
-    const objectToPost = {
-      username: something.username,
-      email: something.email,
-      password: something.password
-    }
-    this.postUser(objectToPost)
-    return true
-  } else {
-    return false
-  }
+  return axios.get(`${REACT_APP_API_URL}/getAllUsers`)
+    .then((r) => {
+      if (something !== null && r.data.allUsers.some(x => x.username === something.username)) {
+        const objectToPost = {
+          username: something.username,
+          email: something.email,
+          password: something.password
+        }
+        this.postUser(objectToPost)
+        return true
+      } else {
+        return false
+      }
+    })
+    .catch(err => err)
 }
 
 postUser = (newUserObject) => {
@@ -73,34 +72,38 @@ postUser = (newUserObject) => {
   .catch(err => err)
 }
 
-export default ({ navigation }) => (
-  <ImageBackground
-    source={require('../../assets/background-image.jpg')}
-    style={styles.backgroundImage} >
-    <ScrollView>
-      <View style={styles.container}>
-        <Card>
-          <Form
-            ref={c => this._form = c}
-            type={User}
-            options={options}
-            />
-          <Button
-            style={styles.signupBtn}
-            title="SIGN UP"
-            fontSize={22}
-            borderRadius={100}
-            backgroundColor="#79B45D"
-            onPress={() => { if (this.handleSignupSubmit()) {
-              onSignIn().then(() => navigation.navigate("SignedIn"))
-            }
-          }}
-          />
-        </Card>
-      </View>
-    </ScrollView>
-  </ImageBackground>
-  )
+export default class Signup extends Component {
+  render(){
+    return (
+      <ImageBackground
+        source={require('../../assets/background-image.jpg')}
+        style={styles.backgroundImage} >
+        <ScrollView>
+          <View style={styles.container}>
+            <Card>
+              <Form
+                ref={c => this._form = c}
+                type={User}
+                options={options}
+                />
+              <Button
+                style={styles.signupBtn}
+                title="SIGN UP"
+                fontSize={22}
+                borderRadius={100}
+                backgroundColor="#79B45D"
+                onPress={() => { if (this.handleSignupSubmit()) {
+                  onSignIn().then(() => this.props.navigation.navigate("SignedIn"))
+                }
+              }}
+              />
+            </Card>
+          </View>
+        </ScrollView>
+      </ImageBackground>
+    )
+  }
+}
 
 const styles = StyleSheet.create({
   container: {

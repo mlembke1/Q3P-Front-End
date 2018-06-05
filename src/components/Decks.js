@@ -46,16 +46,21 @@ const decks = [
   }
 ]
 
-export default ({ navigation }) => (
-  <ScrollView contentContainerStyle={styles.container}>
-    <StatusBar barStyle="light-content" />
-    <List containerStyle={styles.list}>
-      {
-        decks.map((deck, i) => <ListItem author={deck.author} id={deck.id} key={i} title={deck.title} subtitle={deck.subject} />)
-      }
-    </List>
-  </ScrollView>
-)
+export default class Decks extends Component {
+  render(){
+    return(
+      <ScrollView contentContainerStyle={styles.container}>
+        <StatusBar barStyle="light-content" />
+        <List containerStyle={styles.list}>
+          {
+            decks.map((deck, i) => <ListItem author={deck.author} id={deck.id} key={i} title={deck.title} subtitle={deck.subject} />)
+          }
+        </List>
+        <Button onPress={() => this.props.navigation.navigate('Login')} title="Logout" />
+      </ScrollView>
+    )
+  }
+}
 
 const width = Dimensions.get('window').width
 
