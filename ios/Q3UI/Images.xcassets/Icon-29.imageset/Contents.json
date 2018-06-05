@@ -2,10 +2,13 @@
   "images" : [
     {
       "idiom" : "universal",
+<<<<<<< HEAD
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+=======
+>>>>>>> Added app icons
       "filename" : "Icon-29@2x.png",
       "scale" : "2x"
     },
