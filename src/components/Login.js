@@ -43,7 +43,7 @@ handleSubmit = () => {
   const value = this._form.refs.input.refs.email.props.value
   if (something !== null) {
     const objectToPost = {
-      username: something.username
+      username: something.username,
       password: something.password
     }
     this.loginUser(objectToPost)
