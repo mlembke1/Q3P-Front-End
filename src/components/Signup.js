@@ -45,10 +45,16 @@ var options = {
   }
 }
 
-handleSubmit = () => {
+handleSignupSubmit = () => {
   const something = this._form.getValue()
   const value = this._form.refs.input.refs.email.props.value
-  if (something !== null) {
+
+  const currentUsers =
+  axios.get(`${REACT_APP_API_URL}/getAllUsers`)
+  .then(r => r)
+  .catch(err => err)
+
+  if (something !== null && !currentUsers.includes(something.username)) {
     const objectToPost = {
       username: something.username,
       email: something.email,
@@ -63,8 +69,8 @@ handleSubmit = () => {
 
 postUser = (newUserObject) => {
   axios.post(`${REACT_APP_API_URL}/signup`, newUserObject)
-  .then(r => console.log(r))
-  .catch(err => console.log(err))
+  .then(r => r)
+  .catch(err => err)
 }
 
 export default ({ navigation }) => (
@@ -85,7 +91,7 @@ export default ({ navigation }) => (
             fontSize={22}
             borderRadius={100}
             backgroundColor="#79B45D"
-            onPress={() => { if (this.handleSubmit()) {
+            onPress={() => { if (this.handleSignupSubmit()) {
               onSignIn().then(() => navigation.navigate("SignedIn"))
             }
           }}

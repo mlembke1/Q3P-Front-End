@@ -51,9 +51,6 @@ export default class App extends React.Component {
       return null
     }
     const Layout = createRootNavigator(signedIn)
-    return <Layout
-            publicDecks={ this.state.publicDecks }
-            userDecks={ this.state.userDecks }
-          />
+    return <Layout/>
   }
 }

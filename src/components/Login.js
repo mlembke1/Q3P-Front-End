@@ -39,10 +39,16 @@ var options = {
   }
 }
 
-handleSubmit = () => {
+handleLoginSubmit = () => {
   const something = this._form.getValue()
   const value = this._form.refs.input.refs.username.props.value
-  if (something !== null) {
+
+  const currentUsers =
+  axios.get(`${REACT_APP_API_URL}/getAllUsers`)
+  .then(r => r)
+  .catch(err => err)
+
+  if (something !== null && currentUsers.includes(something.username)) {
     const objectToPost = {
       username: something.username,
       password: something.password
@@ -56,11 +62,12 @@ handleSubmit = () => {
 
 loginUser = (userToLogin) => {
   axios.get(`${REACT_APP_API_URL}/login`, userToLogin)
-  .then(r => console.log(r))
-  .catch(err => console.log(err))
+  .then(r => r)
+  .catch(err => err)
 }
 
 export default ({ navigation }) => (
+<<<<<<< HEAD
   <ImageBackground
     source={require('../../assets/background-image.jpg')}
     style={styles.backgroundImage} >
@@ -80,6 +87,22 @@ export default ({ navigation }) => (
             backgroundColor="#79B45D"
             onPress={() => { if (this.handleSubmit()) {
               onSignIn().then(() => navigation.navigate("SignedIn"))
+=======
+  <ScrollView>
+    <View style={{paddingVertical: 150}}>
+      <Card>
+        <Form
+          ref={c => this._form = c}
+          type={User}
+          options={options}
+          />
+        <Button
+          buttonStyle={{ marginTop: 20 }}
+          backgroundColor="#03A9F4"
+          title="SIGN IN"
+          onPress={() => { if ( this.handleLoginSubmit() ) {
+            onSignIn().then(() => navigation.navigate("SignedIn"))
+>>>>>>> added get request for login and signup
             }
           }}
           />
