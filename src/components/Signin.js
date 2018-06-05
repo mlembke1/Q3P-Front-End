@@ -44,15 +44,15 @@ handleSubmit = () => {
       username: something.username
       password: something.password
     }
-    this.postUser(objectToPost)
+    this.loginUser(objectToPost)
     return true
   } else {
     return false
   }
 }
 
-postUser = (newUserObject) => {
-  axios.post(`${REACT_APP_API_URL}/signin`, newUserObject)
+loginUser = (userToLogin) => {
+  axios.post(`${REACT_APP_API_URL}/signin`, userToLogin)
   .then(r => console.log(r))
   .catch(err => console.log(err))
 }
