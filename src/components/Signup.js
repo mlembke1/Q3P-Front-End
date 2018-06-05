@@ -25,7 +25,7 @@ const User = t.struct({
   email: Email,
   username: t.String,
   password: t.String,
-  terms: t.Boolean
+  password: t.String
 })
 
 var options = {
@@ -33,6 +33,15 @@ var options = {
   fields: {
     email: {
       error: 'Insert a valid email'
+    },
+    username: {
+      error: 'Insert a valid username'
+    },
+    password: {
+      error: 'Insert a valid password'
+    },
+    password: {
+      error: 'Insert a valid password'
     }
   }
 }
@@ -49,7 +58,7 @@ handleSubmit = () => {
 
 
 export default ({ navigation }) => (
-  <View style={{ paddingVertical: 100 }}>
+  <View style={{ paddingTop: 100 }}>
     <Card>
       <Form
         ref={c => this._form = c}
@@ -78,6 +87,9 @@ export default ({ navigation }) => (
 
 const styles = StyleSheet.create({
   // LOGIN SCREEN STYLES
+  container: {
+    paddingTop: 100,
+  },
   email: {
     fontSize: 20,
     marginTop: 20,
@@ -86,5 +98,5 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingBottom: 10,
     paddingLeft: 10
-  },
+  }
 })

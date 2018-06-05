@@ -10,14 +10,50 @@ import {
   Image
 } from 'react-native'
 import { Card, Button, FormLabel, FormInput } from "react-native-elements"
+import t from 'tcomb-form-native'
 import { onSignIn } from "./Auth"
+
+const Form = t.form.Form
+
+const User = t.struct({
+  username: t.String,
+  password: t.String,
+  terms: t.Boolean
+})
+
+var options = {
+  auto: 'placeholders',
+  fields: {
+    username: {
+      error: 'Insert a valid username'
+    },
+    password: {
+      error: 'Insert a valid password'
+    },
+    terms: {
+      label: 'Remember Me'
+    }
+  }
+}
+
+handleSubmit = () => {
+  const something = this._form.getValue()
+  const value = this._form.refs.input.refs.email.props.value
+  if (something !== null) {
+    return true
+  } else {
+    return false
+  }
+}
 
 export default ({ navigation }) => (
   <View style={{paddingVertical: 150}}>
     <Card>
-      <FormInput style={styles.username} placeholder="Email address" />
-      <FormInput secureTextEntry placeholder="Password" />
-
+      <Form
+        ref={c => this._form = c}
+        type={User}
+        options={options}
+        />
       <Button
         buttonStyle={{ marginTop: 20 }}
         backgroundColor="#03A9F4"
