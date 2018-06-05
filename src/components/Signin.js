@@ -12,6 +12,8 @@ import {
 import { Card, Button, FormLabel, FormInput } from "react-native-elements"
 import t from 'tcomb-form-native'
 import { onSignIn } from "./Auth"
+import axios from 'axios'
+import { REACT_APP_API_URL } from 'react-native-dotenv'
 
 const Form = t.form.Form
 
