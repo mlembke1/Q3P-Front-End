@@ -40,10 +40,21 @@ handleSubmit = () => {
   const something = this._form.getValue()
   const value = this._form.refs.input.refs.email.props.value
   if (something !== null) {
+    const objectToPost = {
+      username: something.username
+      password: something.password
+    }
+    this.postUser(objectToPost)
     return true
   } else {
     return false
   }
+}
+
+postUser = (newUserObject) => {
+  axios.post(`${REACT_APP_API_URL}/signin`, newUserObject)
+  .then(r => console.log(r))
+  .catch(err => console.log(err))
 }
 
 export default ({ navigation }) => (
