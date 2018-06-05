@@ -48,7 +48,7 @@ export const SignedOut = createStackNavigator({
   Signup: {
     screen: Signup,
     navigationOptions: {
-      title: "SIGNUP",
+      title: "SIGN UP",
       headerStyle: {
         backgroundColor: '#79B45D'
       },
