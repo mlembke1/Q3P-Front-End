@@ -48,17 +48,14 @@ export default ({ navigation }) => (
           SOCIAL
         </Text>
       </View>
+      <TouchableHighlight onPress={() => navigation.navigate('Settings')}>
       <View style={[styles.card, { backgroundColor: '#5d96b4' }]}>
         <Icon style={styles.cardIcon} name="gear" color="white" size={34} />
         <Text style={styles.cardTitle}>
           SETTINGS
         </Text>
       </View>
-      <Button
-        backgroundColor="#03A9F4"
-        title="LOGOUT"
-        onPress={() => onSignOut().then(() => navigation.navigate("SignedOut"))}
-      />
+    </TouchableHighlight>
     </ScrollView>
   </View>
 )
