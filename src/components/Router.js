@@ -13,10 +13,8 @@ import {
 } from 'react-native'
 import {
   createStackNavigator,
-  // createBottomTabNavigator,
   createSwitchNavigator
 } from "react-navigation"
-// import { FontAwesome } from "react-native-vector-icons"
 import Icon from 'react-native-vector-icons/FontAwesome'
 import Signup from "./Signup"
 import Login from "./Login"
@@ -50,15 +48,33 @@ export const SignedOut = createStackNavigator({
   Signup: {
     screen: Signup,
     navigationOptions: {
-      title: "Sign Up",
-      headerStyle
+      title: "SIGNUP",
+      headerStyle: {
+        backgroundColor: '#79B45D'
+      },
+      headerTitleStyle: {
+        color: 'white',
+        fontSize: 20,
+        fontFamily: 'HelveticaNeue-UltraLight',
+        letterSpacing: 10,
+        fontWeight: '300'
+      }
     }
   },
   Login: {
     screen: Login,
     navigationOptions: {
-      title: "Login",
-      headerStyle
+      title: "LOGIN",
+      headerStyle: {
+        backgroundColor: '#79B45D'
+      },
+      headerTitleStyle: {
+        color: 'white',
+        fontSize: 20,
+        fontFamily: 'HelveticaNeue-UltraLight',
+        letterSpacing: 10,
+        fontWeight: '300'
+      }
     }
   }
 })
