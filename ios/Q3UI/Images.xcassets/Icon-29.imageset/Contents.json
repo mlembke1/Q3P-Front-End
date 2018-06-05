@@ -2,19 +2,10 @@
   "images" : [
     {
       "idiom" : "universal",
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Extra commit for some reason
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-<<<<<<< HEAD
-=======
->>>>>>> Added app icons
-=======
->>>>>>> Extra commit for some reason
       "filename" : "Icon-29@2x.png",
       "scale" : "2x"
     },
