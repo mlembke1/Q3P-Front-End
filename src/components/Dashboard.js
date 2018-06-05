@@ -9,7 +9,8 @@ import {
   TextInput,
   Dimensions,
   Image,
-  StatusBar
+  StatusBar,
+  TouchableHighlight
 } from 'react-native'
 import { Button, Card } from 'react-native-elements'
 import { createStackNavigator } from 'react-navigation'
@@ -21,12 +22,14 @@ export default ({ navigation }) => (
   <View style={styles.background}>
     <ScrollView contentContainerStyle={styles.container}>
       <StatusBar barStyle="light-content" />
-      <View style={[styles.card, { backgroundColor: '#b4645d' }]}>
-        <Icon style={styles.cardIcon} name="folder-open" color="white" size={28} />
-        <Text style={styles.cardTitle}>
-          VIEW DECKS
-        </Text>
-      </View>
+      <TouchableHighlight onPress={() => navigation.navigate('Decks')}>
+        <View style={[styles.card, { backgroundColor: '#b4645d' }]}>
+          <Icon style={styles.cardIcon} name="folder-open" color="white" size={28} />
+          <Text style={styles.cardTitle}>
+            VIEW DECKS
+          </Text>
+        </View>
+      </TouchableHighlight>
       <View style={[styles.card, { backgroundColor: '#b45da4' }]}>
         <Icon style={styles.cardIcon} name="plus-square" color="white" size={28} />
         <Text style={styles.cardTitle}>
@@ -52,7 +55,7 @@ export default ({ navigation }) => (
       />
     </ScrollView>
   </View>
-  )
+)
 
 const width = Dimensions.get('window').width
 
