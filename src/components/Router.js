@@ -10,7 +10,8 @@ import Signup from "./Signup"
 import Signin from "./Signin"
 import Home from "./Home"
 import Profile from "./Profile"
-// import WelcomePage from "./WelcomePage"
+import Decks from "./Decks"
+import Dashboard from "./Dashboard"
 
 const headerStyle = {
   marginTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
@@ -25,11 +26,11 @@ export const SignedOut = createStackNavigator({
   //   }
   // },
   Signup: {
-    screen: Signup,
-    navigationOptions: {
-      title: "Sign Up",
-      headerStyle
-    }
+    screen: Dashboard,
+    // navigationOptions: {
+    //   title: "Sign Up",
+    //   headerStyle
+    // }
   },
   Signin: {
     screen: Signin,

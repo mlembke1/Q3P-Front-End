@@ -13,6 +13,10 @@ import {
 import { Button } from 'react-native-elements'
 import { createStackNavigator } from 'react-navigation'
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5a35f695359fd6f94fa3d5d15665fe13c1b13b70
 class WelcomeScreen extends Component {
   static navigationOptions = {
     title: '<STUDY.ENV/>',
@@ -154,10 +158,18 @@ const styles = StyleSheet.create({
   }
 })
 
+<<<<<<< HEAD
 // const WelcomePage = createStackNavigator({
 //   Welcome: { screen: WelcomeScreen },
 //   Login: {  screen: LoginScreen},
 //   Signup: { screen: SignupScreen },
 // })
+=======
+const WelcomePage = createStackNavigator({
+  Welcome: { screen: WelcomeScreen },
+  Login: {  screen: LoginScreen},
+  Signup: { screen: SignupScreen },
+})
+>>>>>>> 5a35f695359fd6f94fa3d5d15665fe13c1b13b70
 
 export default WelcomePage
