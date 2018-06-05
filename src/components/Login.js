@@ -54,7 +54,7 @@ handleSubmit = () => {
 }
 
 loginUser = (userToLogin) => {
-  axios.post(`${REACT_APP_API_URL}/signin`, userToLogin)
+  axios.get(`${REACT_APP_API_URL}/login`, userToLogin)
   .then(r => console.log(r))
   .catch(err => console.log(err))
 }
