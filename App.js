@@ -26,7 +26,7 @@ export default class App extends React.Component {
   }
 
   fetchAllUserDecks(){
-    axios.post(`${REACT_APP_API_URL}/getAllDecksForUser`)
+    axios.get(`${REACT_APP_API_URL}/getAllDecksForUser`)
     .then(r => {
       this.setState({
         userDecks: [ ...this.state.userDecks, r ]
@@ -36,7 +36,7 @@ export default class App extends React.Component {
   }
 
   fetchAllPublicDecks(){
-    axios.post(`${REACT_APP_API_URL}/getAllPublicDecks`)
+    axios.get(`${REACT_APP_API_URL}/getAllPublicDecks`)
     .then(r => {
       this.setState({
         publicDecks: [ ...this.state.publicDecks, r ]
