@@ -46,40 +46,17 @@ const decks = [
   }
 ]
 
-export default class Decks extends Component {
-  static navigationOptions = {
-    title: 'My Decks',
-    headerLeft: (
-      <View>
-        <Icon name="bars" color="white" size={28} style={{paddingLeft: 20}} />
-      </View>
-    ),
-    headerRight: (
-      <View>
-        <Icon name="gear" color="white" size={28} style={{paddingRight: 20}} />
-      </View>
-    ),
-    headerStyle: {
-      backgroundColor: '#79B45D',
-    },
-    headerTitleStyle: {
-      color: 'white',
-      fontSize: 20
-    }
-  }
-  render() {
-    return (
-      <ScrollView contentContainerStyle={styles.container}>
-        <StatusBar barStyle="light-content" />
-          <List containerStyle={styles.list}>
-            {
-              decks.map((deck, i) => <ListItem id={deck.id} key={i} title={deck.title} subtitle={deck.subject} />)
-            }
-          </List>
-      </ScrollView>
-    )
-  }
-}
+export default ({ navigation }) => (
+  <ScrollView contentContainerStyle={styles.container}>
+    <StatusBar barStyle="light-content" />
+    <List containerStyle={styles.list}>
+      {
+        decks.map((deck, i) => <ListItem author={deck.author} id={deck.id} key={i} title={deck.title} subtitle={deck.subject} />)
+      }
+    </List>
+    <Button onPress={() => navigation.navigate('Login')} title="Logout" />
+  </ScrollView>
+)
 
 const width = Dimensions.get('window').width
 

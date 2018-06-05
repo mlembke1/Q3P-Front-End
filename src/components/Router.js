@@ -23,6 +23,7 @@ import Profile from "./Profile"
 import Decks from "./Decks"
 import Dashboard from "./Dashboard"
 import WelcomePage from "./WelcomePage"
+import CardList from "./CardList"
 
 const headerStyle = {
   marginTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
@@ -34,7 +35,8 @@ export const SignedOut = createStackNavigator({
     navigationOptions: {
       title: '<STUDY.ENV/>',
       headerStyle: {
-        backgroundColor: '#79B45D'
+        backgroundColor: '#79B45D',
+        marginBottom: 0
       },
       headerTitleStyle: {
         color: 'white',
@@ -110,6 +112,31 @@ export const SignedIn = createStackNavigator(
       screen: Profile,
       navigationOptions: {
         // tabBarLabel: "Profile",
+      }
+    },
+    Decks: {
+      screen: Decks,
+      navigationOptions: {
+        // tabBarLabel: "Home",
+          title: 'My Decks',
+          headerLeft: (
+            <View>
+              <Icon name="bars" color="white" size={28} style={{paddingLeft: 20}} />
+            </View>
+          ),
+          headerRight: (
+            <View>
+              <Icon name="gear" color="white" size={28} style={{paddingRight: 20}} />
+            </View>
+          ),
+          headerStyle: {
+            backgroundColor: '#79B45D',
+          },
+          headerTitleStyle: {
+            color: 'white',
+            fontSize: 20
+          }
+        // }
       }
     }
   }
