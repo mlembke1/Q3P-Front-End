@@ -10,9 +10,7 @@ export default class App extends React.Component {
 
     this.state = {
       signedIn: false,
-      checkedSignIn: false,
-      userDecks: [],
-      publicDecks: [],
+      checkedSignIn: false
     }
   }
 
@@ -20,29 +18,6 @@ export default class App extends React.Component {
     isSignedIn()
       .then(res => this.setState({ signedIn: res, checkedSignIn: true }))
       .catch(err => alert("An error occurred"))
-
-    this.fetchAllUserDecks()
-    this.fetchAllPublicDecks()
-  }
-
-  fetchAllUserDecks(){
-    axios.get(`${REACT_APP_API_URL}/getAllDecksForUser`)
-    .then(r => {
-      this.setState({
-        userDecks: [ ...this.state.userDecks, r ]
-      })
-    })
-    .catch(err => console.log(err))
-  }
-
-  fetchAllPublicDecks(){
-    axios.get(`${REACT_APP_API_URL}/getAllPublicDecks`)
-    .then(r => {
-      this.setState({
-        publicDecks: [ ...this.state.publicDecks, r ]
-      })
-    })
-    .catch(err => console.log(err))
   }
 
   render() {

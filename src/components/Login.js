@@ -1,4 +1,4 @@
-import React from "react"
+import React, { Component } from "react"
 import {
   Platform,
   StyleSheet,
@@ -24,7 +24,7 @@ const User = t.struct({
   terms: t.Boolean
 })
 
-var options = {
+const options = {
   auto: 'placeholders',
   fields: {
     username: {
@@ -39,78 +39,82 @@ var options = {
   }
 }
 
-handleLoginSubmit = () => {
-  const something = this._form.getValue()
-  const value = this._form.refs.input.refs.username.props.value
+export default class Login extends Component {
 
-  const currentUsers =
-  axios.get(`${REACT_APP_API_URL}/getAllUsers`)
-  .then(r => r)
-  .catch(err => err)
+  // doesUserExisit = async enteredUsername => {
+  //   await axios.get(`${REACT_APP_API_URL}/getAllUsers`)
+  //           .then(r => {
+  //             r.data.allUsers.some(x => x.username === enteredUsername)
+  //           })
+  //
+  // }
 
-  if (something !== null && currentUsers.includes(something.username)) {
-    const objectToPost = {
-      username: something.username,
-      password: something.password
+  doesUserExist = (enteredUsername) => {
+    return new Promise((resolve, reject) => {
+      axios.get(`${REACT_APP_API_URL}/getAllUsers`)
+      .then(r => {
+        if (r.data.allUsers.some(x => x.username === enteredUsername)) {
+          resolve()
+        } else {
+          reject()
+        }
+      })
+    })
+  }
+
+  handleLoginSubmit = () => {
+    const something = this._form.getValue()
+    const value = this._form.refs.input.refs.username.props.value
+     if (something !== null ) {
+       this.doesUserExist(something.username)
+        .then(() => {
+            const objectToPost = {
+              username: something.username,
+              password: something.password
+            }
+            this.loginUser(objectToPost)
+            onSignIn().then(() => this.props.navigation.navigate("SignedIn"))
+        })
+        .catch(() => alert('That user doesn\'t exist'))
+    } else {
+      console.log('whoops')
     }
-    this.loginUser(objectToPost)
-    return true
-  } else {
-    return false
+}
+
+  loginUser = (userToLogin) => {
+    axios.post(`${REACT_APP_API_URL}/login`, userToLogin)
+    .then(r => r)
+    .catch(err => err)
+  }
+
+  render(){
+    return (
+      <ImageBackground
+        source={require('../../assets/background-image.jpg')}
+        style={styles.backgroundImage} >
+        <ScrollView>
+          <View style={styles.container}>
+            <Card>
+              <Form
+                ref={c => this._form = c}
+                type={User}
+                options={options}
+                />
+              <Button
+                style={styles.loginBtn}
+                title="LOGIN"
+                fontSize={22}
+                borderRadius={100}
+                backgroundColor="#79B45D"
+                onPress={this.handleLoginSubmit}
+              />
+            </Card>
+          </View>
+        </ScrollView>
+      </ImageBackground>
+    )
   }
 }
-
-loginUser = (userToLogin) => {
-  axios.get(`${REACT_APP_API_URL}/login`, userToLogin)
-  .then(r => r)
-  .catch(err => err)
-}
-
-export default ({ navigation }) => (
-<<<<<<< HEAD
-  <ImageBackground
-    source={require('../../assets/background-image.jpg')}
-    style={styles.backgroundImage} >
-    <ScrollView>
-      <View style={styles.container}>
-        <Card>
-          <Form
-            ref={c => this._form = c}
-            type={User}
-            options={options}
-            />
-          <Button
-            style={styles.loginBtn}
-            title="LOGIN"
-            fontSize={22}
-            borderRadius={100}
-            backgroundColor="#79B45D"
-            onPress={() => { if (this.handleSubmit()) {
-              onSignIn().then(() => navigation.navigate("SignedIn"))
-=======
-  <ScrollView>
-    <View style={{paddingVertical: 150}}>
-      <Card>
-        <Form
-          ref={c => this._form = c}
-          type={User}
-          options={options}
-          />
-        <Button
-          buttonStyle={{ marginTop: 20 }}
-          backgroundColor="#03A9F4"
-          title="SIGN IN"
-          onPress={() => { if ( this.handleLoginSubmit() ) {
-            onSignIn().then(() => navigation.navigate("SignedIn"))
->>>>>>> added get request for login and signup
-            }
-          }}
-          />
-        </Card>
-      </View>
-    </ScrollView>
-  </ImageBackground>
-  )
 
 const styles = StyleSheet.create({
   container: {
