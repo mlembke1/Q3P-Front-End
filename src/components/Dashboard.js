@@ -44,24 +44,28 @@ export default ({ navigation }) => (
       <View style={styles.background}>
         <ScrollView contentContainerStyle={styles.container}>
           <StatusBar barStyle="light-content" />
-          <View style={styles.card}>
+          <View style={[styles.card, { backgroundColor: '#b4645d' }]}>
+            <Icon style={styles.cardIcon} name="folder-open" color="white" size={28} />
             <Text style={styles.cardTitle}>
               VIEW DECKS
             </Text>
           </View>
-          <View style={styles.card}>
+          <View style={[styles.card, { backgroundColor: '#b45da4' }]}>
+            <Icon style={styles.cardIcon} name="plus-square" color="white" size={28} />
             <Text style={styles.cardTitle}>
               CREATE NEW DECK
             </Text>
           </View>
-          <View style={styles.card}>
+          <View style={[styles.card, { backgroundColor: '#995db4'}]}>
+            <Icon style={styles.cardIcon} name="users" color="white" size={28} />
             <Text style={styles.cardTitle}>
               SOCIAL
             </Text>
           </View>
-          <View style={styles.card}>
+          <View style={[styles.card, { backgroundColor: '#5d96b4' }]}>
+            <Icon style={styles.cardIcon} name="user-circle" color="white" size={28} />
             <Text style={styles.cardTitle}>
-              OTHER
+              PROFILE
             </Text>
           </View>
           <Button
@@ -102,7 +106,12 @@ const styles = StyleSheet.create({
   },
   cardTitle: {
     textAlign: 'center',
-    fontFamily: 'Arial-BoldMT'
+    fontFamily: 'Arial-BoldMT',
+    color: 'white'
+  },
+  cardIcon: {
+    textAlign: 'center',
+    marginBottom: 10
   },
   background: {
     width: '100%',
