@@ -43,7 +43,7 @@ export default class Dashboard extends Component {
         <ScrollView contentContainerStyle={styles.container}>
           <StatusBar barStyle="light-content" />
           <View style={[styles.card, { backgroundColor: '#b4645d' }]}>
-            <Icon style={styles.cardIcon} name="user-circle" color="white" size={28} />
+            <Icon style={styles.cardIcon} name="folder-open" color="white" size={28} />
             <Text style={styles.cardTitle}>
               VIEW DECKS
             </Text>
