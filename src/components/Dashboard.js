@@ -58,10 +58,10 @@ export default class Dashboard extends Component {
     }
   }
 
-  // componentDidMount(){
-  //     this.fetchAllUserDecks()
-  //     this.fetchAllPublicDecks()
-  // }
+  componentDidMount(){
+      this.fetchAllUserDecks()
+      this.fetchAllPublicDecks()
+  }
 
   fetchAllUserDecks(){
     axios.get(`${REACT_APP_API_URL}/getAllDecksForUser`)
