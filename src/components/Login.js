@@ -23,7 +23,6 @@ const Form = t.form.Form
 const User = t.struct({
   username: t.String,
   password: t.String,
-  // terms: t.Boolean
 })
 
 
@@ -35,16 +34,20 @@ stylesheet.textbox.normal.width = 300;
 stylesheet.textbox.normal.marginLeft = 20;
 stylesheet.textbox.normal.marginRight = 20;
 stylesheet.textbox.normal.textAlign = 'center';
-// stylesheet.controlLabel.normal.color = 'grey';
-// stylesheet.controlLabel.normal.backgroundColor = 'white';
-// stylesheet.controlLabel.normal.padding = 5;
-// stylesheet.controlLabel.normal.textAlign = 'center';
-// stylesheet.controlLabel.normal.opacity = .95;
-// stylesheet.controlLabel.normal.borderRadius = 100;
-// stylesheet.controlLabel.normal.width = 150;
-// stylesheet.controlLabel.normal.display = 'flex';
-// stylesheet.controlLabel.normal.justifyContent = 'center';
-// stylesheet.controlLabel.normal.left = 100;
+stylesheet.errorBlock.backgroundColor = 'tomato';
+stylesheet.errorBlock.width = 240;
+stylesheet.errorBlock.marginLeft = 50;
+stylesheet.errorBlock.marginRight = 30;
+stylesheet.errorBlock.color = 'white';
+stylesheet.errorBlock.textAlign = 'center';
+stylesheet.textbox.error.backgroundColor = 'white';
+stylesheet.textbox.error.borderRadius = 100;
+stylesheet.textbox.error.height = 50;
+stylesheet.textbox.error.width = 300;
+stylesheet.textbox.error.marginLeft = 20;
+stylesheet.textbox.error.marginRight = 20;
+stylesheet.textbox.error.textAlign = 'center';
+
 
 
 console.log(stylesheet)
@@ -54,10 +57,10 @@ const options = {
   auto: 'placeholders',
   fields: {
     username: {
-      error: 'Insert a valid username'
+      error: <Text>Insert a valid username</Text>
     },
     password: {
-      error: 'Insert a valid password'
+      error: <Text>Insert a valid password</Text>
     }
   }
 }
@@ -126,12 +129,6 @@ export default class Login extends Component {
                 backgroundColor="#79B45D"
                 onPress={this.handleLoginSubmit}
               />
-            {/* <View style={styles.rememberMeContainer}>
-              <Text>
-                Remember Me
-              </Text>
-              <Switch></Switch>
-            </View> */}
           </View>
         </ScrollView>
       </ImageBackground>
@@ -157,10 +154,5 @@ const styles = StyleSheet.create({
     backgroundColor:'transparent',
     justifyContent: 'center',
     alignItems: 'center'
-  },
-  rememberMeContainer: {
-    backgroundColor: 'white',
-    borderRadius: 100,
-    textAlign: 'center'
   }
 })

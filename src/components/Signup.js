@@ -32,13 +32,26 @@ const User = t.struct({
 })
 
 const stylesheet = _.cloneDeep(t.form.Form.stylesheet)
-stylesheet.textbox.normal.borderRadius = 100
-stylesheet.textbox.normal.height = 50
-stylesheet.textbox.normal.backgroundColor = 'white'
-stylesheet.textbox.normal.width = 300
-stylesheet.textbox.normal.marginLeft = 20
-stylesheet.textbox.normal.marginRight = 20
-stylesheet.textbox.normal.textAlign = 'center'
+stylesheet.textbox.normal.borderRadius = 100;
+stylesheet.textbox.normal.height = 50;
+stylesheet.textbox.normal.backgroundColor = 'white';
+stylesheet.textbox.normal.width = 300;
+stylesheet.textbox.normal.marginLeft = 20;
+stylesheet.textbox.normal.marginRight = 20;
+stylesheet.textbox.normal.textAlign = 'center';
+stylesheet.errorBlock.backgroundColor = 'tomato';
+stylesheet.errorBlock.width = 240;
+stylesheet.errorBlock.marginLeft = 50;
+stylesheet.errorBlock.marginRight = 30;
+stylesheet.errorBlock.color = 'white';
+stylesheet.errorBlock.textAlign = 'center';
+stylesheet.textbox.error.backgroundColor = 'white';
+stylesheet.textbox.error.borderRadius = 100;
+stylesheet.textbox.error.height = 50;
+stylesheet.textbox.error.width = 300;
+stylesheet.textbox.error.marginLeft = 20;
+stylesheet.textbox.error.marginRight = 20;
+stylesheet.textbox.error.textAlign = 'center';
 
 var options = {
   auto: 'placeholders',

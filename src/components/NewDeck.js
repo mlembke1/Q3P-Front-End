@@ -45,6 +45,7 @@ const options = {
 }
 
 export default class NewDeck extends Component {
+
   postNewDeck = () => {
     let obj = {}
     if (this._form.getValue() === null) {
