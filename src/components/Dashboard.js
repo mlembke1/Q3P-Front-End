@@ -48,22 +48,22 @@ export default class Dashboard extends Component {
 
   fetchAllUserDecks(){
     axios.get(`${REACT_APP_API_URL}/getAllDecksForUser`)
-    .then(r => {
-      this.setState({
-        userDecks: r.data.userDecks
+      .then((r) => {
+        this.setState({
+          userDecks: r.data.userDecks
+        })
       })
-    })
-    .catch(err => console.log(err))
+      .catch(err => console.log(err))
   }
 
   fetchAllPublicDecks(){
     axios.get(`${REACT_APP_API_URL}/getAllPublicDecks`)
-    .then(r => {
-      this.setState({
-        publicDecks: r.data.publicDecks
+      .then((r) => {
+        this.setState({
+          publicDecks: r.data.publicDecks
+        })
       })
-    })
-    .catch(err => console.log(err))
+      .catch(err => console.log(err))
   }
 
 
@@ -79,7 +79,7 @@ export default class Dashboard extends Component {
               <Text style={{ color: "white", fontSize: 28 }}>JD</Text>
             </View>
           </View>
-          <TouchableHighlight onPress={() => this.props.navigation.navigate('Decks')}>
+          <TouchableHighlight onPress={() => this.props.navigation.navigate('Decks', { userDecks: this.state.userDecks })}>
             <View style={[styles.card, { backgroundColor: '#b4645d' }]}>
               <Icon style={styles.cardIcon} name="folder-open" color="white" size={34} />
               <Text style={styles.cardTitle}>

@@ -13,7 +13,8 @@ import {
 } from 'react-native'
 import {
   createStackNavigator,
-  createSwitchNavigator
+  createSwitchNavigator,
+  NavigationActions
 } from "react-navigation"
 import Icon from 'react-native-vector-icons/FontAwesome'
 import Signup from "./Signup"
@@ -24,6 +25,7 @@ import Decks from "./Decks"
 import Dashboard from "./Dashboard"
 import WelcomePage from "./WelcomePage"
 import CardList from "./CardList"
+import NewDeck from "./NewDeck"
 
 const headerStyle = {
   marginTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
@@ -118,20 +120,39 @@ export const SignedIn = createStackNavigator(
     Decks: {
       screen: Decks,
       navigationOptions: {
-          title: 'My Decks',
-          headerTintColor: '#FFFFFF',
-          headerRight: (
-            <View>
-              <Icon name="gear" color="white" size={28} style={{paddingRight: 20}} />
-            </View>
-          ),
-          headerStyle: {
-            backgroundColor: '#79B45D',
-          },
-          headerTitleStyle: {
-            color: 'white',
-            fontSize: 20
-          }
+        title: 'My Decks',
+        headerTintColor: '#FFFFFF',
+        headerRight: (
+          <View>
+            <Icon name="gear" color="white" size={28} style={{ paddingRight: 20 }} onPress={() => NavigationActions.navigate('Settings')} />
+          </View>
+        ),
+        headerStyle: {
+          backgroundColor: '#79B45D',
+        },
+        headerTitleStyle: {
+          color: 'white',
+          fontSize: 20
+        }
+      }
+    },
+    NewDeck: {
+      screen: NewDeck,
+      navigationOptions: {
+        title: 'Create a New Deck',
+        headerStyle: {
+          backgroundColor: '#79B45D',
+        },
+        headerTitleStyle: {
+          color: 'white',
+          fontSize: 20
+        },
+        headerTintColor: '#FFFFFF',
+        headerRight: (
+          <View>
+            <Icon name="gear" color="white" size={28} style={{paddingRight: 20}}  />
+          </View>
+        )
       }
     }
   }
