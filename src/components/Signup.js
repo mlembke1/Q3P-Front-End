@@ -31,7 +31,7 @@ const User = t.struct({
   password: t.String
 })
 
-const stylesheet = _.cloneDeep(t.form.Form.stylesheet);
+const stylesheet = _.cloneDeep(t.form.Form.stylesheet)
 stylesheet.textbox.normal.borderRadius = 100
 stylesheet.textbox.normal.height = 50
 stylesheet.textbox.normal.backgroundColor = 'white'
@@ -39,7 +39,6 @@ stylesheet.textbox.normal.width = 300
 stylesheet.textbox.normal.marginLeft = 20
 stylesheet.textbox.normal.marginRight = 20
 stylesheet.textbox.normal.textAlign = 'center'
-
 
 var options = {
   auto: 'placeholders',

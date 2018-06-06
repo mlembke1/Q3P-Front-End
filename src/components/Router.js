@@ -21,6 +21,7 @@ import Signup from "./Signup"
 import Login from "./Login"
 import Settings from "./Settings"
 import Decks from "./Decks"
+import Public from "./Public"
 import Dashboard from "./Dashboard"
 import WelcomePage from "./WelcomePage"
 import CardList from "./CardList"
@@ -116,6 +117,20 @@ export const SignedIn = createStackNavigator(
         }
       }
     },
+    Public: {
+      screen: Public,
+      navigationOptions: {
+        title: 'Public',
+        headerTintColor: '#FFFFFF',
+        headerStyle: {
+          backgroundColor: '#79B45D',
+        },
+        headerTitleStyle: {
+          color: 'white',
+          fontSize: 20
+        }
+      }
+    },
     Decks: {
       screen: Decks,
       navigationOptions: {
@@ -157,7 +172,7 @@ export const SignedIn = createStackNavigator(
   }
 )
 
-export const createRootNavigator = (signedIn = false) => {
+export const createRootNavigator = (signedIn = false ) => {
   return createSwitchNavigator(
     {
       SignedIn: {

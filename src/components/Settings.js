@@ -83,7 +83,7 @@ export default class Settings extends Component {
             title="Logout"
             onPress={this.handleLogout} />
           </View>
-          <Text style={{ marginTop: 60 }}>
+          <Text style={{ marginTop: 100 }}>
             Version 1.0.0
           </Text>
       </ScrollView>

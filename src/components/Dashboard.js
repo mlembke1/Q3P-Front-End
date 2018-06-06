@@ -16,8 +16,8 @@ import { Button, Card } from 'react-native-elements'
 import { createStackNavigator } from 'react-navigation'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { onSignOut } from "./Auth"
-import axios from 'axios'
 import { REACT_APP_API_URL } from 'react-native-dotenv'
+import axios from 'axios'
 
 export default class Dashboard extends Component {
 
@@ -79,7 +79,11 @@ export default class Dashboard extends Component {
               <Text style={{ color: "white", fontSize: 28 }}>JD</Text>
             </View>
           </View>
+<<<<<<< HEAD
           <TouchableHighlight onPress={() => this.props.navigation.navigate('Decks', { userDecks: this.state.userDecks })}>
+=======
+          <TouchableHighlight underlayColor="transparent" activeOpacity={0.5} onPress={() => this.props.navigation.navigate('Decks')}>
+>>>>>>> social-branch
             <View style={[styles.card, { backgroundColor: '#b4645d' }]}>
               <Icon style={styles.cardIcon} name="folder-open" color="white" size={34} />
               <Text style={styles.cardTitle}>
@@ -87,26 +91,30 @@ export default class Dashboard extends Component {
               </Text>
             </View>
           </TouchableHighlight>
-          <View style={[styles.card, { backgroundColor: '#b45da4' }]}>
-            <Icon style={styles.cardIcon} name="plus-square" color="white" size={34} />
-            <Text style={styles.cardTitle}>
-              CREATE DECK
-            </Text>
-          </View>
-          <View style={[styles.card, { backgroundColor: '#995db4'}]}>
-            <Icon style={styles.cardIcon} name="users" color="white" size={34} />
-            <Text style={styles.cardTitle}>
-              SOCIAL
-            </Text>
-          </View>
-          <TouchableHighlight onPress={() => this.props.navigation.navigate('Settings')}>
-          <View style={[styles.card, { backgroundColor: '#5d96b4' }]}>
-            <Icon style={styles.cardIcon} name="gear" color="white" size={34} />
-            <Text style={styles.cardTitle}>
-              SETTINGS
-            </Text>
-          </View>
-        </TouchableHighlight>
+          <TouchableHighlight underlayColor="transparent" activeOpacity={0.5} onPress={() => this.props.navigation.navigate('CreateCard')}>
+            <View style={[styles.card, { backgroundColor: '#b45da4' }]}>
+              <Icon style={styles.cardIcon} name="plus-square" color="white" size={34} />
+              <Text style={styles.cardTitle}>
+                CREATE DECK
+              </Text>
+            </View>
+          </TouchableHighlight>
+          <TouchableHighlight underlayColor="transparent" activeOpacity={0.5} onPress={() => this.props.navigation.navigate('Public', { publicDecks: this.state.publicDecks })}>
+            <View style={[styles.card, { backgroundColor: '#995db4'}]}>
+              <Icon style={styles.cardIcon} name="users" color="white" size={34} />
+              <Text style={styles.cardTitle}>
+                PUBLIC
+              </Text>
+            </View>
+          </TouchableHighlight>
+          <TouchableHighlight underlayColor="transparent" activeOpacity={0.5} onPress={() => this.props.navigation.navigate('Settings')}>
+            <View style={[styles.card, { backgroundColor: '#5d96b4' }]}>
+              <Icon style={styles.cardIcon} name="gear" color="white" size={34} />
+              <Text style={styles.cardTitle}>
+                SETTINGS
+              </Text>
+            </View>
+          </TouchableHighlight>
         </ScrollView>
       </View>
     )
