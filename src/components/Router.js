@@ -13,17 +13,18 @@ import {
 } from 'react-native'
 import {
   createStackNavigator,
-  createSwitchNavigator
+  createSwitchNavigator,
+  NavigationActions
 } from "react-navigation"
 import Icon from 'react-native-vector-icons/FontAwesome'
 import Signup from "./Signup"
 import Login from "./Login"
-import Home from "./Home"
 import Settings from "./Settings"
 import Decks from "./Decks"
 import Dashboard from "./Dashboard"
 import WelcomePage from "./WelcomePage"
 import CardList from "./CardList"
+import NewDeck from "./NewDeck"
 
 const headerStyle = {
   marginTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
@@ -85,10 +86,9 @@ export const SignedOut = createStackNavigator({
 
 export const SignedIn = createStackNavigator(
   {
-    Home: {
+    Dashboard: {
       screen: Dashboard,
       navigationOptions: {
-        // tabBarLabel: "Home",
         title: 'MY DASHBOARD',
         headerStyle: {
           backgroundColor: '#79B45D',
@@ -100,7 +100,6 @@ export const SignedIn = createStackNavigator(
           fontWeight: '300',
           letterSpacing: 6
         }
-        // }
       }
     },
     Settings: {
@@ -120,20 +119,39 @@ export const SignedIn = createStackNavigator(
     Decks: {
       screen: Decks,
       navigationOptions: {
-          title: 'My Decks',
-          headerTintColor: '#FFFFFF',
-          headerRight: (
-            <View>
-              <Icon name="gear" color="white" size={28} style={{paddingRight: 20}} />
-            </View>
-          ),
-          headerStyle: {
-            backgroundColor: '#79B45D',
-          },
-          headerTitleStyle: {
-            color: 'white',
-            fontSize: 20
-          }
+        title: 'My Decks',
+        headerTintColor: '#FFFFFF',
+        headerRight: (
+          <View>
+            <Icon name="gear" color="white" size={28} style={{ paddingRight: 20 }} />
+          </View>
+        ),
+        headerStyle: {
+          backgroundColor: '#79B45D',
+        },
+        headerTitleStyle: {
+          color: 'white',
+          fontSize: 20
+        }
+      }
+    },
+    NewDeck: {
+      screen: NewDeck,
+      navigationOptions: {
+        title: 'Create a New Deck',
+        headerStyle: {
+          backgroundColor: '#79B45D',
+        },
+        headerTitleStyle: {
+          color: 'white',
+          fontSize: 20
+        },
+        headerTintColor: '#FFFFFF',
+        headerRight: (
+          <View>
+            <Icon name="gear" color="white" size={28} style={{paddingRight: 20}}  />
+          </View>
+        )
       }
     }
   }

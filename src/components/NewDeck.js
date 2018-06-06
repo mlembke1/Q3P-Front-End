@@ -14,25 +14,27 @@ import {
 import { Button, Card, List, ListItem } from 'react-native-elements'
 import { StackNavigator } from 'react-navigation'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import t from 'tcomb-form-native'
+
+const Form = t.form.Form
+const Deck = t.struct({
+  title: t.String,
+  subject: t.String,
+  public: t.Boolean
+})
+const options = {}
 
 export default class Decks extends Component {
-  componentDidMount() {
-  }
 
-  onPress = () => {
-    this.props.navigation.navigate('NewDeck')
-  }
 
   render(){
-    return(
+    return (
       <ScrollView contentContainerStyle={styles.container}>
         <StatusBar barStyle="light-content" />
-        <Button title="Create New Deck" onPress={this.onPress} backgroundColor={'#79B45D'} style={styles.button} />
-        <List containerStyle={styles.list}>
-          {
-            this.props.navigation.state.params.userDecks.map((deck, i) => <ListItem author={deck.author} id={deck.id} key={i} title={deck.title} subtitle={deck.subject} />)
-          }
-        </List>
+        <Form
+          ref={c => this._form = x}
+          type={Deck}
+          options={options}/>
       </ScrollView>
     )
   }
@@ -56,12 +58,8 @@ const styles = StyleSheet.create({
     color: 'white',
     textAlign: 'center'
   },
-  list : {
+  list: {
     width,
     marginTop: 0
-  },
-  button: {
-    marginTop: 10,
-    marginBottom: 10
   }
 })

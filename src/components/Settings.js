@@ -1,4 +1,4 @@
-import React from "react"
+import React, { Component } from "react"
 import {
   Platform,
   StyleSheet,
@@ -15,12 +15,48 @@ import {
 } from 'react-native'
 import { Card, Button } from "react-native-elements"
 import { onSignOut } from "./Auth"
+import axios from 'axios'
+import { REACT_APP_API_URL } from 'react-native-dotenv'
 
-export default ({ navigation }) => (
+
+export default class Settings extends Component {
+
+  constructor(){
+    super()
+    this.state = {
+      currentUser: null
+    }
+  }
+
+  componentDidMount(){
+    this.getCurrentUser()
+  }
+
+  getCurrentUser(){
+    axios.get(`${REACT_APP_API_URL}/getCurrentUser`)
+    .then(r => {
+      this.setState({
+        currentUser: r.data.currentUser
+      })
+    })
+    .catch(() => console.log('Whoops, something went wrong getting the current user'))
+  }
+
+  handleLogout = () => {
+    axios.get(`${REACT_APP_API_URL}/logout`)
+    .then(r => {
+      if(r.data.logoutStatus === 'success'){
+          onSignOut().then(() => this.props.navigation.navigate("SignedOut"))
+      }
+    })
+  }
+
+  render(){
+    return (
       <ScrollView contentContainerStyle={styles.container}>
         <StatusBar barStyle="light-content" />
         <View style={styles.profile}>
-          <Text style={styles.username}>John Doe</Text>
+          <Text style={styles.username}>{ this.state.currentUser }</Text>
           <View
             style={styles.imagePlaceholder}>
             <Text style={{ color: "white", fontSize: 28 }}>JD</Text>
@@ -45,13 +81,15 @@ export default ({ navigation }) => (
             backgroundColor="#79B45D"
             style={styles.logoutBtn}
             title="Logout"
-            onPress={() => onSignOut().then(() => navigation.navigate("SignedOut"))} />
+            onPress={this.handleLogout} />
           </View>
           <Text style={{ marginTop: 60 }}>
             Version 1.0.0
           </Text>
       </ScrollView>
-  )
+    )
+  }
+}
 
 const width = Dimensions.get('window').width
 
