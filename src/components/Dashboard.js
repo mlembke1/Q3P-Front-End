@@ -18,44 +18,49 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import SettingsModal from './SettingsModal'
 import { onSignOut } from "./Auth"
 
-export default ({ navigation }) => (
-  <View style={styles.background}>
-    <ScrollView contentContainerStyle={styles.container}>
-      <StatusBar barStyle="light-content" />
-      <TouchableHighlight onPress={() => navigation.navigate('Decks')}>
-        <View style={[styles.card, { backgroundColor: '#b4645d' }]}>
-          <Icon style={styles.cardIcon} name="folder-open" color="white" size={34} />
-          <Text style={styles.cardTitle}>
-            VIEW DECKS
-          </Text>
-        </View>
-      </TouchableHighlight>
-      <View style={[styles.card, { backgroundColor: '#b45da4' }]}>
-        <Icon style={styles.cardIcon} name="plus-square" color="white" size={34} />
-        <Text style={styles.cardTitle}>
-          CREATE DECK
-        </Text>
+// export default ({ navigation }) => (
+export default class Dashboard extends Component {
+  render() {
+    return (
+      <View style={styles.background}>
+        <ScrollView contentContainerStyle={styles.container}>
+          <StatusBar barStyle="light-content" />
+          <TouchableHighlight onPress={() => this.props.navigation.navigate('Decks')}>
+            <View style={[styles.card, { backgroundColor: '#b4645d' }]}>
+              <Icon style={styles.cardIcon} name="folder-open" color="white" size={34} />
+              <Text style={styles.cardTitle}>
+                VIEW DECKS
+              </Text>
+            </View>
+          </TouchableHighlight>
+          <View style={[styles.card, { backgroundColor: '#b45da4' }]}>
+            <Icon style={styles.cardIcon} name="plus-square" color="white" size={34} />
+            <Text style={styles.cardTitle}>
+              CREATE DECK
+            </Text>
+          </View>
+          <View style={[styles.card, { backgroundColor: '#995db4'}]}>
+            <Icon style={styles.cardIcon} name="users" color="white" size={34} />
+            <Text style={styles.cardTitle}>
+              SOCIAL
+            </Text>
+          </View>
+          <View style={[styles.card, { backgroundColor: '#5d96b4' }]}>
+            <Icon style={styles.cardIcon} name="gear" color="white" size={34} />
+            <Text style={styles.cardTitle}>
+              SETTINGS
+            </Text>
+          </View>
+          <Button
+            backgroundColor="#03A9F4"
+            title="LOGOUT"
+            onPress={() => onSignOut().then(() => this.props.navigation.navigate("SignedOut"))}
+          />
+        </ScrollView>
       </View>
-      <View style={[styles.card, { backgroundColor: '#995db4'}]}>
-        <Icon style={styles.cardIcon} name="users" color="white" size={34} />
-        <Text style={styles.cardTitle}>
-          SOCIAL
-        </Text>
-      </View>
-      <View style={[styles.card, { backgroundColor: '#5d96b4' }]}>
-        <Icon style={styles.cardIcon} name="gear" color="white" size={34} />
-        <Text style={styles.cardTitle}>
-          SETTINGS
-        </Text>
-      </View>
-      <Button
-        backgroundColor="#03A9F4"
-        title="LOGOUT"
-        onPress={() => onSignOut().then(() => navigation.navigate("SignedOut"))}
-      />
-    </ScrollView>
-  </View>
-)
+    )
+  }
+}
 
 const width = Dimensions.get('window').width
 

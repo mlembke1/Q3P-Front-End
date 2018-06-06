@@ -51,6 +51,7 @@ export const SignedOut = createStackNavigator({
     screen: Signup,
     navigationOptions: {
       title: "SIGN UP",
+      headerTintColor: '#FFFFFF',
       headerStyle: {
         backgroundColor: '#79B45D'
       },
@@ -67,6 +68,7 @@ export const SignedOut = createStackNavigator({
     screen: Login,
     navigationOptions: {
       title: "LOGIN",
+      headerTintColor: '#FFFFFF',
       headerStyle: {
         backgroundColor: '#79B45D'
       },
@@ -86,7 +88,6 @@ export const SignedIn = createStackNavigator(
     Home: {
       screen: Dashboard,
       navigationOptions: {
-        // tabBarLabel: "Home",
         title: 'MY DASHBOARD',
         headerStyle: {
           backgroundColor: '#79B45D',
@@ -98,7 +99,6 @@ export const SignedIn = createStackNavigator(
           fontWeight: '300',
           letterSpacing: 6
         }
-        // }
       }
     },
     Profile: {
@@ -110,13 +110,8 @@ export const SignedIn = createStackNavigator(
     Decks: {
       screen: Decks,
       navigationOptions: {
-        // tabBarLabel: "Home",
         title: 'My Decks',
-        headerLeft: (
-          <View>
-            <Icon name="bars" color="white" size={28} style={{ paddingLeft: 20 }} />
-          </View>
-        ),
+        headerTintColor: '#FFFFFF',
         headerRight: (
           <View>
             <Icon name="gear" color="white" size={28} style={{ paddingRight: 20 }} />
