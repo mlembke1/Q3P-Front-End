@@ -88,7 +88,6 @@ export const SignedIn = createStackNavigator(
     Home: {
       screen: Dashboard,
       navigationOptions: {
-        // tabBarLabel: "Home",
         title: 'MY DASHBOARD',
         headerStyle: {
           backgroundColor: '#79B45D',
@@ -100,7 +99,6 @@ export const SignedIn = createStackNavigator(
           fontWeight: '300',
           letterSpacing: 6
         }
-        // }
       }
     },
     Settings: {
