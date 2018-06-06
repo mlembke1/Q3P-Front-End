@@ -87,7 +87,7 @@ export default class Dashboard extends Component {
               </Text>
             </View>
           </TouchableHighlight>
-          <TouchableHighlight underlayColor="transparent" activeOpacity={0.5} onPress={() => this.props.navigation.navigate('CreateCard')}>
+          <TouchableHighlight underlayColor="transparent" activeOpacity={0.5} onPress={() => this.props.navigation.navigate('NewDeck')}>
             <View style={[styles.card, { backgroundColor: '#b45da4' }]}>
               <Icon style={styles.cardIcon} name="plus-square" color="white" size={34} />
               <Text style={styles.cardTitle}>
