@@ -56,10 +56,10 @@ export default class Settings extends Component {
       <ScrollView contentContainerStyle={styles.container}>
         <StatusBar barStyle="light-content" />
         <View style={styles.profile}>
-          <Text style={styles.username}>{ this.state.currentUser ? this.state.currentUser : 'John Doe' }</Text>
+          <Text style={styles.username}>{ this.state.currentUser ? this.state.currentUser : '' }</Text>
           <View
             style={styles.imagePlaceholder}>
-            <Text style={{ color: "white", fontSize: 28 }}>{ this.state.currentUser ? this.state.currentUser.slice(0, 1) : 'JD' }</Text>
+            <Text style={{ color: "white", fontSize: 28 }}>{ this.state.currentUser ? this.state.currentUser.slice(0, 1) : '' }</Text>
           </View>
         </View>
         <View style={styles.buttonContainer}>
