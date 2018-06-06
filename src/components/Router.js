@@ -19,7 +19,6 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome'
 import Signup from "./Signup"
 import Login from "./Login"
-import Home from "./Home"
 import Settings from "./Settings"
 import Decks from "./Decks"
 import Dashboard from "./Dashboard"
@@ -87,7 +86,7 @@ export const SignedOut = createStackNavigator({
 
 export const SignedIn = createStackNavigator(
   {
-    Home: {
+    Dashboard: {
       screen: Dashboard,
       navigationOptions: {
         title: 'MY DASHBOARD',
@@ -124,7 +123,7 @@ export const SignedIn = createStackNavigator(
         headerTintColor: '#FFFFFF',
         headerRight: (
           <View>
-            <Icon name="gear" color="white" size={28} style={{ paddingRight: 20 }} onPress={() => NavigationActions.navigate('Settings')} />
+            <Icon name="gear" color="white" size={28} style={{ paddingRight: 20 }} />
           </View>
         ),
         headerStyle: {

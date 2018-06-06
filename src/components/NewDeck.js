@@ -17,6 +17,11 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import t from 'tcomb-form-native'
 
 const Form = t.form.Form
+const Deck = t.struct({
+  username: t.String,
+  password: t.String,
+  terms: t.Boolean
+})
 
 export default class Decks extends Component {
 
@@ -25,7 +30,10 @@ export default class Decks extends Component {
     return (
       <ScrollView contentContainerStyle={styles.container}>
         <StatusBar barStyle="light-content" />
-        <Form ref={c => this._form = x} />
+        <Form
+          ref={c => this._form = x}
+          type={User}
+          options={options}/>
       </ScrollView>
     )
   }
