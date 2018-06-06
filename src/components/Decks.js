@@ -20,7 +20,7 @@ export default class Decks extends Component {
   }
 
   onPress = () => {
-    this.props.navigation.navigate('NewDeck')
+    this.props.navigation.navigate('NewDeck', { fetchAllUserDecks: this.props.navigation.state.params.fetchAllUserDecks })
   }
 
   render(){

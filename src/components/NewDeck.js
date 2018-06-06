@@ -44,11 +44,7 @@ const options = {
   auto: 'placeholders'
 }
 
-export default class Decks extends Component {
-
-  componentDidMount() {
-  }
-
+export default class NewDeck extends Component {
   postNewDeck = () => {
     let obj = {}
     if (this._form.getValue() === null) {
@@ -70,10 +66,11 @@ export default class Decks extends Component {
     }
     axios.post(`${REACT_APP_API_URL}/createDeck`, obj)
       .then((result) => {
-        console.log(result)
+        this.props.navigation.state.params.fetchAllUserDecks()
+        this.props.navigation.navigate('Decks')
       })
       .catch((err) => {
-        console.log(err)
+        console.log(`Could not create deck.\nErrorCode: ${err}`)
       })
   }
 

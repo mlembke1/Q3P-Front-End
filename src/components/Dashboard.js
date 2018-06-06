@@ -36,6 +36,7 @@ export default class Dashboard extends Component {
       this.getCurrentUser()
   }
 
+
   getCurrentUser(){
     axios.get(`${REACT_APP_API_URL}/getCurrentUser`)
     .then(r => {
@@ -79,7 +80,7 @@ export default class Dashboard extends Component {
               <Text style={{ color: "white", fontSize: 28 }}>{this.state.currentUser ? this.state.currentUser.slice(0, 1) : ''}</Text>
             </View>
           </View>
-          <TouchableHighlight underlayColor="transparent" activeOpacity={0.5} onPress={() => this.props.navigation.navigate('Decks', { userDecks: this.state.userDecks })}>
+          <TouchableHighlight underlayColor="transparent" activeOpacity={0.5} onPress={() => this.props.navigation.navigate('Decks', { userDecks: this.state.userDecks, fetchAllUserDecks: this.fetchAllUserDecks })}>
             <View style={[styles.card, { backgroundColor: '#b4645d' }]}>
               <Icon style={styles.cardIcon} name="folder-open" color="white" size={34} />
               <Text style={styles.cardTitle}>
@@ -87,7 +88,7 @@ export default class Dashboard extends Component {
               </Text>
             </View>
           </TouchableHighlight>
-          <TouchableHighlight underlayColor="transparent" activeOpacity={0.5} onPress={() => this.props.navigation.navigate('NewDeck')}>
+          <TouchableHighlight underlayColor="transparent" activeOpacity={0.5} onPress={() => this.props.navigation.navigate('NewDeck', { fetchAllUserDecks: this.fetchAllUserDecks })}>
             <View style={[styles.card, { backgroundColor: '#b45da4' }]}>
               <Icon style={styles.cardIcon} name="plus-square" color="white" size={34} />
               <Text style={styles.cardTitle}>
