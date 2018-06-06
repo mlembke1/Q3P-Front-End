@@ -47,7 +47,7 @@ export default ({ navigation }) => (
             title="Logout"
             onPress={() => onSignOut().then(() => navigation.navigate("SignedOut"))} />
           </View>
-          <Text style={{ marginTop: 60 }}>
+          <Text style={{ marginTop: 100 }}>
             Version 1.0.0
           </Text>
       </ScrollView>

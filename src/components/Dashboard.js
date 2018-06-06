@@ -25,14 +25,43 @@ export default class Dashboard extends Component {
     super()
     this.state = {
       userDecks: [],
-      publicDecks: []
+      publicDecks: [
+        {
+          id: 0,
+          title: 'Javascript for Toddlers',
+          subject: 'Javascript',
+          author: 'Nathan',
+          public: 'T'
+        },
+        {
+          id: 1,
+          title: 'Javascript for the Elderly',
+          subject: 'Javascript',
+          author: 'Nathan',
+          public: 'T'
+        },
+        {
+          id: 2,
+          title: 'Javascript for the Alien Races',
+          subject: 'Javascript',
+          author: 'Nathan',
+          public: 'T'
+        },
+        {
+          id: 3,
+          title: 'React from the Viewpoint of Goats',
+          subject: 'React',
+          author: 'Nathan',
+          public: 'T'
+        }
+      ]
     }
   }
 
-  componentDidMount(){
-      this.fetchAllUserDecks()
-      this.fetchAllPublicDecks()
-  }
+  // componentDidMount(){
+  //     this.fetchAllUserDecks()
+  //     this.fetchAllPublicDecks()
+  // }
 
   fetchAllUserDecks(){
     axios.get(`${REACT_APP_API_URL}/getAllDecksForUser`)
@@ -67,7 +96,7 @@ export default class Dashboard extends Component {
               <Text style={{ color: "white", fontSize: 28 }}>JD</Text>
             </View>
           </View>
-          <TouchableHighlight onPress={() => this.props.navigation.navigate('Decks')}>
+          <TouchableHighlight underlayColor="transparent" activeOpacity={0.5} onPress={() => this.props.navigation.navigate('Decks')}>
             <View style={[styles.card, { backgroundColor: '#b4645d' }]}>
               <Icon style={styles.cardIcon} name="folder-open" color="white" size={34} />
               <Text style={styles.cardTitle}>
@@ -75,26 +104,30 @@ export default class Dashboard extends Component {
               </Text>
             </View>
           </TouchableHighlight>
-          <View style={[styles.card, { backgroundColor: '#b45da4' }]}>
-            <Icon style={styles.cardIcon} name="plus-square" color="white" size={34} />
-            <Text style={styles.cardTitle}>
-              CREATE DECK
-            </Text>
-          </View>
-          <View style={[styles.card, { backgroundColor: '#995db4'}]}>
-            <Icon style={styles.cardIcon} name="users" color="white" size={34} />
-            <Text style={styles.cardTitle}>
-              SOCIAL
-            </Text>
-          </View>
-          <TouchableHighlight onPress={() => this.props.navigation.navigate('Settings')}>
-          <View style={[styles.card, { backgroundColor: '#5d96b4' }]}>
-            <Icon style={styles.cardIcon} name="gear" color="white" size={34} />
-            <Text style={styles.cardTitle}>
-              SETTINGS
-            </Text>
-          </View>
-        </TouchableHighlight>
+          <TouchableHighlight underlayColor="transparent" activeOpacity={0.5} onPress={() => this.props.navigation.navigate('CreateCard')}>
+            <View style={[styles.card, { backgroundColor: '#b45da4' }]}>
+              <Icon style={styles.cardIcon} name="plus-square" color="white" size={34} />
+              <Text style={styles.cardTitle}>
+                CREATE DECK
+              </Text>
+            </View>
+          </TouchableHighlight>
+          <TouchableHighlight underlayColor="transparent" activeOpacity={0.5} onPress={() => this.props.navigation.navigate('Public', { publicDecks: this.state.publicDecks })}>
+            <View style={[styles.card, { backgroundColor: '#995db4'}]}>
+              <Icon style={styles.cardIcon} name="users" color="white" size={34} />
+              <Text style={styles.cardTitle}>
+                PUBLIC
+              </Text>
+            </View>
+          </TouchableHighlight>
+          <TouchableHighlight underlayColor="transparent" activeOpacity={0.5} onPress={() => this.props.navigation.navigate('Settings')}>
+            <View style={[styles.card, { backgroundColor: '#5d96b4' }]}>
+              <Icon style={styles.cardIcon} name="gear" color="white" size={34} />
+              <Text style={styles.cardTitle}>
+                SETTINGS
+              </Text>
+            </View>
+          </TouchableHighlight>
         </ScrollView>
       </View>
     )

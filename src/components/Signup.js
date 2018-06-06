@@ -15,6 +15,7 @@ import t from 'tcomb-form-native'
 import { onSignIn } from "./Auth"
 import { REACT_APP_API_URL } from 'react-native-dotenv'
 import axios from 'axios'
+const _ = require('lodash')
 
 const Form = t.form.Form
 
@@ -30,57 +31,82 @@ const User = t.struct({
   password: t.String
 })
 
+const stylesheet = _.cloneDeep(t.form.Form.stylesheet)
+stylesheet.textbox.normal.borderRadius = 100
+stylesheet.textbox.normal.height = 50
+stylesheet.textbox.normal.backgroundColor = 'white'
+stylesheet.textbox.normal.width = 300
+stylesheet.textbox.normal.marginLeft = 20
+stylesheet.textbox.normal.marginRight = 20
+stylesheet.textbox.normal.textAlign = 'center'
+
 var options = {
   auto: 'placeholders',
+  stylesheet,
   fields: {
     email: {
-      error: 'Insert a valid email'
+      error: 'Insert a valid email',
     },
     username: {
-      error: 'Insert a valid username'
+      error: 'Insert a valid username',
     },
     password: {
-      error: 'Insert a valid password'
+      error: 'Insert a valid password',
     }
   }
 }
 
-handleSignupSubmit = () => {
-  const something = this._form.getValue()
-  const value = this._form.refs.input.refs.email.props.value
-
-  return axios.get(`${REACT_APP_API_URL}/getAllUsers`)
-    .then((r) => {
-      if (something !== null && r.data.allUsers.some(x => x.username === something.username)) {
-        const objectToPost = {
-          username: something.username,
-          email: something.email,
-          password: something.password
-        }
-        this.postUser(objectToPost)
-        return true
-      } else {
-        return false
-      }
-    })
-    .catch(err => err)
-}
-
-postUser = (newUserObject) => {
-  axios.post(`${REACT_APP_API_URL}/signup`, newUserObject)
-  .then(r => r)
-  .catch(err => err)
-}
-
 export default class Signup extends Component {
-  render(){
+
+
+  doesUserExist = (enteredUsername) => {
+    return new Promise((resolve, reject) => {
+      axios.get(`${REACT_APP_API_URL}/getAllUsers`)
+      .then(r => {
+        if (r.data.allUsers.some(x => x.username === enteredUsername)) {
+          reject()
+        } else {
+          resolve()
+        }
+      })
+    })
+  }
+
+  handleSignupSubmit = () => {
+    const something = this._form.getValue()
+    const value = this._form.refs.input.refs.email.props.value
+
+    if (something !== null ) {
+      this.doesUserExist(something.username)
+       .then(() => {
+           const objectToPost = {
+             username: something.username,
+             password: something.password,
+             email: something.email
+           }
+           this.postUser(objectToPost)
+           onSignIn().then(() => this.props.navigation.navigate("SignedIn"))
+       })
+       .catch(() => alert('That username has already been taken'))
+   } else {
+     console.log('whoops')
+   }
+  }
+
+  postUser = (newUserObject) => {
+    axios.post(`${REACT_APP_API_URL}/signup`, newUserObject)
+    .then(r => r)
+    .catch(err => err)
+  }
+
+
+  render() {
     return (
       <ImageBackground
         source={require('../../assets/background-image.jpg')}
         style={styles.backgroundImage} >
         <ScrollView>
           <View style={styles.container}>
-            <Card>
               <Form
                 ref={c => this._form = c}
                 type={User}
@@ -92,12 +118,8 @@ export default class Signup extends Component {
                 fontSize={22}
                 borderRadius={100}
                 backgroundColor="#79B45D"
-                onPress={() => { if (this.handleSignupSubmit()) {
-                  onSignIn().then(() => this.props.navigation.navigate("SignedIn"))
-                }
-              }}
+                onPress={this.handleSignupSubmit}
               />
-            </Card>
           </View>
         </ScrollView>
       </ImageBackground>

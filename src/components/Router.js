@@ -18,9 +18,9 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome'
 import Signup from "./Signup"
 import Login from "./Login"
-import Home from "./Home"
 import Settings from "./Settings"
 import Decks from "./Decks"
+import Public from "./Public"
 import Dashboard from "./Dashboard"
 import WelcomePage from "./WelcomePage"
 import CardList from "./CardList"
@@ -85,10 +85,9 @@ export const SignedOut = createStackNavigator({
 
 export const SignedIn = createStackNavigator(
   {
-    Home: {
+    Dashboard: {
       screen: Dashboard,
       navigationOptions: {
-        // tabBarLabel: "Home",
         title: 'MY DASHBOARD',
         headerStyle: {
           backgroundColor: '#79B45D',
@@ -100,13 +99,26 @@ export const SignedIn = createStackNavigator(
           fontWeight: '300',
           letterSpacing: 6
         }
-        // }
       }
     },
     Settings: {
       screen: Settings,
       navigationOptions: {
         title: 'My Settings',
+        headerTintColor: '#FFFFFF',
+        headerStyle: {
+          backgroundColor: '#79B45D',
+        },
+        headerTitleStyle: {
+          color: 'white',
+          fontSize: 20
+        }
+      }
+    },
+    Public: {
+      screen: Public,
+      navigationOptions: {
+        title: 'Public',
         headerTintColor: '#FFFFFF',
         headerStyle: {
           backgroundColor: '#79B45D',
@@ -139,7 +151,7 @@ export const SignedIn = createStackNavigator(
   }
 )
 
-export const createRootNavigator = (signedIn = false) => {
+export const createRootNavigator = (signedIn = false ) => {
   return createSwitchNavigator(
     {
       SignedIn: {
