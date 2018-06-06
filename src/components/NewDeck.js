@@ -18,10 +18,11 @@ import t from 'tcomb-form-native'
 
 const Form = t.form.Form
 const Deck = t.struct({
-  username: t.String,
-  password: t.String,
-  terms: t.Boolean
+  title: t.String,
+  subject: t.String,
+  public: t.Boolean
 })
+const options = {}
 
 export default class Decks extends Component {
 
@@ -32,7 +33,7 @@ export default class Decks extends Component {
         <StatusBar barStyle="light-content" />
         <Form
           ref={c => this._form = x}
-          type={User}
+          type={Deck}
           options={options}/>
       </ScrollView>
     )
