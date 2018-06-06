@@ -79,11 +79,7 @@ export default class Dashboard extends Component {
               <Text style={{ color: "white", fontSize: 28 }}>JD</Text>
             </View>
           </View>
-<<<<<<< HEAD
-          <TouchableHighlight onPress={() => this.props.navigation.navigate('Decks', { userDecks: this.state.userDecks })}>
-=======
-          <TouchableHighlight underlayColor="transparent" activeOpacity={0.5} onPress={() => this.props.navigation.navigate('Decks')}>
->>>>>>> social-branch
+          <TouchableHighlight underlayColor="transparent" activeOpacity={0.5} onPress={() => this.props.navigation.navigate('Decks', { userDecks: this.state.userDecks })}>
             <View style={[styles.card, { backgroundColor: '#b4645d' }]}>
               <Icon style={styles.cardIcon} name="folder-open" color="white" size={34} />
               <Text style={styles.cardTitle}>
