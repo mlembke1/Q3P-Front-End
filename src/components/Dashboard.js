@@ -25,13 +25,25 @@ export default class Dashboard extends Component {
     super()
     this.state = {
       userDecks: [],
-      publicDecks: []
+      publicDecks: [],
+      currentUser: null
     }
   }
 
   componentDidMount(){
       this.fetchAllUserDecks()
       this.fetchAllPublicDecks()
+      this.getCurrentUser()
+  }
+
+  getCurrentUser(){
+    axios.get(`${REACT_APP_API_URL}/getCurrentUser`)
+    .then(r => {
+      this.setState({
+        currentUser: r.data.currentUser
+      })
+    })
+    .catch(() => console.log('Whoops, something went wrong getting the current user'))
   }
 
   fetchAllUserDecks(){
@@ -61,7 +73,7 @@ export default class Dashboard extends Component {
         <ScrollView contentContainerStyle={styles.container}>
           <StatusBar barStyle="light-content" />
           <View style={styles.profile}>
-            <Text style={styles.username}>John Doe</Text>
+            <Text style={styles.username}>{ this.state.currentUser }</Text>
             <View
               style={styles.imagePlaceholder}>
               <Text style={{ color: "white", fontSize: 28 }}>JD</Text>
