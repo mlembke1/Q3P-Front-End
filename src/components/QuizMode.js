@@ -11,8 +11,9 @@ import {
   Image,
   StatusBar,
   Animated,
-  TouchableOpacity
+  TouchableWithoutFeedback
 } from 'react-native'
+import Swiper from 'react-native-swiper'
 import { Button, Card, List, ListItem } from 'react-native-elements'
 import { StackNavigator } from 'react-navigation'
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -25,9 +26,21 @@ const cards = [
     deck_id: 0
   },
   {
-    id: 0,
-    front: 'How much wood could a woodchuck chuck if a woodchuck could chuck wood?',
-    back: 'Too much!',
+    id: 1,
+    front: 'What is the Capital of Colorado?',
+    back: 'Pikes Peak',
+    deck_id: 0
+  },
+  {
+    id: 2,
+    front: 'Will he make it?',
+    back: 'He won\'t',
+    deck_id: 0
+  },
+  {
+    id: 3,
+    front: 'How far did Forest run?',
+    back: 'Nobody really knows.',
     deck_id: 0
   }
 ]
@@ -80,11 +93,11 @@ export default class CardList extends Component {
     return (
       <ScrollView contentContainerStyle={styles.container}>
         <StatusBar barStyle="light-content" />
-        {
-          cards.map((card, i) => (
-            <View id={card.id} key={i} styles={styles.container}>
-              <View>
-                <TouchableOpacity onPress={() => this.flipCard(i)}>
+        <Swiper loop={false} showPagination={false} index={0}>
+          {
+            cards.map((card, i) => (
+              <TouchableWithoutFeedback key={card.id} onPress={() => this.flipCard()}>
+                <View>
                   <Animated.View style={[styles.flipCard, frontAnimatedStyle]}>
                     <Text style={styles.flipText}>
                       {card.front}
@@ -95,11 +108,11 @@ export default class CardList extends Component {
                       {card.back}
                     </Text>
                   </Animated.View>
-                </TouchableOpacity>
-              </View>
-            </View>
-          ))
-        }
+                </View>
+              </TouchableWithoutFeedback>
+            ))
+          }
+        </Swiper>
       </ScrollView>
     )
   }
@@ -109,21 +122,17 @@ const width = Dimensions.get('window').width
 
 const styles = StyleSheet.create({
   container: {
-    display: 'flex',
     flex: 1,
     padding: 5,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center'
-  },
-  buttonContainer: {
-    width
+    justifyContent: 'center',
+    alignContent: 'center'
   },
   flipCard: {
-    width,
-    height: width,
+    width: width - 20,
+    height: (width / 2) + 70,
     margin: 5,
     justifyContent: 'center',
+    alignContent: 'center',
     backgroundColor: 'white',
     shadowColor: 'black',
     shadowOffset: { width: 3, height: 3 },

@@ -31,7 +31,7 @@ export default class Decks extends Component {
         <Button title="Create New Deck" onPress={this.onPress} backgroundColor={'#79B45D'} style={styles.button} />
         <List containerStyle={styles.list}>
           {
-            this.props.navigation.state.params.userDecks.map((deck, i) => <TouchableOpacity onPress={() => this.props.navigation.navigate('CardList')}><ListItem author={deck.author} id={deck.id} key={i} title={deck.title} subtitle={deck.subject} /></TouchableOpacity>)
+            this.props.navigation.state.params.userDecks.map((deck, i) => <TouchableOpacity key={deck.id} onPress={() => this.props.navigation.navigate('CardList')}><ListItem author={deck.author} id={deck.id} title={deck.title} subtitle={deck.subject} /></TouchableOpacity>)
           }
         </List>
       </ScrollView>
