@@ -24,12 +24,27 @@ export default class Decks extends Component {
   constructor(props){
     super(props)
       this.state = {
-        searchUserDecks: []
+        searchUserDecks: [],
+        userDecks: []
       }
+    }
+
+  fetchAllUserDecks = () => {
+    axios.get(`${REACT_APP_API_URL}/getAllDecksForUser`)
+      .then((r) => {
+        this.setState({
+          userDecks: r.data.userDecks
+        })
+      })
+      .catch(err => console.log(err))
+  }
+
+  componentDidMount() {
+    this.fetchAllUserDecks()
   }
 
   onPress = () => {
-    this.props.navigation.navigate('NewDeck', { fetchAllUserDecks: this.props.navigation.state.params.fetchAllUserDecks })
+    this.props.navigation.navigate('NewDeck')
   }
 
   searchInput = () => {

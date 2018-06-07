@@ -17,37 +17,33 @@ import Swiper from 'react-native-swiper'
 import { Button, Card, List, ListItem } from 'react-native-elements'
 import { StackNavigator } from 'react-navigation'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import { REACT_APP_API_URL } from 'react-native-dotenv'
+import axios from 'axios'
 
-const cards = [
-  {
-    id: 0,
-    front: 'How much wood could a woodchuck chuck if a woodchuck could chuck wood?',
-    back: 'Too much!',
-    deck_id: 0
-  },
-  {
-    id: 1,
-    front: 'What is the Capital of Colorado?',
-    back: 'Pikes Peak',
-    deck_id: 0
-  },
-  {
-    id: 2,
-    front: 'Will he make it?',
-    back: 'He won\'t',
-    deck_id: 0
-  },
-  {
-    id: 3,
-    front: 'How far did Forest run?',
-    back: 'Nobody really knows.',
-    deck_id: 0
-  }
-]
+
 
 export default class CardList extends Component {
+
+  constructor(){
+    super()
+    this.state = {
+      allCards: []
+    }
+  }
+
+  fetchAllCards = () => {
+    axios.post(`${REACT_APP_API_URL}/getAllCards`, {deck_id:this.props.navigation.state.params.deck_id})
+    .then(r => {
+      this.setState({
+        allCards: r.data.allCards
+      })
+    })
+    .catch(err => console.log(`Failed to get all cards`, err))
+  }
+
   componentWillMount() {
-    for (let i = 0; i < cards.length; i++) {
+      this.fetchAllCards()
+
       this.animatedValue = new Animated.Value(0)
       this.animatedValue.addListener(({ value }) => {
         this.value = value
@@ -60,8 +56,8 @@ export default class CardList extends Component {
         inputRange: [0, 180],
         outputRange: ['180deg', '360deg']
       })
-    }
   }
+
 
   flipCard() {
     if (this.value >= 90) {
@@ -95,7 +91,7 @@ export default class CardList extends Component {
         <StatusBar barStyle="light-content" />
         <Swiper loop={false} showPagination={false} index={0}>
           {
-            cards.map((card, i) => (
+            this.state.allCards.map((card, i) => (
               <TouchableWithoutFeedback key={card.id} onPress={() => this.flipCard()}>
                 <View>
                   <Animated.View style={[styles.flipCard, frontAnimatedStyle]}>

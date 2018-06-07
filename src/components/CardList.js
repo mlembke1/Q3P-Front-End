@@ -16,44 +16,72 @@ import {
 import { Button, Card, List, ListItem } from 'react-native-elements'
 import { StackNavigator } from 'react-navigation'
 import Icon from 'react-native-vector-icons/FontAwesome'
-
-const cards = [
-  {
-    id: 0,
-    front: 'How much wood could a woodchuck chuck if a woodchuck could chuck wood?',
-    back: 'Too much!',
-    deck_id: 0
-  },
-  {
-    id: 1,
-    front: 'How much wood could a woodchuck chuck if a woodchuck could chuck wood?',
-    back: 'Too much!',
-    deck_id: 0
-  },
-  {
-    id: 2,
-    front: 'How much wood could a woodchuck chuck if a woodchuck could chuck wood?',
-    back: 'Too much!',
-    deck_id: 0
-  }
-]
+import { REACT_APP_API_URL } from 'react-native-dotenv'
+import axios from 'axios'
 
 export default class CardList extends Component {
-  componentWillMount() {
-    for (let i = 0; i < cards.length; i++) {
-      this.animatedValue = new Animated.Value(0)
-      this.animatedValue.addListener(({ value }) => {
-        this.value = value
-      })
-      this.frontInterpolate = this.animatedValue.interpolate({
-        inputRange: [0, 180],
-        outputRange: ['0deg', '180deg']
-      })
-      this.backInterpolate = this.animatedValue.interpolate({
-        inputRange: [0, 180],
-        outputRange: ['180deg', '360deg']
-      })
+  constructor(){
+    super()
+    this.state = {
+      allCards: []
     }
+  }
+
+  componentWillMount() {
+    this.fetchAllCards()
+
+    this.animatedValue = new Animated.Value(0)
+    this.animatedValue.addListener(({ value }) => {
+      this.value = value
+    })
+    this.frontInterpolate = this.animatedValue.interpolate({
+      inputRange: [0, 180],
+      outputRange: ['0deg', '180deg']
+    })
+    this.backInterpolate = this.animatedValue.interpolate({
+      inputRange: [0, 180],
+      outputRange: ['180deg', '360deg']
+    })
+  }
+
+  fetchAllCards = () => {
+    axios.post(`${REACT_APP_API_URL}/getAllCards`, {deck_id:this.props.navigation.state.params.deckId})
+    .then(r => {
+      this.setState({
+        allCards: r.data.allCards
+      })
+    })
+    .catch(err => console.log(`Failed to get all cards`, err))
+  }
+
+  createCard = (newCard) => {
+    axios.post(`${REACT_APP_API_URL}/createCard`, newCard)
+    .then(r => {
+      this.setState({
+        allCards: this.state.allCards.concat([newCard])
+      })
+    })
+    .catch(err => console.log(`Failed to create a card`, err))
+  }
+
+  deleteCard = (card_id) => {
+    axios.delete(`${REACT_APP_API_URL}/deleteCard`, card_id)
+    .then(r => {
+      this.setState({
+        allCards: r.data.updatedCards
+      })
+    })
+    .catch(err => console.log(`Failed to delete a card`, err))
+  }
+
+  editCard = (cardToEdit) => {
+    axios.put(`${REACT_APP_API_URL}/editCard`, cardToEdit)
+    .then(r => {
+      this.setState({
+        allCards: r.data.updatedCards
+        })
+      })
+    .catch(err => console.log(`Failed to updated a card`, err))
   }
 
   flipCard() {
@@ -96,11 +124,11 @@ export default class CardList extends Component {
               Created: 05/31/18
             </Text>
           </View>
-          <Button backgroundColor="#79B45D" borderRadius={100} style={styles.quiz} title="Quiz Mode" onPress={() => this.props.navigation.navigate('QuizMode')} />
+          <Button backgroundColor="#79B45D" borderRadius={100} style={styles.quiz} title="Quiz Mode" onPress={() => this.props.navigation.navigate('QuizMode', { deck_id: this.props.navigation.state.params.deckId })} />
         </View>
         <StatusBar barStyle="light-content" />
         {
-          cards.map((card, i) => (
+          this.state.allCards.map((card, i) => (
             <View id={card.id} key={i} styles={styles.container}>
               <View>
                 <TouchableOpacity onPress={() => this.flipCard(i)}>

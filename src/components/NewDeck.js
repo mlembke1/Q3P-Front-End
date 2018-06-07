@@ -68,8 +68,9 @@ export default class NewDeck extends Component {
     }
     axios.post(`${REACT_APP_API_URL}/createDeck`, obj)
       .then((result) => {
-        this.props.navigation.state.params.fetchAllUserDecks()
-        this.props.navigation.navigate('Decks')
+        if (result.data.newDeckStatus === 'success' ){
+          this.props.navigation.navigate('Decks')
+        }
       })
       .catch((err) => {
         console.log(`Could not create deck.\nErrorCode: ${err}`)
