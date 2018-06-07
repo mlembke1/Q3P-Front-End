@@ -95,7 +95,7 @@ export default class Decks extends Component {
                 this.state.userDecks.author ===
                 this.props.navigation.state.params.currentUser ?
                 this.state.userDecks.map(deck =>
-                <TouchableHighlight key={deck.id} underlayColor="transparent" activeOpacity={0.5} onPress={() => this.props.navigation.navigate('CardList', { deck_id: deck.id })}>
+                <TouchableHighlight key={deck.id} underlayColor="transparent" activeOpacity={0.5} onPress={() => this.props.navigation.navigate('CardList', { deck_id: deck.id, currentUser: this.props.navigation.state.params.currentUser, deckAuthor: deck.author })}>
                   <View style={styles.decks}>
                     <View style={styles.subjectAuthorContainer}>
                       <View style={styles.titleContainer}>
@@ -123,7 +123,7 @@ export default class Decks extends Component {
                 this.state.userDecks.author !==
                 this.props.navigation.state.params.currentUser ?
                 this.state.userDecks.map(deck =>
-                <TouchableHighlight key={deck.id} underlayColor="transparent" activeOpacity={0.5} onPress={() => this.props.navigation.navigate('CardList', { deck_id: deck.id })}>
+                <TouchableHighlight key={deck.id} underlayColor="transparent" activeOpacity={0.5} onPress={() => this.props.navigation.navigate('CardList', { deck_id: deck.id, currentUser: this.props.navigation.state.params.currentUser, deckAuthor: deck.author })}>
                   <View style={styles.decks}>
                     <View style={styles.subjectAuthorContainer}>
                       <View style={styles.titleContainer}>
@@ -151,7 +151,7 @@ export default class Decks extends Component {
                 this.state.userDecks.author ===
                 this.props.navigation.state.params.currentUser ?
                 this.state.searchDecks.map(deck =>
-                <TouchableHighlight key={deck.id} underlayColor="transparent" activeOpacity={0.5} onPress={() => this.props.navigation.navigate('CardList', { deck_id: deck.id })}>
+                <TouchableHighlight key={deck.id} underlayColor="transparent" activeOpacity={0.5} onPress={() => this.props.navigation.navigate('CardList', { deck_id: deck.id, currentUser: this.props.navigation.state.params.currentUser, deckAuthor: deck.author })}>
                     <View style={styles.decks}>
                       <View style={styles.subjectAuthorContainer}>
                         <View style={styles.titleContainer}>
@@ -179,7 +179,7 @@ export default class Decks extends Component {
                 this.state.userDecks.author !==
                 this.props.navigation.state.params.currentUser ?
                 this.state.searchDecks.map(deck =>
-                <TouchableHighlight key={deck.id} underlayColor="transparent" activeOpacity={0.5} onPress={() => this.props.navigation.navigate('CardList', { deck_id: deck.id })}>
+                <TouchableHighlight key={deck.id} underlayColor="transparent" activeOpacity={0.5} onPress={() => this.props.navigation.navigate('CardList', { deck_id: deck.id, currentUser: this.props.navigation.state.params.currentUser, deckAuthor: deck.author })}>
                   <View style={styles.decks}>
                     <View style={styles.subjectAuthorContainer}>
                       <View style={styles.titleContainer}>

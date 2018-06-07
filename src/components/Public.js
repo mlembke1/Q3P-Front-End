@@ -61,7 +61,7 @@ searchInput = () => {
             this.props.navigation.state.params.publicDecks.author ===
             this.props.navigation.state.params.currentUser ?
             this.props.navigation.state.params.publicDecks.map(deck =>
-            <TouchableHighlight key={deck.id} underlayColor="transparent" activeOpacity={0.5} onPress={() => this.props.navigation.navigate('CardList', { deck_id: deck.id })}>
+            <TouchableHighlight key={deck.id} underlayColor="transparent" activeOpacity={0.5} onPress={() => this.props.navigation.navigate('CardList', { deck_id: deck.id, currentUser: this.props.navigation.state.params.currentUser, deckAuthor: deck.author })}>
               <View style={styles.decks}>
                 <View style={styles.subjectAuthorContainer}>
                   <View style={styles.titleContainer}>
@@ -89,7 +89,7 @@ searchInput = () => {
             this.props.navigation.state.params.publicDecks.author !==
             this.props.navigation.state.params.currentUser ?
             this.props.navigation.state.params.publicDecks.map(deck =>
-            <TouchableHighlight key={deck.id} underlayColor="transparent" activeOpacity={0.5} onPress={() => this.props.navigation.navigate('CardList', { deck_id: deck.id })}>
+            <TouchableHighlight key={deck.id} underlayColor="transparent" activeOpacity={0.5} onPress={() => this.props.navigation.navigate('CardList', { deck_id: deck.id, currentUser: this.props.navigation.state.params.currentUser, deckAuthor: deck.author })}>
               <View style={styles.decks}>
                 <View style={styles.subjectAuthorContainer}>
                   <View style={styles.titleContainer}>
@@ -117,7 +117,7 @@ searchInput = () => {
             this.props.navigation.state.params.publicDecks.author ===
             this.props.navigation.state.params.currentUser ?
             this.state.searchDecks.map(deck =>
-            <TouchableHighlight key={deck.id} underlayColor="transparent" activeOpacity={0.5} onPress={() => this.props.navigation.navigate('CardList', { deck_id: deck.id })}>
+            <TouchableHighlight key={deck.id} underlayColor="transparent" activeOpacity={0.5} onPress={() => this.props.navigation.navigate('CardList', { deck_id: deck.id, currentUser: this.props.navigation.state.params.currentUser, deckAuthor: deck.author })}>
                 <View style={styles.decks}>
                   <View style={styles.subjectAuthorContainer}>
                     <View style={styles.titleContainer}>
@@ -145,7 +145,7 @@ searchInput = () => {
             this.props.navigation.state.params.publicDecks.author !==
             this.props.navigation.state.params.currentUser ?
             this.state.searchDecks.map(deck =>
-            <TouchableHighlight key={deck.id} underlayColor="transparent" activeOpacity={0.5} onPress={() => this.props.navigation.navigate('CardList', { deck_id: deck.id })}>
+            <TouchableHighlight key={deck.id} underlayColor="transparent" activeOpacity={0.5} onPress={() => this.props.navigation.navigate('CardList', { deck_id: deck.id, currentUser: this.props.navigation.state.params.currentUser, deckAuthor: deck.author })}>
               <View style={styles.decks}>
                 <View style={styles.subjectAuthorContainer}>
                   <View style={styles.titleContainer}>

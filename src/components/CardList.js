@@ -19,11 +19,13 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import { REACT_APP_API_URL } from 'react-native-dotenv'
 import axios from 'axios'
 
+
 export default class CardList extends Component {
   constructor(){
     super()
     this.state = {
-      allCards: []
+      allCards: [],
+      editMode: false
     }
   }
 
@@ -102,6 +104,18 @@ export default class CardList extends Component {
     }
   }
 
+  editDeck = () => {
+    if (this.state.editMode === true)  {
+      this.setState({
+        editMode: false
+        })
+    } else {
+      this.setState({
+        editMode: true
+        })
+    }
+  }
+
   render() {
     const frontAnimatedStyle = {
       transform: [
@@ -126,8 +140,23 @@ export default class CardList extends Component {
               Created: 05/31/18
             </Text>
           </View>
-          <Button backgroundColor="#79B45D" borderRadius={100} style={styles.quiz} title="Quiz Mode" onPress={() =>
-            this.props.navigation.navigate('QuizMode', { deck_id: this.props.navigation.state.params.deck_id })} />
+          <View>
+            <Button backgroundColor="#79B45D" borderRadius={100} style={styles.quiz} title="Quiz Mode" onPress={() =>
+              this.props.navigation.navigate('QuizMode', { deck_id: this.props.navigation.state.params.deck_id })} />
+          </View>
+          <View>
+            {console.log(this.props.navigation.state.params.currentUser)}
+            {console.log(this.props.navigation.state.params.deckAuthor)}
+            {this.props.navigation.state.params.currentUser === this.props.navigation.state.params.deckAuthor
+              && this.state.editMode === false ?
+                <Button backgroundColor="#995db4" borderRadius={100} style={styles.edit} title="Edit Deck" onPress={() =>
+                this.editDeck()}/> : null}
+            {this.props.navigation.state.params.currentUser === this.props.navigation.state.params.deckAuthor
+              && this.state.editMode === true ?
+                <Button backgroundColor="#5d96b4" borderRadius={100} style={styles.save} title="Save Deck" onPress={() =>
+                this.editDeck()}/>
+                : null}
+          </View>
         </View>
         <StatusBar barStyle="light-content" />
         {
@@ -249,6 +278,14 @@ const styles = StyleSheet.create({
     marginTop: 0
   },
   quiz: {
+    marginBottom: 10,
+    marginTop: 5
+  },
+  edit: {
+    marginBottom: 10,
+    marginTop: 5
+  },
+  save: {
     marginBottom: 10,
     marginTop: 5
   }
