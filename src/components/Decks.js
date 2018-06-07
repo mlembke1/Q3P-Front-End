@@ -23,11 +23,11 @@ export default class Decks extends Component {
 
   constructor(props){
     super(props)
-    this.state = {
-      searchUserDecks: [],
-      userDecks: []
+      this.state = {
+        searchUserDecks: [],
+        userDecks: []
+      }
     }
-  }
 
   fetchAllUserDecks = () => {
     axios.get(`${REACT_APP_API_URL}/getAllDecksForUser`)
@@ -39,7 +39,7 @@ export default class Decks extends Component {
       .catch(err => console.log(err))
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.fetchAllUserDecks()
   }
 
@@ -48,7 +48,7 @@ export default class Decks extends Component {
   }
 
   searchInput = () => {
-    let searchedDecks = this.props.navigation.state.params.userDecks.filter(deck =>
+    let searchedDecks = this.state.userDecks.filter(deck =>
     deck.title === this.refs.input.input._lastNativeText ||
     deck.author === this.refs.input.input._lastNativeText ||
     deck.subject === this.refs.input.input._lastNativeText)
@@ -89,32 +89,7 @@ export default class Decks extends Component {
                 </View>
               </View>
             </TouchableHighlight>
-<<<<<<< HEAD
             {this.state.searchUserDecks.length < 1 ? this.state.userDecks.map(deck =>
-              <TouchableHighlight key={deck.id} underlayColor="transparent" activeOpacity={0.5} onPress={() => console.log("see deck #", deck.id)}>
-                {deck.author === this.props.navigation.state.params.currentUser ?
-                <Swipeout right={swipeBtns}
-                autoClose={true}
-                backgroundColor= 'transparent'>
-                  <View style={styles.decks}>
-                    <View style={styles.subjectAuthorContainer}>
-                      <View style={styles.titleContainer}>
-                        <Text style={styles.titleText}>{deck.title}</Text>
-                      </View>
-                      <View style={styles.authorContainer}>
-                        <Icon style={styles.arrowStyle} name="chevron-circle-right" size={34}></Icon>
-                      </View>
-                    </View>
-                    <View style={styles.subjectAuthorContainer}>
-                      <View>
-                        <Text style={styles.subjectText}>{deck.subject}</Text>
-                      </View>
-                      <View style={styles.authorContainer}>
-                        <Text style={styles.authorText}>{deck.author}</Text>
-                      </View>
-                    </View>
-=======
-            {this.state.searchUserDecks.length < 1 ? this.props.navigation.state.params.userDecks.map(deck =>
               <TouchableHighlight key={deck.id} underlayColor="transparent" activeOpacity={0.5} onPress={() => this.createDeckNav}>
               {deck.author === this.props.navigation.state.params.currentUser ?
               <View style={styles.decks}>
@@ -132,7 +107,6 @@ export default class Decks extends Component {
                   </View>
                   <View style={styles.authorContainer}>
                     <Text style={styles.authorText}>{deck.author}</Text>
->>>>>>> e4b14430f18ced394423baa540d3253af881b7ac
                   </View>
                 </View>
               </View> :
