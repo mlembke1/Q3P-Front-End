@@ -49,9 +49,6 @@ stylesheet.textbox.error.marginRight = 20;
 stylesheet.textbox.error.textAlign = 'center';
 
 
-
-console.log(stylesheet)
-
 const options = {
   stylesheet,
   auto: 'placeholders',

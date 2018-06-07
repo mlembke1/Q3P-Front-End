@@ -15,13 +15,34 @@ import {
 import { Button, Card, List, ListItem } from 'react-native-elements'
 import { StackNavigator } from 'react-navigation'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import { REACT_APP_API_URL } from 'react-native-dotenv'
+import axios from 'axios'
 
 export default class Decks extends Component {
+
+  constructor(props){
+    super(props)
+    this.state = {
+      userDecks: []
+    }
+  }
+
+  fetchAllUserDecks = () => {
+    axios.get(`${REACT_APP_API_URL}/getAllDecksForUser`)
+      .then((r) => {
+        this.setState({
+          userDecks: r.data.userDecks
+        })
+      })
+      .catch(err => console.log(err))
+  }
+
   componentDidMount() {
+    this.fetchAllUserDecks()
   }
 
   onPress = () => {
-    this.props.navigation.navigate('NewDeck', { fetchAllUserDecks: this.props.navigation.state.params.fetchAllUserDecks })
+    this.props.navigation.navigate('NewDeck')
   }
 
   render(){
@@ -31,7 +52,7 @@ export default class Decks extends Component {
         <Button title="Create New Deck" onPress={this.onPress} backgroundColor={'#79B45D'} style={styles.button} />
         <List containerStyle={styles.list}>
           {
-            this.props.navigation.state.params.userDecks.map((deck, i) => <TouchableOpacity key={deck.id} onPress={() => this.props.navigation.navigate('CardList')}><ListItem author={deck.author} id={deck.id} title={deck.title} subtitle={deck.subject} /></TouchableOpacity>)
+            this.state.userDecks.map((deck, i) => <TouchableOpacity key={i} onPress={() => this.props.navigation.navigate('CardList', { deckId: deck.id} )}><ListItem author={deck.author} id={deck.id} title={deck.title} subtitle={deck.subject} /></TouchableOpacity>)
           }
         </List>
       </ScrollView>
