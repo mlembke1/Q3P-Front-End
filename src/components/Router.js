@@ -26,6 +26,7 @@ import Dashboard from "./Dashboard"
 import WelcomePage from "./WelcomePage"
 import CardList from "./CardList"
 import NewDeck from "./NewDeck"
+import QuizMode from "./QuizMode"
 
 const headerStyle = {
   marginTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
@@ -184,6 +185,25 @@ export const SignedIn = createStackNavigator(
         headerRight: (
           <View>
             <Icon name="gear" color="white" size={28} style={{paddingRight: 20}}  />
+          </View>
+        )
+      }
+    },
+    QuizMode: {
+      screen: QuizMode,
+      navigationOptions: {
+        title: 'Quiz Mode',
+        headerStyle: {
+          backgroundColor: '#79B45D'
+        },
+        headerTitleStyle: {
+          color: 'white',
+          fontSize: 20
+        },
+        headerTintColor: '#FFFFFF',
+        headerRignt: (
+          <View>
+            <Icon name="gear" color="white" size={28} style={{ paddingRignt: 20 }} />
           </View>
         )
       }

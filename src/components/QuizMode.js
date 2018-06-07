@@ -79,19 +79,6 @@ export default class CardList extends Component {
     }
     return (
       <ScrollView contentContainerStyle={styles.container}>
-        <View style={styles.authorView}>
-          <View style={{ margin: 10 }}>
-            <Text style={styles.topText}>
-              Author: Nathan
-            </Text>
-          </View>
-          <View style={{ margin: 10 }}>
-            <Text style={styles.topText}>
-              Created: 05/31/18
-            </Text>
-          </View>
-          <Button backgroundColor="#79B45D" borderRadius={100} style={styles.quiz} title="Quiz Mode" onPress={() => this.props.navigation.navigate('QuizMode')} />
-        </View>
         <StatusBar barStyle="light-content" />
         {
           cards.map((card, i) => (
@@ -133,8 +120,8 @@ const styles = StyleSheet.create({
     width
   },
   flipCard: {
-    width: (width / 2) - 15,
-    height: (width / 2) - 15,
+    width,
+    height: width,
     margin: 5,
     justifyContent: 'center',
     backgroundColor: 'white',
@@ -142,7 +129,6 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 3, height: 3 },
     shadowRadius: 3,
     shadowOpacity: .7,
-    borderRadius: 20,
     backfaceVisibility: 'hidden'
   },
   flipCardBack: {
