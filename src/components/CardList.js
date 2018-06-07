@@ -132,7 +132,7 @@ export default class CardList extends Component {
           this.state.allCards.map((card, i) => (
             <View id={card.id} key={i} styles={styles.container}>
               <View>
-                <TouchableOpacity onPress={() => this.flipCard(i)}>
+                <TouchableOpacity onPress={() => this.flipCard()}>
                   <Animated.View style={[styles.flipCard, frontAnimatedStyle]}>
                     <Text style={styles.flipText}>
                       {card.front}

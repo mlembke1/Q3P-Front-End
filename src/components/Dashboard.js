@@ -37,12 +37,12 @@ export default class Dashboard extends Component {
 
   getCurrentUser = () => {
     axios.get(`${REACT_APP_API_URL}/getCurrentUser`)
-    .then(r => {
-      this.setState({
-        currentUser: r.data.currentUser
+      .then((r) => {
+        this.setState({
+          currentUser: r.data.currentUser
+        })
       })
-    })
-    .catch(() => console.log('Whoops, something went wrong getting the current user'))
+      .catch(() => console.log('Whoops, something went wrong getting the current user'))
   }
 
 
