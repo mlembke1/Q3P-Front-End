@@ -54,6 +54,7 @@ export default class CardList extends Component {
     .catch(err => console.log(`Failed to get all cards`, err))
   }
 
+
   createCard = (newCard) => {
     axios.post(`${REACT_APP_API_URL}/createCard`, newCard)
     .then(r => {
@@ -63,6 +64,7 @@ export default class CardList extends Component {
     })
     .catch(err => console.log(`Failed to create a card`, err))
   }
+
 
   deleteCard = (card_id) => {
     axios.delete(`${REACT_APP_API_URL}/deleteCard`, card_id)
@@ -148,7 +150,7 @@ export default class CardList extends Component {
             </View>
           ))
         }
-        <TouchableOpacity onPress={() => this.props.navigation.navigate('NewCard')}>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('NewCard', { deck_id: this.props.navigation.state.params.deck_id, createCard: this.createCard })}>
           <View style={styles.addCard}>
             <Icon style={{ textAlign: 'center' }} name="plus" size={40} color="white" />
           </View>
