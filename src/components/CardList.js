@@ -9,7 +9,9 @@ import {
   TextInput,
   Dimensions,
   Image,
-  StatusBar
+  StatusBar,
+  Animated,
+  TouchableOpacity
 } from 'react-native'
 import { Button, Card, List, ListItem } from 'react-native-elements'
 import { StackNavigator } from 'react-navigation'
@@ -21,32 +23,99 @@ const cards = [
     front: 'How much wood could a woodchuck chuck if a woodchuck could chuck wood?',
     back: 'Too much!',
     deck_id: 0
+  },
+  {
+    id: 0,
+    front: 'How much wood could a woodchuck chuck if a woodchuck could chuck wood?',
+    back: 'Too much!',
+    deck_id: 0
   }
 ]
 
-export default ({ navigation, author }) => (
-  <ScrollView contentContainerStyle={styles.container}>
-    <View style={styles.authorView}>
-      <View style={{ margin: 10 }}>
-        <Text style={styles.topText}>
-          Author: Nathan
-        </Text>
-      </View>
-      <View style={{ margin: 10 }}>
-        <Text style={styles.topText}>
-          Created: 05/31/18
-        </Text>
-      </View>
-    </View>
-    <Button backgroundColor="#79B45D" borderRadius={100} style={styles.quiz} title="Quiz Mode" />
-    <StatusBar barStyle="light-content" />
-    <List containerStyle={styles.list}>
-      {
-        cards.map((card, i) => <ListItem id={card.id} key={i} title={card.front} subtitle={card.back} />)
-      }
-    </List>
-  </ScrollView>
-)
+export default class CardList extends Component {
+  componentWillMount() {
+    this.animatedValue = new Animated.Value(0)
+    this.animatedValue.addListener(({ value }) => {
+      this.value = value
+    })
+    this.frontInterpolate = this.animatedValue.interpolate({
+      inputRange: [0, 180],
+      outputRange: ['0deg', '180deg']
+    })
+    this.backInterpolate = this.animatedValue.interpolate({
+      inputRange: [0, 180],
+      outputRange: ['180deg', '360deg']
+    })
+  }
+
+  flipCard() {
+    if (this.value >= 90) {
+      Animated.spring(this.animatedValue, {
+        toValue: 0,
+        friction: 8,
+        tension: 10
+      }).start()
+    } else {
+      Animated.spring(this.animatedValue, {
+        toValue: 180,
+        friction: 8,
+        tension: 10
+      }).start()
+    }
+  }
+
+  render() {
+    const frontAnimatedStyle = {
+      transform: [
+        { rotateX: this.frontInterpolate }
+      ]
+    }
+    const backAnimatedStyle = {
+      transform: [
+        { rotateX: this.backInterpolate }
+      ]
+    }
+    return (
+      <ScrollView contentContainerStyle={styles.container}>
+        <View style={styles.authorView}>
+          <View style={{ margin: 10 }}>
+            <Text style={styles.topText}>
+              Author: Nathan
+            </Text>
+          </View>
+          <View style={{ margin: 10 }}>
+            <Text style={styles.topText}>
+              Created: 05/31/18
+            </Text>
+          </View>
+          <Button backgroundColor="#79B45D" borderRadius={100} style={styles.quiz} title="Quiz Mode" />
+        </View>
+        <StatusBar barStyle="light-content" />
+        {
+          cards.map((card, i) => (
+            // <ListItem id={card.id} key={i} title={card.front} subtitle={card.back} />
+            <View id={card.id} key={i} styles={styles.container}>
+              <View>
+                <TouchableOpacity onPress={() => this.flipCard()}>
+                  <Animated.View style={[styles.flipCard, frontAnimatedStyle]}>
+                    <Text style={styles.flipText}>
+                      {card.front}
+                    </Text>
+                  </Animated.View>
+                  <Animated.View style={[backAnimatedStyle, styles.flipCard, styles.flipCardBack]}>
+                    <Text style={styles.flipText}>
+                      {card.back}
+                    </Text>
+                  </Animated.View>
+                </TouchableOpacity>
+              </View>
+            </View>
+          ))
+        }
+      </ScrollView>
+    )
+  }
+}
 
 const width = Dimensions.get('window').width
 
@@ -54,10 +123,30 @@ const styles = StyleSheet.create({
   container: {
     display: 'flex',
     flex: 1,
-    padding: 0.5,
+    padding: 5,
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center'
+  },
+  buttonContainer: {
+    width
+  },
+  flipCard: {
+    width: (width / 2) - 15,
+    height: (width / 2) - 15,
+    margin: 5,
+    justifyContent: 'center',
+    backgroundColor: 'white',
+    shadowColor: 'black',
+    shadowOffset: { width: 3, height: 3 },
+    shadowRadius: 3,
+    shadowOpacity: .7,
+    borderRadius: 20,
+    backfaceVisibility: 'hidden'
+  },
+  flipCardBack: {
+    position: 'absolute',
+    top: 0
   },
   text: {
     fontFamily: 'Arial',
@@ -65,6 +154,11 @@ const styles = StyleSheet.create({
     fontSize: 27,
     color: 'white',
     textAlign: 'center'
+  },
+  flipText: {
+    textAlign: 'center',
+    fontSize: 20,
+    padding: 5
   },
   authorView: {
     width: width + 5,

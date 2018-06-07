@@ -9,7 +9,8 @@ import {
   TextInput,
   Dimensions,
   Image,
-  StatusBar
+  StatusBar,
+  TouchableOpacity
 } from 'react-native'
 import { Button, Card, List, ListItem } from 'react-native-elements'
 import { StackNavigator } from 'react-navigation'
@@ -30,7 +31,7 @@ export default class Decks extends Component {
         <Button title="Create New Deck" onPress={this.onPress} backgroundColor={'#79B45D'} style={styles.button} />
         <List containerStyle={styles.list}>
           {
-            this.props.navigation.state.params.userDecks.map((deck, i) => <ListItem author={deck.author} id={deck.id} key={i} title={deck.title} subtitle={deck.subject} />)
+            this.props.navigation.state.params.userDecks.map((deck, i) => <TouchableOpacity onPress={() => this.props.navigation.navigate('CardList')}><ListItem author={deck.author} id={deck.id} key={i} title={deck.title} subtitle={deck.subject} /></TouchableOpacity>)
           }
         </List>
       </ScrollView>

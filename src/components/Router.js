@@ -168,6 +168,25 @@ export const SignedIn = createStackNavigator(
           </View>
         )
       }
+    },
+    CardList: {
+      screen: CardList,
+      navigationOptions: {
+        title: 'Cards',
+        headerStyle: {
+          backgroundColor: '#79B45D',
+        },
+        headerTitleStyle: {
+          color: 'white',
+          fontSize: 20
+        },
+        headerTintColor: '#FFFFFF',
+        headerRight: (
+          <View>
+            <Icon name="gear" color="white" size={28} style={{paddingRight: 20}}  />
+          </View>
+        )
+      }
     }
   }
 )
