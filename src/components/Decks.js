@@ -48,7 +48,7 @@ export default class Decks extends Component {
   }
 
   searchInput = () => {
-    let searchedDecks = this.props.navigation.state.params.userDecks.filter(deck =>
+    let searchedDecks = this.state.userDecks.filter(deck =>
     deck.title === this.refs.input.input._lastNativeText ||
     deck.author === this.refs.input.input._lastNativeText ||
     deck.subject === this.refs.input.input._lastNativeText)
@@ -89,7 +89,7 @@ export default class Decks extends Component {
                 </View>
               </View>
             </TouchableHighlight>
-            {this.state.searchUserDecks.length < 1 ? this.props.navigation.state.params.userDecks.map(deck =>
+            {this.state.searchUserDecks.length < 1 ? this.state.userDecks.map(deck =>
               <TouchableHighlight key={deck.id} underlayColor="transparent" activeOpacity={0.5} onPress={() => this.createDeckNav}>
               {deck.author === this.props.navigation.state.params.currentUser ?
               <View style={styles.decks}>
