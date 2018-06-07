@@ -67,9 +67,13 @@ searchInput = () => {
                   <View style={styles.titleContainer}>
                     <Text style={styles.titleText}>{deck.title}</Text>
                   </View>
-                  <View style={styles.authorContainer}>
-                    <Icon style={styles.arrowStyle} name="chevron-circle-right" size={34}></Icon>
-                  </View>
+                  {
+                    deck.author === this.props.navigation.state.params.currentUser ?
+                    <View style={styles.authorContainer}>
+                      <Icon style={styles.arrowStyle} name="check-circle-o" size={34}></Icon>
+                  </View> :
+                  null
+                  }
                 </View>
                 <View style={styles.subjectAuthorContainer}>
                   <View>
@@ -91,9 +95,13 @@ searchInput = () => {
                   <View style={styles.titleContainer}>
                     <Text style={styles.titleText}>{deck.title}</Text>
                   </View>
-                  <View style={styles.authorContainer}>
-                    <Icon style={styles.arrowStyle} name="chevron-circle-right" size={34}></Icon>
-                  </View>
+                  {
+                    deck.author === this.props.navigation.state.params.currentUser ?
+                    <View style={styles.authorContainer}>
+                      <Icon style={styles.arrowStyle} name="check-circle-o" size={34}></Icon>
+                  </View> :
+                  null
+                  }
                 </View>
                 <View style={styles.subjectAuthorContainer}>
                   <View>
@@ -115,9 +123,13 @@ searchInput = () => {
                     <View style={styles.titleContainer}>
                       <Text style={styles.titleText}>{deck.title}</Text>
                     </View>
-                    <View style={styles.authorContainer}>
-                      <Icon style={styles.arrowStyle} name="chevron-circle-right" size={34}></Icon>
-                    </View>
+                    {
+                      deck.author === this.props.navigation.state.params.currentUser ?
+                      <View style={styles.authorContainer}>
+                        <Icon style={styles.arrowStyle} name="check-circle-o" size={34}></Icon>
+                    </View> :
+                    null
+                    }
                   </View>
                   <View style={styles.subjectAuthorContainer}>
                     <View>
@@ -139,9 +151,13 @@ searchInput = () => {
                   <View style={styles.titleContainer}>
                     <Text style={styles.titleText}>{deck.title}</Text>
                   </View>
-                  <View style={styles.authorContainer}>
-                    <Icon style={styles.arrowStyle} name="chevron-circle-right" size={34}></Icon>
-                  </View>
+                  {
+                    deck.author === this.props.navigation.state.params.currentUser ?
+                    <View style={styles.authorContainer}>
+                      <Icon style={styles.arrowStyle} name="check-circle-o" size={34}></Icon>
+                  </View> :
+                  null
+                  }
                 </View>
                 <View style={styles.subjectAuthorContainer}>
                   <View>
