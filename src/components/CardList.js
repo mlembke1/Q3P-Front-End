@@ -25,7 +25,13 @@ const cards = [
     deck_id: 0
   },
   {
-    id: 0,
+    id: 1,
+    front: 'How much wood could a woodchuck chuck if a woodchuck could chuck wood?',
+    back: 'Too much!',
+    deck_id: 0
+  },
+  {
+    id: 2,
     front: 'How much wood could a woodchuck chuck if a woodchuck could chuck wood?',
     back: 'Too much!',
     deck_id: 0
@@ -113,6 +119,11 @@ export default class CardList extends Component {
             </View>
           ))
         }
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('NewCard')}>
+          <View style={styles.addCard}>
+            <Icon style={{ textAlign: 'center' }} name="plus" size={40} color="white" />
+          </View>
+        </TouchableOpacity>
       </ScrollView>
     )
   }
@@ -148,6 +159,21 @@ const styles = StyleSheet.create({
   flipCardBack: {
     position: 'absolute',
     top: 0
+  },
+  addCard: {
+    display: 'flex',
+    width: (width / 2) - 15,
+    height: (width / 2) - 15,
+    margin: 5,
+    justifyContent: 'center',
+    alignContent: 'center',
+    backgroundColor: 'white',
+    shadowColor: 'black',
+    shadowOffset: { width: 3, height: 3 },
+    shadowRadius: 3,
+    shadowOpacity: .7,
+    backgroundColor: '#b45da4',
+    borderRadius: 20,
   },
   text: {
     fontFamily: 'Arial',
