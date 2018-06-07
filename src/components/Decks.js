@@ -10,31 +10,193 @@ import {
   Dimensions,
   Image,
   StatusBar,
-  TouchableOpacity
+  TouchableOpacity,
+  TouchableHighlight
 } from 'react-native'
-import { Button, Card, List, ListItem } from 'react-native-elements'
+import { Button, Card, List, ListItem, SearchBar } from 'react-native-elements'
 import { StackNavigator } from 'react-navigation'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import Swipeout from 'react-native-swipeout'
+import { REACT_APP_API_URL } from 'react-native-dotenv'
+import axios from 'axios'
+
+let swipeBtns = [
+  {
+    text: 'Remove',
+    backgroundColor: '#b4645d',
+    onPress: () => { this.deleteNote(rowData) }
+  },
+  {
+    text: 'Edit',
+    backgroundColor: '#5d96b4',
+    onPress: () => { this.duplicateNote(rowData) }
+  }
+]
+
+let removeBtn = [
+  {
+    text: 'Remove',
+    backgroundColor: '#b4645d',
+    onPress: () => { this.deleteNote(rowData) }
+  }
+]
 
 export default class Decks extends Component {
-  componentDidMount() {
+
+  constructor(props){
+    super(props)
+      this.state = {
+        searchUserDecks: []
+      }
   }
+
+  // componentDidMount() {
+  // }
 
   onPress = () => {
     this.props.navigation.navigate('NewDeck', { fetchAllUserDecks: this.props.navigation.state.params.fetchAllUserDecks })
   }
 
+  searchInput = () => {
+    let searchedDecks = this.props.navigation.state.params.userDecks.filter(deck =>
+    deck.title === this.refs.input.input._lastNativeText ||
+    deck.author === this.refs.input.input._lastNativeText ||
+    deck.subject === this.refs.input.input._lastNativeText)
+    console.log(searchedDecks)
+    console.log(this.refs.input.input._lastNativeText)
+    this.setState({
+      searchUserDecks: searchedDecks
+    })
+    console.log(this.state)
+  }
+
   render(){
     return(
-      <ScrollView contentContainerStyle={styles.container}>
-        <StatusBar barStyle="light-content" />
-        <Button title="Create New Deck" onPress={this.onPress} backgroundColor={'#79B45D'} style={styles.button} />
-        <List containerStyle={styles.list}>
-          {
-            this.props.navigation.state.params.userDecks.map((deck, i) => <TouchableOpacity key={deck.id} onPress={() => this.props.navigation.navigate('CardList')}><ListItem author={deck.author} id={deck.id} title={deck.title} subtitle={deck.subject} /></TouchableOpacity>)
-          }
-        </List>
-      </ScrollView>
+      <View style={styles.container}>
+        <View style={styles.searchContainer}>
+          <TouchableHighlight underlayColor="transparent" activeOpacity={0.5} onPress={this.searchInput}>
+            <View style={styles.searchButton}>
+              <Icon name="search" color="white" size={30}></Icon>
+            </View>
+          </TouchableHighlight>
+          <SearchBar
+            lightTheme
+            showLoading={true}
+            platform="ios"
+            ref="input"
+            noIcon={true}
+            placeholder='Search'
+            inputStyle={styles.searchText}/>
+        </View>
+        <View>
+          <ScrollView style={{ marginBottom: 75}}>
+            <TouchableHighlight underlayColor="transparent" activeOpacity={0.5} onPress={this.onPress}>
+              <View style={styles.newDeckButton}>
+                <View style={styles.newDeckButtonContent}>
+                  <Icon name="plus" color="white" size={24}/>
+                  <Text style={styles.newDeckButtonText}>Create Deck</Text>
+                </View>
+              </View>
+            </TouchableHighlight>
+            {this.state.searchUserDecks.length < 1 ? this.props.navigation.state.params.userDecks.map(deck =>
+              <TouchableHighlight key={deck.id} underlayColor="transparent" activeOpacity={0.5} onPress={() => console.log("see deck #", deck.id)}>
+                {deck.author === this.props.navigation.state.params.currentUser ?
+                <Swipeout right={swipeBtns}
+                autoClose={true}
+                backgroundColor= 'transparent'>
+                  <View style={styles.decks}>
+                    <View style={styles.subjectAuthorContainer}>
+                      <View style={styles.titleContainer}>
+                        <Text style={styles.titleText}>{deck.title}</Text>
+                      </View>
+                      <View style={styles.authorContainer}>
+                        <Icon style={styles.arrowStyle} name="chevron-circle-right" size={34}></Icon>
+                      </View>
+                    </View>
+                    <View style={styles.subjectAuthorContainer}>
+                      <View>
+                        <Text style={styles.subjectText}>{deck.subject}</Text>
+                      </View>
+                      <View style={styles.authorContainer}>
+                        <Text style={styles.authorText}>{deck.author}</Text>
+                      </View>
+                    </View>
+                  </View>
+              </Swipeout> :
+              <Swipeout right={removeBtn}
+              autoClose={true}
+              backgroundColor= 'transparent'>
+                <View style={styles.decks}>
+                  <View style={styles.subjectAuthorContainer}>
+                    <View style={styles.titleContainer}>
+                      <Text style={styles.titleText}>{deck.title}</Text>
+                    </View>
+                    <View style={styles.authorContainer}>
+                      <Icon style={styles.arrowStyle} name="chevron-circle-right" size={34}></Icon>
+                    </View>
+                  </View>
+                  <View style={styles.subjectAuthorContainer}>
+                    <View>
+                      <Text style={styles.subjectText}>{deck.subject}</Text>
+                    </View>
+                    <View style={styles.authorContainer}>
+                      <Text style={styles.authorText}>{deck.author}</Text>
+                    </View>
+                  </View>
+                </View>
+              </Swipeout>}
+            </TouchableHighlight>) :
+            this.state.searchUserDecks.map(deck =>
+              <TouchableHighlight key={deck.id} underlayColor="transparent" activeOpacity={0.5} onPress={() => console.log("see deck #", deck.id)}>
+                {deck.author === this.props.navigation.state.params.currentUser ?
+                <Swipeout right={swipeBtns}
+                autoClose={true}
+                backgroundColor= 'transparent'>
+                  <View style={styles.decks}>
+                    <View style={styles.subjectAuthorContainer}>
+                      <View style={styles.titleContainer}>
+                        <Text style={styles.titleText}>{deck.title}</Text>
+                      </View>
+                      <View style={styles.authorContainer}>
+                        <Icon style={styles.arrowStyle} name="chevron-circle-right" size={34}></Icon>
+                      </View>
+                    </View>
+                    <View style={styles.subjectAuthorContainer}>
+                      <View>
+                        <Text style={styles.subjectText}>{deck.subject}</Text>
+                      </View>
+                      <View style={styles.authorContainer}>
+                        <Text style={styles.authorText}>{deck.author}</Text>
+                      </View>
+                    </View>
+                  </View>
+              </Swipeout> :
+              <Swipeout right={removeBtn}
+              autoClose={true}
+              backgroundColor= 'transparent'>
+                <View style={styles.decks}>
+                  <View style={styles.subjectAuthorContainer}>
+                    <View style={styles.titleContainer}>
+                      <Text style={styles.titleText}>{deck.title}</Text>
+                    </View>
+                    <View style={styles.authorContainer}>
+                      <Icon style={styles.arrowStyle} name="chevron-circle-right" size={34}></Icon>
+                    </View>
+                  </View>
+                  <View style={styles.subjectAuthorContainer}>
+                    <View>
+                      <Text style={styles.subjectText}>{deck.subject}</Text>
+                    </View>
+                    <View style={styles.authorContainer}>
+                      <Text style={styles.authorText}>{deck.author}</Text>
+                    </View>
+                  </View>
+                </View>
+              </Swipeout>}
+            </TouchableHighlight>)}
+          </ScrollView>
+        </View>
+      </View>
     )
   }
 }
@@ -43,26 +205,119 @@ const width = Dimensions.get('window').width
 
 const styles = StyleSheet.create({
   container: {
+    paddingLeft: 5,
+    paddingRight:1,
+    justifyContent: 'center',
+    marginTop: 35
+  },
+  searchContainer: {
     display: 'flex',
     flex: 1,
-    padding: 5,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'center'
+    paddingBottom: 70
   },
-  text: {
-    fontFamily: 'Arial',
-    fontWeight: 'bold',
-    fontSize: 27,
+  searchButton: {
+    marginTop: 8,
+    justifyContent: 'center',
+    marginLeft: 10,
+    marginRight: 5,
+    backgroundColor: '#79B45D',
+    padding: 5,
+    paddingRight: 9,
+    paddingLeft: 9,
+    borderRadius: 5,
+    height: 50,
+    shadowColor: 'black',
+    shadowOffset: { width: 3, height: 3 },
+    shadowRadius: 3,
+    shadowOpacity: .7
+  },
+  searchText: {
+    fontSize: 20,
+    color: 'black',
+    height: 50,
+    width: width-90
+  },
+  newDeckButton: {
+    marginBottom: 10,
+    justifyContent: 'center',
+    marginRight: 5,
+    backgroundColor: '#79B45D',
+    padding: 5,
+    paddingRight: 9,
+    paddingLeft: 9,
+    borderRadius: 5,
+    height: 60,
+    shadowColor: 'black',
+    shadowOffset: { width: 3, height: 3 },
+    shadowRadius: 3,
+    shadowOpacity: .7
+  },
+  newDeckButtonContent: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  newDeckButtonText: {
+    textAlign: 'center',
     color: 'white',
-    textAlign: 'center'
+    fontSize: 24,
+    fontWeight: '800',
+    marginLeft: 10
   },
-  list : {
-    width,
-    marginTop: 0
+  titleText: {
+    fontSize: 26,
+    color: 'black',
+    marginLeft: 10,
+    marginTop: 5,
+    textDecorationLine: 'underline',
   },
-  button: {
+  subjectText: {
+    fontSize: 20,
+    color: 'black',
+    textAlign: 'left',
+    marginLeft: 10,
+    color: 'gray'
+  },
+  authorText: {
+    fontSize: 20,
+    color: 'black',
+    marginRight: 10,
+    marginBottom: 10,
+    fontStyle: 'italic',
+    fontWeight: '700',
+  },
+  authorContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-end'
+  },
+  subjectAuthorContainer: {
+    display: 'flex',
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
     marginTop: 10,
-    marginBottom: 10
+  },
+  titleContainer: {
+    width: width-50,
+    paddingRight: 10
+  },
+  arrowStyle: {
+    paddingRight: 30,
+    paddingTop: 20,
+    color: '#79B45D'
+  },
+  decks: {
+    width: width-10,
+    marginBottom: 7,
+    justifyContent: 'center',
+    backgroundColor: 'white',
+    shadowColor: 'black',
+    shadowOffset: { width: 3, height: 3 },
+    shadowRadius: 3,
+    shadowOpacity: .7
   }
 })

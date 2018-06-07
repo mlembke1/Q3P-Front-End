@@ -15,18 +15,32 @@ import {
 import { Card, Button, FormLabel, FormInput, SearchBar } from "react-native-elements"
 import Icon from 'react-native-vector-icons/FontAwesome'
 import Dashboard from './Dashboard'
+import Swipeout from 'react-native-swipeout'
+import { REACT_APP_API_URL } from 'react-native-dotenv'
+import axios from 'axios'
 
+let swipeBtns = [
+  {
+    text: 'Delete',
+    backgroundColor: '#b4645d',
+    onPress: () => { this.deleteNote(rowData) }
+  },
+  {
+    text: 'Edit',
+    backgroundColor: '#5d96b4',
+    onPress: () => { this.duplicateNote(rowData) }
+  }
+]
 
 export default class Public extends Component {
  constructor(props){
    super(props)
-     this.state = ({
+     this.state = {
        searchDecks: []
-     })
+     }
  }
 
 searchInput = () => {
-  console.log(this.refs.input.input._lastNativeText)
   let searchedDecks = this.props.navigation.state.params.publicDecks.filter(deck =>
   deck.title === this.refs.input.input._lastNativeText ||
   deck.author === this.refs.input.input._lastNativeText ||
@@ -58,6 +72,29 @@ searchInput = () => {
           <ScrollView style={{ marginBottom: 75}}>
             {this.state.searchDecks.length < 1 ? this.props.navigation.state.params.publicDecks.map(deck =>
             <TouchableHighlight key={deck.id} underlayColor="transparent" activeOpacity={0.5} onPress={() => console.log("see deck #", deck.id)}>
+              {deck.author === this.props.navigation.state.params.currentUser ?
+              <Swipeout right={swipeBtns}
+              autoClose={true}
+              backgroundColor= 'transparent'>
+                <View style={styles.decks}>
+                  <View style={styles.subjectAuthorContainer}>
+                    <View style={styles.titleContainer}>
+                      <Text style={styles.titleText}>{deck.title}</Text>
+                    </View>
+                    <View style={styles.authorContainer}>
+                      <Icon style={styles.arrowStyle} name="chevron-circle-right" size={34}></Icon>
+                    </View>
+                  </View>
+                  <View style={styles.subjectAuthorContainer}>
+                    <View>
+                      <Text style={styles.subjectText}>{deck.subject}</Text>
+                    </View>
+                    <View style={styles.authorContainer}>
+                      <Text style={styles.authorText}>{deck.author}</Text>
+                    </View>
+                  </View>
+                </View>
+              </Swipeout> :
               <View style={styles.decks}>
                 <View style={styles.subjectAuthorContainer}>
                   <View style={styles.titleContainer}>
@@ -75,10 +112,33 @@ searchInput = () => {
                     <Text style={styles.authorText}>{deck.author}</Text>
                   </View>
                 </View>
-              </View>
+              </View>}
             </TouchableHighlight>) :
             this.state.searchDecks.map(deck =>
             <TouchableHighlight key={deck.id} underlayColor="transparent" activeOpacity={0.5} onPress={() => console.log("see deck #", deck.id)}>
+              {deck.author === this.props.navigation.state.params.currentUser ?
+              <Swipeout right={swipeBtns}
+              autoClose={true}
+              backgroundColor= 'transparent'>
+                <View style={styles.decks}>
+                  <View style={styles.subjectAuthorContainer}>
+                    <View style={styles.titleContainer}>
+                      <Text style={styles.titleText}>{deck.title}</Text>
+                    </View>
+                    <View style={styles.authorContainer}>
+                      <Icon style={styles.arrowStyle} name="chevron-circle-right" size={34}></Icon>
+                    </View>
+                  </View>
+                  <View style={styles.subjectAuthorContainer}>
+                    <View>
+                      <Text style={styles.subjectText}>{deck.subject}</Text>
+                    </View>
+                    <View style={styles.authorContainer}>
+                      <Text style={styles.authorText}>{deck.author}</Text>
+                    </View>
+                  </View>
+                </View>
+              </Swipeout> :
               <View style={styles.decks}>
                 <View style={styles.subjectAuthorContainer}>
                   <View style={styles.titleContainer}>
@@ -96,7 +156,7 @@ searchInput = () => {
                     <Text style={styles.authorText}>{deck.author}</Text>
                   </View>
                 </View>
-              </View>
+              </View>}
             </TouchableHighlight>)}
           </ScrollView>
         </View>
