@@ -78,6 +78,9 @@ export default class NewCard extends Component {
     return (
       <ScrollView contentContainerStyle={styles.container}>
         <StatusBar barStyle="light-content" />
+        <Text>
+          This is a new Card!
+        </Text>
         <Form
           ref={c => this._form = c}
           type={Deck}

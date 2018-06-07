@@ -14,6 +14,7 @@ import {
   StatusBar
 } from 'react-native'
 import { Card, Button } from "react-native-elements"
+import Icon from 'react-native-vector-icons/FontAwesome'
 import { onSignOut } from "./Auth"
 import axios from 'axios'
 import { REACT_APP_API_URL } from 'react-native-dotenv'
@@ -59,7 +60,7 @@ export default class Settings extends Component {
           <Text style={styles.username}>{ this.state.currentUser ? this.state.currentUser : '' }</Text>
           <View
             style={styles.imagePlaceholder}>
-            <Text style={{ color: "white", fontSize: 28 }}>{ this.state.currentUser ? this.state.currentUser.slice(0, 1) : '' }</Text>
+            <Icon size={100} color='#333333' name="user-circle"></Icon>
           </View>
         </View>
         <View style={styles.buttonContainer}>

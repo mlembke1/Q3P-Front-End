@@ -9,7 +9,8 @@ import {
   TextInput,
   Dimensions,
   Image,
-  StatusBar
+  StatusBar,
+  TouchableHighlight
 } from 'react-native'
 import { Button, Card, List, ListItem } from 'react-native-elements'
 import { StackNavigator } from 'react-navigation'
@@ -84,7 +85,14 @@ export default class NewDeck extends Component {
           ref={c => this._form = c}
           type={Deck}
           options={options} />
-        <Button onPress={this.postNewDeck} title="Create" />
+        <TouchableHighlight underlayColor="transparent" activeOpacity={0.5} onPress={this.postNewDeck}>
+          <View style={styles.createDeckButton}>
+            <View style={styles.createDeckButtonContent}>
+              <Icon name="plus" color="white" size={24}/>
+              <Text style={styles.createDeckButtonText}>Create Deck</Text>
+            </View>
+          </View>
+        </TouchableHighlight>
       </ScrollView>
     )
   }
@@ -97,7 +105,8 @@ const styles = StyleSheet.create({
     padding: 5,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    marginTop: 50
   },
   text: {
     fontFamily: 'Arial',
@@ -109,5 +118,33 @@ const styles = StyleSheet.create({
   list: {
     width,
     marginTop: 0
+  },
+  createDeckButton: {
+    marginBottom: 10,
+    justifyContent: 'center',
+    marginRight: 5,
+    backgroundColor: '#79B45D',
+    padding: 5,
+    paddingRight: 9,
+    paddingLeft: 9,
+    borderRadius: 5,
+    height: 60,
+    shadowColor: 'black',
+    shadowOffset: { width: 3, height: 3 },
+    shadowRadius: 3,
+    shadowOpacity: .7
+  },
+  createDeckButtonContent: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  createDeckButtonText: {
+    textAlign: 'center',
+    color: 'white',
+    fontSize: 24,
+    fontWeight: '800',
+    marginLeft: 10
   }
 })
