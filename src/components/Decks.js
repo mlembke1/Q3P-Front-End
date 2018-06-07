@@ -24,11 +24,11 @@ export default class Decks extends Component {
 
   constructor(props){
     super(props)
-      this.state = {
-        searchUserDecks: [],
-        userDecks: []
-      }
+    this.state = {
+      searchUserDecks: [],
+      userDecks: []
     }
+  }
 
   fetchAllUserDecks = () => {
     axios.get(`${REACT_APP_API_URL}/getAllDecksForUser`)
@@ -40,7 +40,7 @@ export default class Decks extends Component {
       .catch(err => console.log(err))
   }
 
-  componentDidMount() {
+  componentDidMount(){
     this.fetchAllUserDecks()
   }
 
@@ -89,7 +89,7 @@ export default class Decks extends Component {
                 </View>
               </View>
             </TouchableHighlight>
-            {this.state.searchUserDecks.length < 1 ? this.props.navigation.state.params.userDecks.map(deck =>
+            {this.state.searchUserDecks.length < 1 ? this.state.userDecks.map(deck =>
               <TouchableHighlight key={deck.id} underlayColor="transparent" activeOpacity={0.5} onPress={() => console.log("see deck #", deck.id)}>
                 {deck.author === this.props.navigation.state.params.currentUser ?
                 <Swipeout right={swipeBtns}

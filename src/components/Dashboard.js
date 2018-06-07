@@ -21,8 +21,8 @@ import axios from 'axios'
 
 export default class Dashboard extends Component {
 
-  constructor(){
-    super()
+  constructor(props){
+    super(props)
     this.state = {
       publicDecks: [],
       currentUser: null
@@ -69,7 +69,7 @@ export default class Dashboard extends Component {
               <Text style={{ color: "white", fontSize: 28 }}>{this.state.currentUser ? this.state.currentUser.slice(0, 1) : ''}</Text>
             </View>
           </View>
-          <TouchableHighlight underlayColor="transparent" activeOpacity={0.5} onPress={() => this.props.navigation.navigate('Decks')}>
+          <TouchableHighlight underlayColor="transparent" activeOpacity={0.5} onPress={() => this.props.navigation.navigate('Decks', {currentUser: this.state.currentUser })}>
             <View style={[styles.card, { backgroundColor: '#b4645d' }]}>
               <Icon style={styles.cardIcon} name="folder-open" color="white" size={34} />
               <Text style={styles.cardTitle}>
