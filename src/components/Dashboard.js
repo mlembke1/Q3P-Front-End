@@ -69,7 +69,7 @@ export default class Dashboard extends Component {
               <Icon size={100} color='#333333' name="user-circle"></Icon>
             </View>
           </View>
-          <TouchableHighlight underlayColor="transparent" activeOpacity={0.5} onPress={() => this.props.navigation.navigate('Decks')}>
+          <TouchableHighlight underlayColor="transparent" activeOpacity={0.5} onPress={() => this.props.navigation.navigate('Decks', { currentUser: this.state.currentUser})}>
             <View style={[styles.card, { backgroundColor: '#b4645d' }]}>
               <Icon style={styles.cardIcon} name="folder-open" color="white" size={34} />
               <Text style={styles.cardTitle}>
@@ -77,7 +77,7 @@ export default class Dashboard extends Component {
               </Text>
             </View>
           </TouchableHighlight>
-          <TouchableHighlight underlayColor="transparent" activeOpacity={0.5} onPress={() => this.props.navigation.navigate('NewDeck')}>
+          <TouchableHighlight underlayColor="transparent" activeOpacity={0.5} onPress={() => this.props.navigation.navigate('NewDeck', { currentUser: this.state.currentUser})}>
             <View style={[styles.card, { backgroundColor: '#b45da4' }]}>
               <Icon style={styles.cardIcon} name="plus-square" color="white" size={34} />
               <Text style={styles.cardTitle}>

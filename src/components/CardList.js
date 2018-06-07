@@ -45,7 +45,7 @@ export default class CardList extends Component {
   }
 
   fetchAllCards = () => {
-    axios.post(`${REACT_APP_API_URL}/getAllCards`, {deck_id:this.props.navigation.state.params.deckId})
+    axios.post(`${REACT_APP_API_URL}/getAllCards`, {deck_id:this.props.navigation.state.params.deck_id})
     .then(r => {
       this.setState({
         allCards: r.data.allCards
@@ -124,7 +124,8 @@ export default class CardList extends Component {
               Created: 05/31/18
             </Text>
           </View>
-          <Button backgroundColor="#79B45D" borderRadius={100} style={styles.quiz} title="Quiz Mode" onPress={() => this.props.navigation.navigate('QuizMode', { deck_id: this.props.navigation.state.params.deckId })} />
+          <Button backgroundColor="#79B45D" borderRadius={100} style={styles.quiz} title="Quiz Mode" onPress={() =>
+            this.props.navigation.navigate('QuizMode', { deck_id: this.props.navigation.state.params.deck_id })} />
         </View>
         <StatusBar barStyle="light-content" />
         {

@@ -24,7 +24,7 @@ export default class Decks extends Component {
   constructor(props){
     super(props)
       this.state = {
-        searchUserDecks: [],
+        searchDecks: [],
         userDecks: []
       }
     }
@@ -44,7 +44,7 @@ export default class Decks extends Component {
   }
 
   onPress = () => {
-    this.props.navigation.navigate('NewDeck')
+    this.props.navigation.navigate('NewDeck', { currentUser: this.props.navigation.state.params.currentUser})
   }
 
   searchInput = () => {
@@ -53,7 +53,7 @@ export default class Decks extends Component {
     deck.author === this.refs.input.input._lastNativeText ||
     deck.subject === this.refs.input.input._lastNativeText)
     this.setState({
-      searchUserDecks: searchedDecks
+      searchDecks: searchedDecks
     })
   }
 
@@ -89,8 +89,8 @@ export default class Decks extends Component {
                 </View>
               </View>
             </TouchableHighlight>
-            {this.state.searchUserDecks.length < 1 ? this.state.userDecks.map(deck =>
-              <TouchableHighlight key={deck.id} underlayColor="transparent" activeOpacity={0.5} onPress={() => this.createDeckNav}>
+            {/* {this.state.searchUserDecks.length < 1 ? this.state.userDecks.map(deck =>
+              <TouchableHighlight key={deck.id} underlayColor="transparent" activeOpacity={0.5} onPress={() => this.props.navigation.navigate('CardList', { deck_id: deck.id })}>
               {deck.author === this.props.navigation.state.params.currentUser ?
               <View style={styles.decks}>
                 <View style={styles.subjectAuthorContainer}>
@@ -130,7 +130,7 @@ export default class Decks extends Component {
               </View>}
             </TouchableHighlight>) :
             this.state.searchUserDecks.map(deck =>
-            <TouchableHighlight key={deck.id} underlayColor="transparent" activeOpacity={0.5} onPress={() => console.log("see deck #", deck.id)}>
+            <TouchableHighlight key={deck.id} underlayColor="transparent" activeOpacity={0.5} onPress={() => this.props.navigation.navigate('CardList', { deck_id: deck.id })}>
               {deck.author === this.props.navigation.state.params.currentUser ?
               <View style={styles.decks}>
                 <View style={styles.subjectAuthorContainer}>
@@ -168,7 +168,107 @@ export default class Decks extends Component {
                   </View>
                 </View>
               </View>}
-            </TouchableHighlight>)}
+            </TouchableHighlight>)} */}
+            <View>
+              <ScrollView style={{ marginBottom: 75}}>
+                {this.state.searchDecks.length < 1 &&
+                this.state.userDecks.author ===
+                this.props.navigation.state.params.currentUser ?
+                this.state.userDecks.map(deck =>
+                <TouchableHighlight key={deck.id} underlayColor="transparent" activeOpacity={0.5} onPress={() => this.props.navigation.navigate('CardList', { deck_id: deck.id })}>
+                  <View style={styles.decks}>
+                    <View style={styles.subjectAuthorContainer}>
+                      <View style={styles.titleContainer}>
+                        <Text style={styles.titleText}>{deck.title}</Text>
+                      </View>
+                      <View style={styles.authorContainer}>
+                        <Icon style={styles.arrowStyle} name="chevron-circle-right" size={34}></Icon>
+                      </View>
+                    </View>
+                    <View style={styles.subjectAuthorContainer}>
+                      <View>
+                        <Text style={styles.subjectText}>{deck.subject}</Text>
+                      </View>
+                      <View style={styles.authorContainer}>
+                        <Text style={styles.authorText}>{deck.author}</Text>
+                      </View>
+                    </View>
+                  </View>
+                </TouchableHighlight>) : null}
+                {this.state.searchDecks.length < 1 &&
+                this.state.userDecks.author !==
+                this.props.navigation.state.params.currentUser ?
+                this.state.userDecks.map(deck =>
+                <TouchableHighlight key={deck.id} underlayColor="transparent" activeOpacity={0.5} onPress={() => this.props.navigation.navigate('CardList', { deck_id: deck.id })}>
+                  <View style={styles.decks}>
+                    <View style={styles.subjectAuthorContainer}>
+                      <View style={styles.titleContainer}>
+                        <Text style={styles.titleText}>{deck.title}</Text>
+                      </View>
+                      <View style={styles.authorContainer}>
+                        <Icon style={styles.arrowStyle} name="chevron-circle-right" size={34}></Icon>
+                      </View>
+                    </View>
+                    <View style={styles.subjectAuthorContainer}>
+                      <View>
+                        <Text style={styles.subjectText}>{deck.subject}</Text>
+                      </View>
+                      <View style={styles.authorContainer}>
+                        <Text style={styles.authorText}>{deck.author}</Text>
+                      </View>
+                    </View>
+                  </View>
+                </TouchableHighlight>) : null}
+                {this.state.searchDecks.length > 0 &&
+                this.state.userDecks.author ===
+                this.props.navigation.state.params.currentUser ?
+                this.state.searchDecks.map(deck =>
+                <TouchableHighlight key={deck.id} underlayColor="transparent" activeOpacity={0.5} onPress={() => this.props.navigation.navigate('CardList', { deck_id: deck.id })}>
+                    <View style={styles.decks}>
+                      <View style={styles.subjectAuthorContainer}>
+                        <View style={styles.titleContainer}>
+                          <Text style={styles.titleText}>{deck.title}</Text>
+                        </View>
+                        <View style={styles.authorContainer}>
+                          <Icon style={styles.arrowStyle} name="chevron-circle-right" size={34}></Icon>
+                        </View>
+                      </View>
+                      <View style={styles.subjectAuthorContainer}>
+                        <View>
+                          <Text style={styles.subjectText}>{deck.subject}</Text>
+                        </View>
+                        <View style={styles.authorContainer}>
+                          <Text style={styles.authorText}>{deck.author}</Text>
+                        </View>
+                      </View>
+                    </View>
+                </TouchableHighlight>) : null}
+                {this.state.searchDecks.length > 0 &&
+                this.state.userDecks.author !==
+                this.props.navigation.state.params.currentUser ?
+                this.state.searchDecks.map(deck =>
+                <TouchableHighlight key={deck.id} underlayColor="transparent" activeOpacity={0.5} onPress={() => this.props.navigation.navigate('CardList', { deck_id: deck.id })}>
+                  <View style={styles.decks}>
+                    <View style={styles.subjectAuthorContainer}>
+                      <View style={styles.titleContainer}>
+                        <Text style={styles.titleText}>{deck.title}</Text>
+                      </View>
+                      <View style={styles.authorContainer}>
+                        <Icon style={styles.arrowStyle} name="chevron-circle-right" size={34}></Icon>
+                      </View>
+                    </View>
+                    <View style={styles.subjectAuthorContainer}>
+                      <View>
+                        <Text style={styles.subjectText}>{deck.subject}</Text>
+                      </View>
+                      <View style={styles.authorContainer}>
+                        <Text style={styles.authorText}>{deck.author}</Text>
+                      </View>
+                    </View>
+                  </View>
+                </TouchableHighlight>) : null}
+              </ScrollView>
+            </View>
           </ScrollView>
         </View>
       </View>
