@@ -69,7 +69,7 @@ export default class NewDeck extends Component {
     axios.post(`${REACT_APP_API_URL}/createDeck`, obj)
       .then((result) => {
         if (result.data.newDeckStatus === 'success' ){
-          this.props.navigation.navigate('Decks')
+          this.props.navigation.navigate('Decks', { currentUser: this.props.navigation.state.params.currentUser})
         }
       })
       .catch((err) => {
