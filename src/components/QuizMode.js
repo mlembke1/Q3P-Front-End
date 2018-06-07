@@ -11,7 +11,7 @@ import {
   Image,
   StatusBar,
   Animated,
-  TouchableWithoutFeedback
+  TouchableOpacity
 } from 'react-native'
 import Swiper from 'react-native-swiper'
 import { Button, Card, List, ListItem } from 'react-native-elements'
@@ -19,13 +19,14 @@ import { StackNavigator } from 'react-navigation'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { REACT_APP_API_URL } from 'react-native-dotenv'
 import axios from 'axios'
+import CardFlip from 'react-native-card-flip'
 
 
 
 export default class CardList extends Component {
 
-  constructor(){
-    super()
+  constructor(props){
+    super(props)
     this.state = {
       allCards: []
     }
@@ -43,7 +44,6 @@ export default class CardList extends Component {
 
   componentWillMount() {
       this.fetchAllCards()
-
       this.animatedValue = new Animated.Value(0)
       this.animatedValue.addListener(({ value }) => {
         this.value = value
@@ -91,23 +91,24 @@ export default class CardList extends Component {
         <StatusBar barStyle="light-content" />
         <Swiper loop={false} showPagination={false} index={0}>
           {
-            this.state.allCards.map((card, i) => (
-              <TouchableWithoutFeedback key={card.id} onPress={() => this.flipCard()}>
-                <View>
-                  <Animated.View style={[styles.flipCard, frontAnimatedStyle]}>
-                    <Text style={styles.flipText}>
-                      {card.front}
-                    </Text>
-                  </Animated.View>
-                  <Animated.View style={[backAnimatedStyle, styles.flipCard, styles.flipCardBack]}>
-                    <Text style={styles.flipText}>
-                      {card.back}
-                    </Text>
-                  </Animated.View>
-                </View>
-              </TouchableWithoutFeedback>
-            ))
-          }
+            this.state.allCards.map((item, index) => {
+              return (
+                <TouchableOpacity onPress={() => this['card' + index].flip()} >
+                  <CardFlip style={styles.flipCard} ref={ (card) => this['card' + index] = card } >
+                    <View style={[styles.flipCard, styles.flipCardFront]}>
+                      <Text style={styles.flipText}>
+                        {item.front}
+                      </Text>
+                    </View>
+                    <View style={[styles.flipCard, styles.flipCardBack]}>
+                      <Text style={styles.flipText}>
+                        {item.back}
+                      </Text>
+                    </View>
+                  </CardFlip>
+                </TouchableOpacity>
+              )
+            })}
         </Swiper>
       </ScrollView>
     )
@@ -124,21 +125,22 @@ const styles = StyleSheet.create({
     alignContent: 'center'
   },
   flipCard: {
-    width: width - 20,
+    width: width - 30,
     height: (width / 2) + 70,
     margin: 5,
     justifyContent: 'center',
     alignContent: 'center',
-    backgroundColor: 'white',
     shadowColor: 'black',
     shadowOffset: { width: 3, height: 3 },
     shadowRadius: 3,
     shadowOpacity: .7,
     backfaceVisibility: 'hidden'
   },
+  flipCardFront: {
+    backgroundColor: 'white'
+  },
   flipCardBack: {
-    position: 'absolute',
-    top: 0
+    backgroundColor: 'white'
   },
   text: {
     fontFamily: 'Arial',
