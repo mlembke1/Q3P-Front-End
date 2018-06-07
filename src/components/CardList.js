@@ -34,33 +34,31 @@ const cards = [
 
 export default class CardList extends Component {
   componentWillMount() {
-    this.animatedValue = []
-    this.value = []
     for (let i = 0; i < cards.length; i++) {
-      this.animatedValue[i] = new Animated.Value(0)
-      this.animatedValue[i].addListener(({ value }) => {
-        this.value[i] = value
+      this.animatedValue = new Animated.Value(0)
+      this.animatedValue.addListener(({ value }) => {
+        this.value = value
       })
-      this.frontInterpolate = this.animatedValue[i].interpolate({
+      this.frontInterpolate = this.animatedValue.interpolate({
         inputRange: [0, 180],
         outputRange: ['0deg', '180deg']
       })
-      this.backInterpolate = this.animatedValue[i].interpolate({
+      this.backInterpolate = this.animatedValue.interpolate({
         inputRange: [0, 180],
         outputRange: ['180deg', '360deg']
       })
     }
   }
 
-  flipCard(i) {
-    if (this.value[i] >= 90) {
-      Animated.spring(this.animatedValue[i], {
+  flipCard() {
+    if (this.value >= 90) {
+      Animated.spring(this.animatedValue, {
         toValue: 0,
         friction: 8,
         tension: 10
       }).start()
     } else {
-      Animated.spring(this.animatedValue[i], {
+      Animated.spring(this.animatedValue, {
         toValue: 180,
         friction: 8,
         tension: 10
@@ -97,7 +95,6 @@ export default class CardList extends Component {
         <StatusBar barStyle="light-content" />
         {
           cards.map((card, i) => (
-            // <ListItem id={card.id} key={i} title={card.front} subtitle={card.back} />
             <View id={card.id} key={i} styles={styles.container}>
               <View>
                 <TouchableOpacity onPress={() => this.flipCard(i)}>
