@@ -54,6 +54,7 @@ export default class CardList extends Component {
     .catch(err => console.log(`Failed to get all cards`, err))
   }
 
+
   createCard = (newCard) => {
     axios.post(`${REACT_APP_API_URL}/createCard`, newCard)
     .then(r => {
@@ -63,6 +64,7 @@ export default class CardList extends Component {
     })
     .catch(err => console.log(`Failed to create a card`, err))
   }
+
 
   deleteCard = (card_id) => {
     axios.delete(`${REACT_APP_API_URL}/deleteCard`, card_id)
@@ -135,12 +137,20 @@ export default class CardList extends Component {
                 <TouchableOpacity onPress={() => this.flipCard()}>
                   <Animated.View style={[styles.flipCard, frontAnimatedStyle]}>
                     <Text style={styles.flipText}>
-                      {card.front}
+                      {
+                        card.front.length > 60 ?
+                        card.front.slice(0, 59).concat('...') :
+                        card.front
+                      }
                     </Text>
                   </Animated.View>
                   <Animated.View style={[backAnimatedStyle, styles.flipCard, styles.flipCardBack]}>
                     <Text style={styles.flipText}>
-                      {card.back}
+                      {
+                        card.back.length > 60 ?
+                        card.back.slice(0, 59).concat('...') :
+                        card.back
+                      }
                     </Text>
                   </Animated.View>
                 </TouchableOpacity>
@@ -148,7 +158,7 @@ export default class CardList extends Component {
             </View>
           ))
         }
-        <TouchableOpacity onPress={() => this.props.navigation.navigate('NewCard')}>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('NewCard', { deck_id: this.props.navigation.state.params.deck_id, createCard: this.createCard })}>
           <View style={styles.addCard}>
             <Icon style={{ textAlign: 'center' }} name="plus" size={40} color="white" />
           </View>

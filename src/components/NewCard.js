@@ -9,7 +9,8 @@ import {
   TextInput,
   Dimensions,
   Image,
-  StatusBar
+  StatusBar,
+  TouchableHighlight
 } from 'react-native'
 import { Button, Card, List, ListItem } from 'react-native-elements'
 import { StackNavigator } from 'react-navigation'
@@ -21,71 +22,82 @@ const _ = require('lodash')
 
 const width = Dimensions.get('window').width
 
-const stylesheet = _.cloneDeep(t.form.Form.stylesheet);
-stylesheet.textbox.normal.borderRadius = 100;
-stylesheet.textbox.normal.height = 50;
-stylesheet.textbox.normal.backgroundColor = 'white';
-stylesheet.textbox.normal.width = width - 20;
-stylesheet.textbox.normal.marginLeft = 10;
-stylesheet.textbox.normal.marginRight = 10;
-stylesheet.textbox.normal.textAlign = 'left';
-stylesheet.controlLabel.normal.textAlign = 'center'
-stylesheet.checkbox.normal.left = (width / 2) - 28
-
-
 const Form = t.form.Form
-const Deck = t.struct({
-  title: t.String,
-  subject: t.String,
-  public: t.Boolean
+
+const card = t.struct({
+  front: t.String,
+  back: t.String,
 })
+
+
+const stylesheet = _.cloneDeep(t.form.Form.stylesheet);
+stylesheet.textbox.normal.borderRadius = 10;
+stylesheet.textbox.normal.height = 150;
+stylesheet.textbox.normal.backgroundColor = 'white';
+stylesheet.textbox.normal.width = 300;
+stylesheet.textbox.normal.marginLeft = 20;
+stylesheet.textbox.normal.marginRight = 20;
+stylesheet.textbox.normal.textAlign = 'center';
+stylesheet.errorBlock.backgroundColor = 'tomato';
+stylesheet.errorBlock.width = 240;
+stylesheet.errorBlock.marginLeft = 50;
+stylesheet.errorBlock.marginRight = 30;
+stylesheet.errorBlock.color = 'white';
+stylesheet.errorBlock.textAlign = 'center';
+stylesheet.textbox.error.backgroundColor = 'white';
+stylesheet.textbox.error.borderRadius = 10;
+stylesheet.textbox.error.height = 150;
+stylesheet.textbox.error.width = 300;
+stylesheet.textbox.error.marginLeft = 20;
+stylesheet.textbox.error.marginRight = 20;
+stylesheet.textbox.error.textAlign = 'center';
+
+
 const options = {
   stylesheet,
-  auto: 'placeholders'
+  auto: 'placeholders',
+  fields: {
+    front: {
+      error: <Text>Create the front side, dummy.</Text>,
+      multiline: true
+    },
+    back: {
+      error: <Text>Create the back side, dummy.</Text>,
+      multiline: true
+    }
+  }
 }
 
-export default class NewCard extends Component {
-  postNewDeck = () => {
-    let obj = {}
-    if (this._form.getValue() === null) {
 
-    } else {
-      if (this._form.getValue().public === false) {
-        obj = {
-          title: this._form.getValue().title,
-          subject: this._form.getValue().subject,
-          public: 'F'
-        }
-      } else {
-        obj = {
-          title: this._form.getValue().title,
-          subject: this._form.getValue().subject,
-          public: 'T'
-        }
-      }
+export default class NewCard extends Component {
+
+
+  handlePress = () => {
+    obj = {
+      front: this._form.getValue().front,
+      back: this._form.getValue().back,
+      deck_id: this.props.navigation.state.params.deck_id
     }
-    axios.post(`${REACT_APP_API_URL}/createDeck`, obj)
-      .then((result) => {
-        this.props.navigation.state.params.fetchAllUserDecks()
-        this.props.navigation.navigate('Decks')
-      })
-      .catch((err) => {
-        console.log(`Could not create deck.\nErrorCode: ${err}`)
-      })
+    this.props.navigation.state.params.createCard(obj)
+    this.props.navigation.navigate('CardList', { deck_id: this.props.navigation.state.params.deck_id })
   }
 
   render(){
     return (
       <ScrollView contentContainerStyle={styles.container}>
         <StatusBar barStyle="light-content" />
-        <Text>
-          This is a new Card!
-        </Text>
         <Form
           ref={c => this._form = c}
-          type={Deck}
+          type={card}
           options={options} />
-        <Button onPress={this.postNewDeck} title="Create" />
+        <TouchableHighlight underlayColor="transparent" activeOpacity={0.5} onPress={this.handlePress}>
+            <View style={styles.createCardButton}>
+              <View style={styles.createCardButtonContent}>
+                <Icon name="plus" color="white" size={24}/>
+              <Text style={styles.createCardButtonText}>Create Card</Text>
+              </View>
+            </View>
+          </TouchableHighlight>
       </ScrollView>
     )
   }
@@ -110,5 +122,33 @@ const styles = StyleSheet.create({
   list: {
     width,
     marginTop: 0
+  },
+  createCardButton: {
+    marginBottom: 10,
+    justifyContent: 'center',
+    marginRight: 5,
+    backgroundColor: '#79B45D',
+    padding: 5,
+    paddingRight: 9,
+    paddingLeft: 9,
+    borderRadius: 5,
+    height: 60,
+    shadowColor: 'black',
+    shadowOffset: { width: 3, height: 3 },
+    shadowRadius: 3,
+    shadowOpacity: .7
+  },
+  createCardButtonContent: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  createCardButtonText: {
+    textAlign: 'center',
+    color: 'white',
+    fontSize: 24,
+    fontWeight: '800',
+    marginLeft: 10
   }
 })
