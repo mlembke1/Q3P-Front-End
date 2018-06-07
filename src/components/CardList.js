@@ -137,12 +137,20 @@ export default class CardList extends Component {
                 <TouchableOpacity onPress={() => this.flipCard()}>
                   <Animated.View style={[styles.flipCard, frontAnimatedStyle]}>
                     <Text style={styles.flipText}>
-                      {card.front}
+                      {
+                        card.front.length > 60 ?
+                        card.front.slice(0, 59).concat('...') :
+                        card.front
+                      }
                     </Text>
                   </Animated.View>
                   <Animated.View style={[backAnimatedStyle, styles.flipCard, styles.flipCardBack]}>
                     <Text style={styles.flipText}>
-                      {card.back}
+                      {
+                        card.back.length > 60 ?
+                        card.back.slice(0, 59).concat('...') :
+                        card.back
+                      }
                     </Text>
                   </Animated.View>
                 </TouchableOpacity>
