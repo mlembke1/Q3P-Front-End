@@ -77,7 +77,7 @@ export default class Dashboard extends Component {
             <Text style={styles.username}>{ this.state.currentUser ? this.state.currentUser : '' }</Text>
             <View
               style={styles.imagePlaceholder}>
-              <Text style={{ color: "white", fontSize: 28 }}>{this.state.currentUser ? this.state.currentUser.slice(0, 1) : ''}</Text>
+              <Icon size={100} color='#333333' name="user-circle"></Icon>
             </View>
           </View>
           <TouchableHighlight underlayColor="transparent" activeOpacity={0.5} onPress={() => this.props.navigation.navigate('Decks', { currentUser: this.state.currentUser, userDecks: this.state.userDecks, fetchAllUserDecks: this.fetchAllUserDecks })}>
