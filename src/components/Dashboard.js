@@ -24,20 +24,18 @@ export default class Dashboard extends Component {
   constructor(){
     super()
     this.state = {
-      userDecks: [],
       publicDecks: [],
       currentUser: null
     }
   }
 
   componentDidMount(){
-      this.fetchAllUserDecks()
       this.fetchAllPublicDecks()
       this.getCurrentUser()
   }
 
 
-  getCurrentUser(){
+  getCurrentUser = () => {
     axios.get(`${REACT_APP_API_URL}/getCurrentUser`)
     .then(r => {
       this.setState({
@@ -47,17 +45,8 @@ export default class Dashboard extends Component {
     .catch(() => console.log('Whoops, something went wrong getting the current user'))
   }
 
-  fetchAllUserDecks(){
-    axios.get(`${REACT_APP_API_URL}/getAllDecksForUser`)
-      .then((r) => {
-        this.setState({
-          userDecks: r.data.userDecks
-        })
-      })
-      .catch(err => console.log(err))
-  }
 
-  fetchAllPublicDecks(){
+  fetchAllPublicDecks = () => {
     axios.get(`${REACT_APP_API_URL}/getAllPublicDecks`)
       .then((r) => {
         this.setState({
@@ -80,7 +69,7 @@ export default class Dashboard extends Component {
               <Text style={{ color: "white", fontSize: 28 }}>{this.state.currentUser ? this.state.currentUser.slice(0, 1) : ''}</Text>
             </View>
           </View>
-          <TouchableHighlight underlayColor="transparent" activeOpacity={0.5} onPress={() => this.props.navigation.navigate('Decks', { currentUser: this.state.currentUser, userDecks: this.state.userDecks, fetchAllUserDecks: this.fetchAllUserDecks })}>
+          <TouchableHighlight underlayColor="transparent" activeOpacity={0.5} onPress={() => this.props.navigation.navigate('Decks')}>
             <View style={[styles.card, { backgroundColor: '#b4645d' }]}>
               <Icon style={styles.cardIcon} name="folder-open" color="white" size={34} />
               <Text style={styles.cardTitle}>
@@ -88,7 +77,7 @@ export default class Dashboard extends Component {
               </Text>
             </View>
           </TouchableHighlight>
-          <TouchableHighlight underlayColor="transparent" activeOpacity={0.5} onPress={() => this.props.navigation.navigate('NewDeck', { fetchAllUserDecks: this.fetchAllUserDecks })}>
+          <TouchableHighlight underlayColor="transparent" activeOpacity={0.5} onPress={() => this.props.navigation.navigate('NewDeck')}>
             <View style={[styles.card, { backgroundColor: '#b45da4' }]}>
               <Icon style={styles.cardIcon} name="plus-square" color="white" size={34} />
               <Text style={styles.cardTitle}>

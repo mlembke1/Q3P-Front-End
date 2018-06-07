@@ -16,30 +16,9 @@ import {
 import { Button, Card, List, ListItem, SearchBar } from 'react-native-elements'
 import { StackNavigator } from 'react-navigation'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import Swipeout from 'react-native-swipeout'
 import { REACT_APP_API_URL } from 'react-native-dotenv'
 import axios from 'axios'
 
-let swipeBtns = [
-  {
-    text: 'Remove',
-    backgroundColor: '#b4645d',
-    onPress: () => { this.deleteNote(rowData) }
-  },
-  {
-    text: 'Edit',
-    backgroundColor: '#5d96b4',
-    onPress: () => { this.duplicateNote(rowData) }
-  }
-]
-
-let removeBtn = [
-  {
-    text: 'Remove',
-    backgroundColor: '#b4645d',
-    onPress: () => { this.deleteNote(rowData) }
-  }
-]
 
 export default class Decks extends Component {
 
@@ -47,14 +26,25 @@ export default class Decks extends Component {
     super(props)
       this.state = {
         searchUserDecks: []
+        userDecks: []
       }
+
+  fetchAllUserDecks = () => {
+    axios.get(`${REACT_APP_API_URL}/getAllDecksForUser`)
+      .then((r) => {
+        this.setState({
+          userDecks: r.data.userDecks
+        })
+      })
+      .catch(err => console.log(err))
   }
 
-  // componentDidMount() {
-  // }
+  componentDidMount() {
+    this.fetchAllUserDecks()
+  }
 
   onPress = () => {
-    this.props.navigation.navigate('NewDeck', { fetchAllUserDecks: this.props.navigation.state.params.fetchAllUserDecks })
+    this.props.navigation.navigate('NewDeck')
   }
 
   searchInput = () => {
