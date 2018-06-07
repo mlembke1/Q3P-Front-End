@@ -25,9 +25,10 @@ export default class Decks extends Component {
   constructor(props){
     super(props)
       this.state = {
-        searchUserDecks: []
+        searchUserDecks: [],
         userDecks: []
       }
+    }
 
   fetchAllUserDecks = () => {
     axios.get(`${REACT_APP_API_URL}/getAllDecksForUser`)
