@@ -18,6 +18,7 @@ import { StackNavigator } from 'react-navigation'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { REACT_APP_API_URL } from 'react-native-dotenv'
 import axios from 'axios'
+import CardFlip from 'react-native-card-flip'
 
 
 export default class CardList extends Component {
@@ -160,32 +161,58 @@ export default class CardList extends Component {
         </View>
         <StatusBar barStyle="light-content" />
         {
-          this.state.allCards.map((card, i) => (
-            <View id={card.id} key={i} styles={styles.container}>
-              <View>
-                <TouchableOpacity onPress={() => this.flipCard()}>
-                  <Animated.View style={[styles.flipCard, frontAnimatedStyle]}>
+          this.state.allCards.map((item, index) => {
+            return (
+              <TouchableOpacity key={item.id} onPress={() => this['card' + index].flip()} >
+                <CardFlip style={styles.flipCard} ref={ (card) => this['card' + index] = card } >
+                  <View style={[styles.flipCard, styles.flipCardFront]}>
                     <Text style={styles.flipText}>
                       {
-                        card.front.length > 60 ?
-                        card.front.slice(0, 59).concat('...') :
-                        card.front
+                        item.front.length > 60 ?
+                        item.front.slice(0, 59).concat('...') :
+                        item.front
                       }
                     </Text>
-                  </Animated.View>
-                  <Animated.View style={[backAnimatedStyle, styles.flipCard, styles.flipCardBack]}>
+                  </View>
+                  <View style={[styles.flipCard, styles.flipCardBack]}>
                     <Text style={styles.flipText}>
                       {
-                        card.back.length > 60 ?
-                        card.back.slice(0, 59).concat('...') :
-                        card.back
+                        item.back.length > 60 ?
+                        item.back.slice(0, 59).concat('...') :
+                        item.back
                       }
                     </Text>
-                  </Animated.View>
-                </TouchableOpacity>
-              </View>
-            </View>
-          ))
+                  </View>
+                </CardFlip>
+              </TouchableOpacity>
+            )
+          })
+          // this.state.allCards.map((card, i) => (
+          //   <View id={card.id} key={i} styles={styles.container}>
+          //     <View>
+          //       <TouchableOpacity onPress={() => this.flipCard()}>
+          //         <Animated.View style={[styles.flipCard, frontAnimatedStyle]}>
+          //           <Text style={styles.flipText}>
+          //             {
+          //               card.front.length > 60 ?
+          //               card.front.slice(0, 59).concat('...') :
+          //               card.front
+          //             }
+          //           </Text>
+          //         </Animated.View>
+          //         <Animated.View style={[backAnimatedStyle, styles.flipCard, styles.flipCardBack]}>
+          //           <Text style={styles.flipText}>
+          //             {
+          //               card.back.length > 60 ?
+          //               card.back.slice(0, 59).concat('...') :
+          //               card.back
+          //             }
+          //           </Text>
+          //         </Animated.View>
+          //       </TouchableOpacity>
+          //     </View>
+          //   </View>
+          // ))
         }
         <TouchableOpacity onPress={() => this.props.navigation.navigate('NewCard', { deck_id: this.props.navigation.state.params.deck_id, createCard: this.createCard })}>
           <View style={styles.addCard}>
@@ -201,9 +228,8 @@ const width = Dimensions.get('window').width
 
 const styles = StyleSheet.create({
   container: {
-    display: 'flex',
     flex: 1,
-    padding: 5,
+    padding: 0,
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center'
@@ -214,25 +240,28 @@ const styles = StyleSheet.create({
   flipCard: {
     width: (width / 2) - 15,
     height: (width / 2) - 15,
+    marginLeft: 4,
     margin: 5,
+    borderRadius: 20,
     justifyContent: 'center',
-    backgroundColor: 'white',
+    alignContent: 'center',
     shadowColor: 'black',
     shadowOffset: { width: 3, height: 3 },
     shadowRadius: 3,
     shadowOpacity: .7,
-    borderRadius: 20,
     backfaceVisibility: 'hidden'
   },
+  flipCardFront: {
+    backgroundColor: 'white'
+  },
   flipCardBack: {
-    position: 'absolute',
-    top: 0
+    backgroundColor: 'white'
   },
   addCard: {
     display: 'flex',
-    width: (width / 2) - 15,
-    height: (width / 2) - 15,
-    margin: 5,
+    width: (width / 2) - 50,
+    height: (width / 2) - 50,
+    margin: 25,
     justifyContent: 'center',
     alignContent: 'center',
     backgroundColor: 'white',

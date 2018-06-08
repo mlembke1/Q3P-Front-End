@@ -93,7 +93,7 @@ export default class CardList extends Component {
           {
             this.state.allCards.map((item, index) => {
               return (
-                <TouchableOpacity onPress={() => this['card' + index].flip()} >
+                <TouchableOpacity key={item.id} onPress={() => this['card' + index].flip()} >
                   <CardFlip style={styles.flipCard} ref={ (card) => this['card' + index] = card } >
                     <View style={[styles.flipCard, styles.flipCardFront]}>
                       <Text style={styles.flipText}>
