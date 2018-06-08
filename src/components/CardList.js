@@ -32,19 +32,6 @@ export default class CardList extends Component {
 
   componentWillMount() {
     this.fetchAllCards()
-
-    this.animatedValue = new Animated.Value(0)
-    this.animatedValue.addListener(({ value }) => {
-      this.value = value
-    })
-    this.frontInterpolate = this.animatedValue.interpolate({
-      inputRange: [0, 180],
-      outputRange: ['0deg', '180deg']
-    })
-    this.backInterpolate = this.animatedValue.interpolate({
-      inputRange: [0, 180],
-      outputRange: ['180deg', '360deg']
-    })
   }
 
   fetchAllCards = () => {
@@ -89,22 +76,6 @@ export default class CardList extends Component {
     .catch(err => console.log(`Failed to updated a card`, err))
   }
 
-  flipCard() {
-    if (this.value >= 90) {
-      Animated.spring(this.animatedValue, {
-        toValue: 0,
-        friction: 8,
-        tension: 10
-      }).start()
-    } else {
-      Animated.spring(this.animatedValue, {
-        toValue: 180,
-        friction: 8,
-        tension: 10
-      }).start()
-    }
-  }
-
   editDeck = () => {
     if (this.state.editMode === true)  {
       this.setState({
@@ -146,8 +117,6 @@ export default class CardList extends Component {
               this.props.navigation.navigate('QuizMode', { deck_id: this.props.navigation.state.params.deck_id })} />
           </View>
           <View>
-            {console.log(this.props.navigation.state.params.currentUser)}
-            {console.log(this.props.navigation.state.params.deckAuthor)}
             {this.props.navigation.state.params.currentUser === this.props.navigation.state.params.deckAuthor
               && this.state.editMode === false ?
                 <Button backgroundColor="#995db4" borderRadius={100} style={styles.edit} title="Edit Deck" onPress={() =>

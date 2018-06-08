@@ -174,7 +174,7 @@ export const SignedIn = createStackNavigator(
     CardList: {
       screen: CardList,
       navigationOptions: {
-        title: 'Create a New Card',
+        title: 'Cards in This Deck',
         headerStyle: {
           backgroundColor: '#79B45D',
         },
@@ -193,7 +193,7 @@ export const SignedIn = createStackNavigator(
     NewCard: {
       screen: NewCard,
       navigationOptions: {
-        title: 'Cards',
+        title: 'Create a New Card',
         headerStyle: {
           backgroundColor: '#79B45D',
         },
