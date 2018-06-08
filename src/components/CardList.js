@@ -187,32 +187,6 @@ export default class CardList extends Component {
               </TouchableOpacity>
             )
           })
-          // this.state.allCards.map((card, i) => (
-          //   <View id={card.id} key={i} styles={styles.container}>
-          //     <View>
-          //       <TouchableOpacity onPress={() => this.flipCard()}>
-          //         <Animated.View style={[styles.flipCard, frontAnimatedStyle]}>
-          //           <Text style={styles.flipText}>
-          //             {
-          //               card.front.length > 60 ?
-          //               card.front.slice(0, 59).concat('...') :
-          //               card.front
-          //             }
-          //           </Text>
-          //         </Animated.View>
-          //         <Animated.View style={[backAnimatedStyle, styles.flipCard, styles.flipCardBack]}>
-          //           <Text style={styles.flipText}>
-          //             {
-          //               card.back.length > 60 ?
-          //               card.back.slice(0, 59).concat('...') :
-          //               card.back
-          //             }
-          //           </Text>
-          //         </Animated.View>
-          //       </TouchableOpacity>
-          //     </View>
-          //   </View>
-          // ))
         }
         <TouchableOpacity onPress={() => this.props.navigation.navigate('NewCard', { deck_id: this.props.navigation.state.params.deck_id, createCard: this.createCard })}>
           <View style={styles.addCard}>
