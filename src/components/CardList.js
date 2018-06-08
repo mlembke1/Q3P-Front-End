@@ -11,7 +11,8 @@ import {
   Image,
   StatusBar,
   Animated,
-  TouchableOpacity
+  TouchableOpacity,
+  TouchableHighlight
 } from 'react-native'
 import { Button, Card, List, ListItem } from 'react-native-elements'
 import { StackNavigator } from 'react-navigation'
@@ -70,8 +71,8 @@ export default class CardList extends Component {
   }
 
 
-  deleteCard = (card_id) => {
-    axios.delete(`${REACT_APP_API_URL}/deleteCard`, card_id)
+  deleteCard = (info) => {
+    axios.delete(`${REACT_APP_API_URL}/deleteCard`, { data: info })
     .then(r => {
       this.setState({
         allCards: r.data.updatedCards
@@ -100,6 +101,11 @@ export default class CardList extends Component {
         editMode: true
         })
     }
+  }
+
+  handleDeletePress = (info) => {
+    console.log(info)
+    this.deleteCard(info)
   }
 
   addJoin = () => {
@@ -149,10 +155,16 @@ export default class CardList extends Component {
         {
           this.state.allCards.map((item, index) => {
             return (
-              <TouchableOpacity key={item.id} onPress={() => this['card' + index].flip()} >
+              <TouchableOpacity key={item.id} onPress={this.state.editMode === false ? () => this['card' + index].flip() :
+              () => this.handleDeletePress({deck_id: this.props.navigation.state.params.deck_id, card_id: item.id})} >
                 <CardFlip style={styles.flipCard} ref={ (card) => this['card' + index] = card } >
                   <View style={[styles.flipCard, styles.flipCardFront]}>
-                    <Text style={styles.flipText}>
+                    <TouchableHighlight style={{ alignItems: 'flex-end', bottom: 13, marginRight: 8}}>
+                    {this.state.editMode === true ?
+                      <Icon name="minus-circle" color="#B4645D" size={50} /> :
+                      <Icon style={{height: 51}} size={34} />}
+                    </TouchableHighlight>
+                    <Text style={this.state.editMode === true? styles.textEditMode : styles.flipText}>
                       {
                         item.front.length > 60 ?
                         item.front.slice(0, 59).concat('...') :
@@ -251,7 +263,15 @@ const styles = StyleSheet.create({
   flipText: {
     textAlign: 'center',
     fontSize: 20,
-    padding: 5
+    padding: 5,
+    marginBottom: 30,
+  },
+  textEditMode: {
+    textAlign: 'center',
+    fontSize: 20,
+    padding: 5,
+    marginBottom: 30,
+    color: "#b4645d"
   },
   authorView: {
     width: width + 5,
