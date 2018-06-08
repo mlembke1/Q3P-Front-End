@@ -57,7 +57,8 @@ const options = {
       error: <Text>Insert a valid username</Text>
     },
     password: {
-      error: <Text>Insert a valid password</Text>
+      error: <Text>Insert a valid password</Text>,
+      secureTextEntry: true
     }
   }
 }
