@@ -28,6 +28,7 @@ import CardList from "./CardList"
 import NewDeck from "./NewDeck"
 import QuizMode from "./QuizMode"
 import NewCard from "./NewCard"
+import Markdown from "./Markdown"
 
 const headerStyle = {
   marginTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
@@ -134,7 +135,7 @@ export const SignedIn = createStackNavigator(
       }
     },
     Decks: {
-      screen: Decks,
+      screen: Markdown,
       navigationOptions: {
         title: 'My Decks',
         headerTintColor: '#FFFFFF',
