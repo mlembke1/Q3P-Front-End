@@ -104,7 +104,7 @@ export default class Decks extends Component {
                       {
                         deck.author === this.props.navigation.state.params.currentUser ?
                         <View style={styles.authorContainer}>
-                          <Icon style={styles.arrowStyle} name="check-circle-o" size={34}></Icon>
+                          <Icon style={styles.arrowStyle} name="user-circle" size={34}></Icon>
                       </View> :
                       null
                       }
@@ -132,7 +132,7 @@ export default class Decks extends Component {
                       {
                         deck.author === this.props.navigation.state.params.currentUser ?
                         <View style={styles.authorContainer}>
-                          <Icon style={styles.arrowStyle} name="check-circle-o" size={34}></Icon>
+                          <Icon style={styles.arrowStyle} name="user-circle" size={34}></Icon>
                       </View> :
                       null
                       }
@@ -160,7 +160,7 @@ export default class Decks extends Component {
                         {
                           deck.author === this.props.navigation.state.params.currentUser ?
                           <View style={styles.authorContainer}>
-                            <Icon style={styles.arrowStyle} name="check-circle-o" size={34}></Icon>
+                            <Icon style={styles.arrowStyle} name="user-circle" size={34}></Icon>
                         </View> :
                         null
                         }
@@ -188,7 +188,7 @@ export default class Decks extends Component {
                       {
                         deck.author === this.props.navigation.state.params.currentUser ?
                         <View style={styles.authorContainer}>
-                          <Icon style={styles.arrowStyle} name="check-circle-o" size={34}></Icon>
+                          <Icon style={styles.arrowStyle} name="user-circle" size={34}></Icon>
                       </View> :
                       null
                       }
