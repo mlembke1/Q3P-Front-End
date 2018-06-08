@@ -22,8 +22,25 @@ export default class Public extends Component {
  constructor(props){
    super(props)
      this.state = ({
-       searchDecks: []
+       searchDecks: [],
+       deckIds: []
      })
+ }
+
+ componentWillMount() {
+   this.fetchAllUserDecks()
+ }
+
+ fetchAllUserDecks = () => {
+   axios.get(`${REACT_APP_API_URL}/getAllDecksForUser`)
+     .then((r) => {
+       const data = r.data.userDecks.map(deck => deck.id)
+       this.setState({
+         ...this.state,
+         deckIds: data
+       })
+     })
+     .catch(err => console.log(err))
  }
 
 searchInput = () => {
@@ -68,7 +85,7 @@ searchInput = () => {
                     <Text style={styles.titleText}>{deck.title}</Text>
                   </View>
                   {
-                    deck.author === this.props.navigation.state.params.currentUser ?
+                    this.state.deckIds.includes(deck.id) ?
                     <View style={styles.authorContainer}>
                       <Icon style={styles.arrowStyle} name="check-circle-o" size={34}></Icon>
                   </View> :
@@ -96,7 +113,7 @@ searchInput = () => {
                     <Text style={styles.titleText}>{deck.title}</Text>
                   </View>
                   {
-                    deck.author === this.props.navigation.state.params.currentUser ?
+                    this.state.deckIds.includes(deck.id) ?
                     <View style={styles.authorContainer}>
                       <Icon style={styles.arrowStyle} name="check-circle-o" size={34}></Icon>
                   </View> :
@@ -124,7 +141,7 @@ searchInput = () => {
                       <Text style={styles.titleText}>{deck.title}</Text>
                     </View>
                     {
-                      deck.author === this.props.navigation.state.params.currentUser ?
+                      this.state.deckIds.includes(deck.id) ?
                       <View style={styles.authorContainer}>
                         <Icon style={styles.arrowStyle} name="check-circle-o" size={34}></Icon>
                     </View> :
@@ -152,7 +169,7 @@ searchInput = () => {
                     <Text style={styles.titleText}>{deck.title}</Text>
                   </View>
                   {
-                    deck.author === this.props.navigation.state.params.currentUser ?
+                    this.state.deckIds.includes(deck.id) ?
                     <View style={styles.authorContainer}>
                       <Icon style={styles.arrowStyle} name="check-circle-o" size={34}></Icon>
                   </View> :

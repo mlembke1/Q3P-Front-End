@@ -26,12 +26,26 @@ export default class CardList extends Component {
     super()
     this.state = {
       allCards: [],
-      editMode: false
+      deckIds: [],
+      editMode: false,
+      isLoading: true
     }
   }
 
   componentWillMount() {
     this.fetchAllCards()
+    this.fetchAllUserDecks()
+  }
+
+  fetchAllUserDecks = () => {
+    axios.get(`${REACT_APP_API_URL}/getAllDecksForUser`)
+      .then((r) => {
+        const data = r.data.userDecks.map(deck => deck.id)
+        this.setState({
+          deckIds: data
+        })
+      })
+      .catch(err => console.log(err))
   }
 
   fetchAllCards = () => {
@@ -88,17 +102,15 @@ export default class CardList extends Component {
     }
   }
 
+  addJoin = () => {
+    axios.post(`${REACT_APP_API_URL}/addDeck`, {deck_id: this.props.navigation.state.params.deck_id})
+      .then((r) => {
+        alert('The deck has been added to your collection!')
+      })
+      .catch(err => console.log(`Failed to add a deck`, err))
+  }
+
   render() {
-    const frontAnimatedStyle = {
-      transform: [
-        { rotateX: this.frontInterpolate }
-      ]
-    }
-    const backAnimatedStyle = {
-      transform: [
-        { rotateX: this.backInterpolate }
-      ]
-    }
     return (
       <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.authorView}>
@@ -126,6 +138,11 @@ export default class CardList extends Component {
                 <Button backgroundColor="#5d96b4" borderRadius={100} style={styles.save} title="Save Deck" onPress={() =>
                 this.editDeck()}/>
                 : null}
+          </View>
+          <View>
+            {!this.state.deckIds.includes(this.props.navigation.state.params.deck_id) ?
+            <Button style={styles.save} backgroundColor="#995db4" borderRadius={100} style={styles.edit} title="Add Deck" onPress={() => this.addJoin()} /> :
+            null}
           </View>
         </View>
         <StatusBar barStyle="light-content" />
@@ -162,6 +179,7 @@ export default class CardList extends Component {
             <Icon style={{ textAlign: 'center' }} name="plus" size={40} color="white" />
           </View>
         </TouchableOpacity>
+        <View style={styles.invisiCard} />
       </ScrollView>
     )
   }
@@ -214,6 +232,14 @@ const styles = StyleSheet.create({
     shadowOpacity: .7,
     backgroundColor: '#b45da4',
     borderRadius: 20,
+  },
+  invisiCard: {
+    display: 'flex',
+    width: (width / 2) - 50,
+    height: (width / 2) - 50,
+    margin: 25,
+    justifyContent: 'center',
+    alignContent: 'center'
   },
   text: {
     fontFamily: 'Arial',
