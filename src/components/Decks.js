@@ -25,9 +25,38 @@ export default class Decks extends Component {
     super(props)
       this.state = {
         searchDecks: [],
-        userDecks: []
+        userDecks: [],
+        editMode: false
       }
     }
+
+
+  removeFromMyDecks = (deck_id) => {
+    console.log('ive been hit')
+    axios.delete(`${REACT_APP_API_URL}/removeDeckFromUser`, {data: deck_id})
+    .then(r => {
+      this.setState({
+        userDecks: r.data.updatedDecks
+      })
+    })
+    .catch(err => console.log(`Could not remove deck from user decks`, err))
+  }
+
+  editDeck = () => {
+    if (this.state.editMode === true)  {
+      this.setState({
+        editMode: false
+        })
+    } else {
+      this.setState({
+        editMode: true
+        })
+    }
+  }
+
+  onPressEdit = () => {
+    this.editDeck()
+  }
 
   fetchAllUserDecks = () => {
     axios.get(`${REACT_APP_API_URL}/getAllDecksForUser`)
@@ -81,14 +110,38 @@ export default class Decks extends Component {
         </View>
         <View>
           <ScrollView style={{ marginBottom: 75}}>
+           <View style={styles.buttonContainer}>
             <TouchableHighlight underlayColor="transparent" activeOpacity={0.5} onPress={this.onPress}>
               <View style={styles.newDeckButton}>
-                <View style={styles.newDeckButtonContent}>
+                <View style={styles.buttonContent}>
                   <Icon name="plus" color="white" size={24}/>
-                  <Text style={styles.newDeckButtonText}>Create Deck</Text>
+                <Text style={styles.buttonText}>Create</Text>
                 </View>
               </View>
             </TouchableHighlight>
+
+            {/* HERE WE HAVE THE LOGIC THAT SHOWS THE CORRECT EDIT / SAVE BUTTON */}
+            {
+              this.state.editMode === false ?
+              <TouchableHighlight underlayColor="transparent" activeOpacity={0.5} onPress={this.onPressEdit}>
+                <View style={styles.editDeckButton}>
+                  <View style={styles.buttonContent}>
+                    <Icon name="minus" color="white" size={24}/>
+                  <Text style={styles.buttonText}>Edit</Text>
+                  </View>
+                </View>
+              </TouchableHighlight> :
+              <TouchableHighlight underlayColor="transparent" activeOpacity={0.5} onPress={this.onPressEdit}>
+                <View style={styles.saveDeckButton}>
+                  <View style={styles.buttonContent}>
+                    <Icon name="check" color="white" size={24}/>
+                  <Text style={styles.buttonText}>Save</Text>
+                  </View>
+                </View>
+              </TouchableHighlight>
+            }
+
+          </View>
             <View>
               <ScrollView style={{ marginBottom: 75}}>
                 {this.state.searchDecks.length < 1 &&
@@ -105,7 +158,20 @@ export default class Decks extends Component {
                         deck.author === this.props.navigation.state.params.currentUser ?
                         <View style={styles.authorContainer}>
                           <Icon style={styles.arrowStyle} name="user-circle" size={34}></Icon>
-                      </View> :
+                        </View>
+                      :
+                      null
+                      }
+                      {/* BELOW IS THE LOGIC FOR EDIT MODE, WHETHER THE USER CAN REMOVE A DECK */}
+                      {
+                        this.state.editMode === true ?
+                      <TouchableOpacity onPress={ () => this.removeFromMyDecks({deck_id: deck.id}) }>
+                        <View style={styles.removeDeckContainer}>
+                          <Icon style={styles.removeStyle} name="remove" size={34}></Icon>
+                          <Text> Remove From My Decks</Text>
+                        </View>
+                      </TouchableOpacity>
+                      :
                       null
                       }
                     </View>
@@ -134,6 +200,18 @@ export default class Decks extends Component {
                         <View style={styles.authorContainer}>
                           <Icon style={styles.arrowStyle} name="user-circle" size={34}></Icon>
                       </View> :
+                      null
+                      }
+                      {/* BELOW IS THE LOGIC FOR EDIT MODE, WHETHER THE USER CAN REMOVE A DECK */}
+                      {
+                        this.state.editMode === true ?
+                      <TouchableOpacity onPress={ () => this.removeFromMyDecks({deck_id: deck.id}) }>
+                        <View style={styles.removeDeckContainer}>
+                          <Icon style={styles.removeStyle} name="remove" size={34}></Icon>
+                          <Text> Remove From My Decks</Text>
+                        </View>
+                      </TouchableOpacity>
+                      :
                       null
                       }
                     </View>
@@ -164,6 +242,18 @@ export default class Decks extends Component {
                         </View> :
                         null
                         }
+                        {/* BELOW IS THE LOGIC FOR EDIT MODE, WHETHER THE USER CAN REMOVE A DECK */}
+                        {
+                          this.state.editMode === true ?
+                          <TouchableOpacity onPress={ () => this.removeFromMyDecks({deck_id: deck.id}) }>
+                            <View style={styles.removeDeckContainer}>
+                              <Icon style={styles.removeStyle} name="remove" size={34}></Icon>
+                              <Text> Remove From My Decks</Text>
+                            </View>
+                          </TouchableOpacity>
+                        :
+                        null
+                        }
                       </View>
                       <View style={styles.subjectAuthorContainer}>
                         <View>
@@ -190,6 +280,18 @@ export default class Decks extends Component {
                         <View style={styles.authorContainer}>
                           <Icon style={styles.arrowStyle} name="user-circle" size={34}></Icon>
                       </View> :
+                      null
+                      }
+                      {/* BELOW IS THE LOGIC FOR EDIT MODE, WHETHER THE USER CAN REMOVE A DECK */}
+                      {
+                        this.state.editMode === true ?
+                        <TouchableOpacity onPress={ () => this.removeFromMyDecks({deck_id: deck.id}) }>
+                          <View style={styles.removeDeckContainer}>
+                            <Icon style={styles.removeStyle} name="remove" size={34}></Icon>
+                            <Text> Remove From My Decks</Text>
+                          </View>
+                        </TouchableOpacity>
+                      :
                       null
                       }
                     </View>
@@ -250,6 +352,11 @@ const styles = StyleSheet.create({
     height: 50,
     width: width-90
   },
+  buttonContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    flexDirection: 'row'
+  },
   newDeckButton: {
     marginBottom: 10,
     justifyContent: 'center',
@@ -260,18 +367,51 @@ const styles = StyleSheet.create({
     paddingLeft: 9,
     borderRadius: 5,
     height: 60,
+    width: 180,
     shadowColor: 'black',
     shadowOffset: { width: 3, height: 3 },
     shadowRadius: 3,
     shadowOpacity: .7
   },
-  newDeckButtonContent: {
+  editDeckButton: {
+    marginBottom: 10,
+    justifyContent: 'center',
+    marginRight: 5,
+    backgroundColor: '#b4645d',
+    padding: 5,
+    paddingRight: 9,
+    paddingLeft: 9,
+    borderRadius: 5,
+    height: 60,
+    width: 180,
+    shadowColor: 'black',
+    shadowOffset: { width: 3, height: 3 },
+    shadowRadius: 3,
+    shadowOpacity: .7
+  },
+  saveDeckButton: {
+    marginBottom: 10,
+    justifyContent: 'center',
+    marginRight: 5,
+    backgroundColor: '#5d96b4',
+    padding: 5,
+    paddingRight: 9,
+    paddingLeft: 9,
+    borderRadius: 5,
+    height: 60,
+    width: 180,
+    shadowColor: 'black',
+    shadowOffset: { width: 3, height: 3 },
+    shadowRadius: 3,
+    shadowOpacity: .7
+  },
+  buttonContent: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center'
   },
-  newDeckButtonText: {
+  buttonText: {
     textAlign: 'center',
     color: 'white',
     fontSize: 24,
@@ -320,6 +460,12 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     color: '#79B45D'
   },
+  removeStyle: {
+    paddingRight: 30,
+    paddingTop: 20,
+    color: '#b4645d',
+    padding: 5
+  },
   decks: {
     width: width-10,
     marginBottom: 7,
@@ -329,5 +475,12 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 3, height: 3 },
     shadowRadius: 3,
     shadowOpacity: .7
+  },
+  removeDeckContainer: {
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: '#b4645d',
+    display: 'flex',
+    padding: 5
   }
 })

@@ -166,17 +166,22 @@ export default class CardList extends Component {
                     </TouchableHighlight>
                     <Text style={this.state.editMode === true? styles.textEditMode : styles.flipText}>
                       {
-                        item.front.length > 60 ?
-                        item.front.slice(0, 59).concat('...') :
+                        item.front.length > 30 ?
+                        item.front.slice(0, 29).concat('...') :
                         item.front
                       }
                     </Text>
                   </View>
                   <View style={[styles.flipCard, styles.flipCardBack]}>
-                    <Text style={styles.flipText}>
+                    <TouchableHighlight style={{ alignItems: 'flex-end', bottom: 13, marginRight: 8}}>
+                    {this.state.editMode === true ?
+                      <Icon name="minus-circle" color="#B4645D" size={50} /> :
+                      <Icon style={{height: 51}} size={34} />}
+                    </TouchableHighlight>
+                    <Text style={this.state.editMode === true? styles.textEditMode : styles.flipText}>
                       {
-                        item.back.length > 60 ?
-                        item.back.slice(0, 59).concat('...') :
+                        item.back.length > 30 ?
+                        item.back.slice(0, 29).concat('...') :
                         item.back
                       }
                     </Text>
