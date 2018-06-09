@@ -127,6 +127,7 @@ const styles = StyleSheet.create({
   flipCard: {
     width: width - 30,
     height: (width / 2) + 70,
+    marginTop: 70,
     margin: 5,
     justifyContent: 'center',
     alignContent: 'center',

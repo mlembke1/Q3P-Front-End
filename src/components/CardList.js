@@ -122,12 +122,12 @@ export default class CardList extends Component {
         <View style={styles.authorView}>
           <View style={{ margin: 10 }}>
             <Text style={styles.topText}>
-              Author: Nathan
+              Author: { this.props.navigation.state.params.deckAuthor }
             </Text>
           </View>
           <View style={{ margin: 10 }}>
             <Text style={styles.topText}>
-              Created: 05/31/18
+              Created: 06/08/18
             </Text>
           </View>
           <View>
